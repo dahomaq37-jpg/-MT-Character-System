@@ -8,16 +8,16 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>
-        MT Character System
-    </title>
+    <title>MT Character System</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
+
 <body>
+
 
 <header class="hero">
 
@@ -36,8 +36,11 @@
 </header>
 
 
+
 <main class="sections">
 
+
+    <!-- الشخصيات -->
 
     <a href="/characters"
        class="section-card">
@@ -67,8 +70,8 @@
 
             <br>
 
-            لكل حساب لإدارة شخصياته،
-            والمدراء حسب الصلاحيات.
+            متاح للجميع لإنشاء شخصية،
+            والمدراء حسب الصلاحيات للإدارة.
         </p>
 
         <span class="open">
@@ -77,6 +80,9 @@
 
     </a>
 
+
+
+    <!-- الشرطة -->
 
     <a href="/police"
        class="section-card">
@@ -116,6 +122,9 @@
     </a>
 
 
+
+    <!-- وزارة العدل -->
+
     <a href="/justice"
        class="section-card">
 
@@ -153,6 +162,9 @@
 
     </a>
 
+
+
+    <!-- الصحة -->
 
     <a href="/health"
        class="section-card">
@@ -192,74 +204,59 @@
     </a>
 
 
+
+    <!-- الإدارة -->
+
+    {% if current_user and
+          (
+              current_user["is_owner"]
+              or has_permission("admins_manage")
+          )
+    %}
+
+        <a href="/admin"
+           class="section-card admin-home-card">
+
+            <div class="icon">
+                ⚙️
+            </div>
+
+            <h2>
+                الإدارة
+            </h2>
+
+            <p>
+                <strong>
+                    وش معنى ذا الخيار؟
+                </strong>
+
+                <br>
+
+                إدارة الرتب والصلاحيات
+                وإدارة المدراء والأقسام.
+            </p>
+
+            <p>
+                <strong>
+                    مخصص لمين؟
+                </strong>
+
+                <br>
+
+                أصحاب صلاحيات الإدارة فقط.
+            </p>
+
+            <span class="open">
+                دخول الإدارة ←
+            </span>
+
+        </a>
+
+    {% endif %}
+
+
 </main>
 
-
-{% if current_user and current_user["is_owner"] %}
-
-<section class="admin-section">
-
-    <a href="/admin"
-       class="admin-card">
-
-        <div class="admin-icon">
-            ⚙️
-        </div>
-
-        <div class="admin-content">
-
-            <h2>
-                الإدارة
-            </h2>
-
-            <p>
-                اختيار شخصية موجودة وتعيين
-                رتبة إدارية لها وإدارة المدراء.
-            </p>
-
-            <span>
-                دخول الإدارة ←
-            </span>
-
-        </div>
-
-    </a>
-
-</section>
-
-{% elif current_user and has_permission("admins_manage") %}
-
-<section class="admin-section">
-
-    <a href="/admin"
-       class="admin-card">
-
-        <div class="admin-icon">
-            ⚙️
-        </div>
-
-        <div class="admin-content">
-
-            <h2>
-                الإدارة
-            </h2>
-
-            <p>
-                اختيار شخصية موجودة وتعيين
-                رتبة إدارية لها.
-            </p>
-
-            <span>
-                دخول الإدارة ←
-            </span>
-
-        </div>
-
-    </a>
-
-</section>
-
-{% endif %}
 
 
 <footer>
@@ -269,160 +266,67 @@
 </footer>
 
 
+
 <style>
 
-.admin-section {
+/* ================================= */
+/* بطاقة الإدارة */
+/* ================================= */
 
-    width: 94%;
+.admin-home-card {
 
-    max-width: 1100px;
+    grid-column: 1 / -1;
 
-    margin: 35px auto 0;
+    width: calc(50% - 14px);
 
-}
+    justify-self: center;
 
+    min-height: 500px;
 
-.admin-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 25px;
-
-    padding: 28px;
-
-    text-decoration: none;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            145deg,
-            #151515,
-            #080808
-        );
-
-    border: 1px solid #333;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.45);
-
-    transition: .25s;
+    border-color:
+        rgba(255, 122, 0, 0.25);
 
 }
 
 
-.admin-card:hover {
-
-    transform: translateY(-4px);
+.admin-home-card:hover {
 
     border-color: #ff7a00;
 
     box-shadow:
-        0 15px 50px
-        rgba(255,122,0,.18);
+        0 20px 60px
+        rgba(255, 122, 0, 0.18);
 
 }
 
 
-.admin-icon {
-
-    width: 75px;
-
-    height: 75px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    border-radius: 18px;
-
-    background: #111;
-
-    border: 1px solid #333;
-
-    font-size: 35px;
-
-}
-
-
-.admin-content h2 {
-
-    margin: 0 0 8px;
-
-    font-size: 27px;
-
-}
-
-
-.admin-content p {
-
-    margin: 0 0 10px;
-
-    color: #aaa;
-
-    line-height: 1.7;
-
-}
-
-
-.admin-content span {
+.admin-home-card .icon {
 
     color: #ff7a00;
 
-    font-weight: bold;
-
 }
 
 
+/* ================================= */
+/* الجوال */
+/* ================================= */
+
 @media (max-width: 700px) {
 
-    .admin-section {
+    .admin-home-card {
 
-        width: 96%;
+        grid-column: 1 / -1;
 
-    }
+        width: 100%;
 
-    .admin-card {
-
-        padding: 20px;
-
-        gap: 15px;
-
-    }
-
-    .admin-icon {
-
-        width: 55px;
-
-        height: 55px;
-
-        font-size: 25px;
-
-    }
-
-    .admin-content h2 {
-
-        font-size: 21px;
-
-    }
-
-    .admin-content p {
-
-        font-size: 13px;
+        min-height: 340px;
 
     }
 
 }
 
 </style>
+
 
 </body>
 </html>
