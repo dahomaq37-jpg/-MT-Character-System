@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - MT</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="hero">
+    <div class="mt-logo">MT</div>
+    <div class="page-heading">
+        <h1>تسجيل الدخول</h1>
+        <p>الدخول إلى MT Character System</p>
+    </div>
+</header>
+<main class="character-page">
+    <section class="characters-box login-box">
+        <div class="section-header">
+            <h2>تسجيل الدخول</h2>
+            <span class="section-line"></span>
+        </div>
+        {% if error %}
+            <div class="empty">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="POST" class="character-form">
+            <div class="form-group">
+                <label for="username">
+                    اسم المستخدم
+                </label>
+                <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    placeholder="اكتب اسم المستخدم"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+            <div class="form-group">
+                <label for="password">
+                    كلمة المرور
+                </label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="اكتب كلمة المرور"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+            <button type="submit" class="register-button">
+                تسجيل الدخول
+            </button>
+        </form>
+        <div style="text-align:center; margin-top:25px; color:#fff;">
+            <span>ليس لديك حساب؟</span>
+            <a href="{{ url_for('register') }}"
+               style="color:#fff; font-weight:800; text-decoration:none;">
+                إنشاء حساب
+            </a>
+        </div>
+    </section>
+</main>
+<footer>
+    MT Character System © 2026
+</footer>
+</body>
+</html>
