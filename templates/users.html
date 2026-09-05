@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المستخدمون - MT</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="hero">
+    <div class="mt-logo">MT</div>
+    <div class="page-heading">
+        <h1>المستخدمون</h1>
+        <p>إدارة حسابات مستخدمي النظام</p>
+    </div>
+</header>
+<main class="character-page">
+    <section class="characters-box">
+        <div class="section-header">
+            <h2>قائمة المستخدمين</h2>
+            <span class="section-line"></span>
+        </div>
+        {% if users %}
+            <div class="characters-list">
+                {% for user in users %}
+                    <div class="character-card">
+                        <div class="character-name">
+                            👤 {{ user["username"] }}
+                        </div>
+                        <div class="character-details">
+                            <div>
+                                رقم المستخدم:
+                                {{ user["id"] }}
+                            </div>
+                            <div>
+                                الحالة:
+                                {% if user["banned"] %}
+                                    محظور
+                                {% elif user["disabled"] %}
+                                    معطل
+                                {% else %}
+                                    نشط
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; justify-content:center;">
+                            {% if user["banned"] %}
+                                <form method="POST"
+                                      action="{{ url_for('unban_user', user_id=user['id']) }}">
+                                    <button type="submit"
+                                            class="register-button">
+                                        فك الحظر
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="POST"
+                                      action="{{ url_for('ban_user', user_id=user['id']) }}">
+                                    <button type="submit"
+                                            class="register-button">
+                                        حظر
+                                    </button>
+                                </form>
+                            {% endif %}
+                            {% if user["disabled"] %}
+                                <form method="POST"
+                                      action="{{ url_for('enable_user', user_id=user['id']) }}">
+                                    <button type="submit"
+                                            class="register-button">
+                                        تفعيل
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="POST"
+                                      action="{{ url_for('disable_user', user_id=user['id']) }}">
+                                    <button type="submit"
+                                            class="register-button">
+                                        تعطيل
+                                    </button>
+                                </form>
+                            {% endif %}
+                            <form method="POST"
+                                  action="{{ url_for('delete_user', user_id=user['id']) }}"
+                                  onsubmit="return confirm('هل أنت متأكد من حذف هذا المستخدم؟');">
+                                <button type="submit"
+                                        class="register-button">
+                                    حذف
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                لا يوجد مستخدمون حاليًا
+            </div>
+        {% endif %}
+    </section>
+</main>
+<footer>
+    MT Character System © 2026
+</footer>
+</body>
+</html>
