@@ -1,59 +1,395 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>سجل العمليات - MT</title>
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
+
 <body>
+
+
 <header class="hero">
-    <div class="mt-logo">MT</div>
-    <div class="page-heading">
-        <h1>سجل العمليات</h1>
-        <p>متابعة العمليات التي تتم داخل النظام</p>
+
+    <div class="mt-logo">
+        MT
     </div>
+
+    <div class="page-heading">
+
+        <h1>
+            سجل العمليات
+        </h1>
+
+        <p>
+            متابعة العمليات التي تتم داخل النظام
+        </p>
+
+    </div>
+
 </header>
+
+
+
 <main class="character-page">
+
+
     <section class="characters-box">
+
+
         <div class="section-header">
-            <h2>آخر العمليات</h2>
+
+            <h2>
+                آخر العمليات
+            </h2>
+
             <span class="section-line"></span>
+
         </div>
+
+
+
         {% if logs %}
+
             <div class="characters-list">
+
+
                 {% for log in logs %}
+
+
                     <div class="character-card">
+
+
                         <div class="character-name">
+
                             📋 {{ log["action"] }}
+
                         </div>
+
+
+
                         <div class="character-details">
+
+
                             <div>
-                                المستخدم:
+
+                                <strong>
+                                    المستخدم:
+                                </strong>
+
                                 {{ log["username"] or "النظام" }}
+
                             </div>
+
+
+
                             <div>
-                                التفاصيل:
+
+                                <strong>
+                                    التفاصيل:
+                                </strong>
+
                                 {{ log["details"] or "—" }}
+
                             </div>
+
+
+
                             <div>
-                                التاريخ:
+
+                                <strong>
+                                    التاريخ:
+                                </strong>
+
                                 {{ log["created_at"] }}
+
                             </div>
+
+
                         </div>
+
+
                     </div>
+
+
                 {% endfor %}
+
+
             </div>
+
+
         {% else %}
+
+
             <div class="empty">
+
                 لا توجد عمليات مسجلة حاليًا
+
             </div>
+
+
         {% endif %}
+
+
     </section>
+
+
 </main>
+
+
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
+
+
+
+<style>
+
+    .character-page {
+
+        width: 94%;
+
+        max-width: 1100px;
+
+        margin: 30px auto 50px;
+
+    }
+
+
+    .characters-box {
+
+        background:
+            linear-gradient(
+                145deg,
+                #151515,
+                #080808
+            );
+
+        border: 1px solid #2d2d2d;
+
+        border-radius: 24px;
+
+        padding: 28px;
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, .45);
+
+    }
+
+
+    .section-header {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 15px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .section-header h2 {
+
+        margin: 0;
+
+        color: #ffffff;
+
+        font-size: 25px;
+
+    }
+
+
+    .section-line {
+
+        flex: 1;
+
+        height: 1px;
+
+        background: #333;
+
+    }
+
+
+    .characters-list {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+
+    .character-card {
+
+        background: #0d0d0d;
+
+        border: 1px solid #292929;
+
+        border-radius: 18px;
+
+        padding: 20px;
+
+        transition: .25s ease;
+
+    }
+
+
+    .character-card:hover {
+
+        border-color: #ff7a00;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 35px rgba(255, 122, 0, .10);
+
+    }
+
+
+    .character-name {
+
+        color: #ffffff;
+
+        font-size: 19px;
+
+        font-weight: bold;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .character-details {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 12px;
+
+        color: #aaa;
+
+        font-size: 14px;
+
+        line-height: 1.8;
+
+    }
+
+
+    .character-details strong {
+
+        color: #ffffff;
+
+    }
+
+
+    .empty {
+
+        text-align: center;
+
+        padding: 45px 20px;
+
+        color: #888;
+
+        background: #0d0d0d;
+
+        border: 1px dashed #333;
+
+        border-radius: 18px;
+
+        font-size: 16px;
+
+    }
+
+
+    footer {
+
+        text-align: center;
+
+        color: #666;
+
+        padding: 25px;
+
+        margin-top: 20px;
+
+    }
+
+
+
+    @media (max-width: 700px) {
+
+
+        .character-page {
+
+            width: 94%;
+
+        }
+
+
+        .characters-box {
+
+            padding: 18px;
+
+            border-radius: 18px;
+
+        }
+
+
+        .section-header h2 {
+
+            font-size: 21px;
+
+        }
+
+
+        .character-card {
+
+            padding: 17px;
+
+        }
+
+
+        .character-details {
+
+            grid-template-columns: 1fr;
+
+            gap: 7px;
+
+            font-size: 13px;
+
+        }
+
+
+        .character-name {
+
+            font-size: 17px;
+
+        }
+
+
+    }
+
+</style>
+
+
 </body>
+
 </html>
