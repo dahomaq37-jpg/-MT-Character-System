@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ character["full_name"] }} - MT</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero">
+    <div class="mt-logo">MT</div>
+
+    <h1>{{ character["full_name"] }}</h1>
+
+    <p>تفاصيل الشخصية</p>
+</header>
+
+
+<main class="character-page">
+
+    <section class="characters-box">
+
+        <div class="section-header">
+            <h2>بيانات الشخصية</h2>
+            <span class="section-line"></span>
+        </div>
+
+
+        <div class="character-card">
+
+            <div class="character-name">
+                👤 {{ character["full_name"] }}
+            </div>
+
+            <div class="character-details">
+
+                <div>
+                    🌍 الدولة:
+                    {{ character["country"] }}
+                </div>
+
+                <div>
+                    🪪 الجنسية:
+                    {{ character["nationality"] }}
+                </div>
+
+                <div>
+                    🎂 تاريخ الميلاد:
+                    {{ character["birth_date"] }}
+                </div>
+
+                {% if general_rank %}
+                <div>
+                    🏷️ الحالة:
+                    {{ general_rank["rank_name"] }}
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        {% if departments %}
+
+        <div class="section-header" style="margin-top: 40px;">
+            <h2>الأقسام</h2>
+            <span class="section-line"></span>
+        </div>
+
+        <div class="characters-list">
+
+            {% for department in departments %}
+
+            <div class="character-card">
+
+                <div class="character-name">
+                    🏢 {{ department["department"] }}
+                </div>
+
+                <div class="character-details">
+
+                    <div>
+                        🏷️ الرتبة:
+                        {{ department["rank_name"] or "بدون رتبة" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+        <a href="{{ url_for('characters') }}"
+           class="register-button"
+           style="margin-top: 35px;">
+            ← العودة للشخصيات
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+    MT Character System © 2026
+</footer>
+
+</body>
+</html>
