@@ -12,12 +12,7 @@ body {
 body {
     font-family: Arial, Tahoma, sans-serif;
     background:
-        radial-gradient(
-            circle at 50% -10%,
-            #252525 0%,
-            #0e0e0e 35%,
-            #030303 80%
-        );
+        radial-gradient(circle at 50% -10%, #252525 0%, #0e0e0e 35%, #030303 80%);
     color: #fff;
     overflow-x: hidden;
 }
@@ -36,88 +31,53 @@ body {
 .hero::before {
     content: "";
     position: absolute;
-
     top: -180px;
     left: 50%;
-
     width: 700px;
     height: 450px;
-
     transform: translateX(-50%);
-
     background:
-        radial-gradient(
-            circle,
-            rgba(255, 122, 0, 0.16),
-            transparent 68%
-        );
-
+        radial-gradient(circle, rgba(255, 122, 0, 0.16), transparent 68%);
     filter: blur(25px);
-
     pointer-events: none;
 }
-
-/* =========================
-   MT LOGO
-========================= */
 
 .mt-logo {
     position: relative;
     display: inline-block;
-
-    font-family:
-        Arial Black,
-        Arial,
-        sans-serif;
-
+    font-family: Arial Black, Arial, sans-serif;
     font-size: 175px;
     font-weight: 1000;
-
     line-height: 0.8;
-
     letter-spacing: 12px;
-
     color: #ff7a00;
-
     text-shadow:
         0 0 8px rgba(255, 122, 0, 0.95),
         0 0 25px rgba(255, 122, 0, 0.70),
         0 0 55px rgba(255, 122, 0, 0.40),
         0 0 100px rgba(255, 122, 0, 0.18),
         0 20px 50px rgba(0, 0, 0, 0.9);
-
     animation: mtFloat 4s ease-in-out infinite;
 }
 
 .mt-logo::before {
     content: "MT";
-
     position: absolute;
     inset: 0;
-
     color: transparent;
-
-    -webkit-text-stroke:
-        1px rgba(255, 255, 255, 0.20);
-
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.20);
     filter: blur(1px);
-
     pointer-events: none;
 }
 
 .mt-logo::after {
     content: "";
-
     position: absolute;
-
     top: 0;
     left: -100%;
-
     width: 35%;
     height: 100%;
-
     transform: skewX(-20deg);
-
     background:
         linear-gradient(
             90deg,
@@ -125,9 +85,7 @@ body {
             rgba(255, 255, 255, 0.55),
             transparent
         );
-
     animation: shine 4.5s ease-in-out infinite;
-
     pointer-events: none;
 }
 
@@ -137,82 +95,49 @@ body {
 
 .hero h1 {
     position: relative;
-
     margin: 28px 0 0;
-
     font-size: 46px;
     font-weight: 900;
-
     color: #fff;
-
     letter-spacing: 1px;
-
-    text-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
 }
 
 .hero p {
     position: relative;
-
     margin: 14px 0 0;
-
     font-size: 20px;
-
     color: #fff;
-
     opacity: 0.78;
 }
 
 /* =========================
-   HOME SECTIONS
+   HOME
 ========================= */
 
 .sections {
     width: 94%;
     max-width: 1550px;
-
     margin: 35px auto 0;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 28px;
 }
 
-/* =========================
-   MAIN CARD
-========================= */
-
 .section-card {
     position: relative;
-
     min-height: 500px;
-
     padding: 50px 45px;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
-
     text-align: center;
-
     text-decoration: none;
-
     color: #fff;
-
     overflow: hidden;
-
-    border:
-        1px solid #292929;
-
+    border: 1px solid #292929;
     border-radius: 30px;
-
     background:
         linear-gradient(
             145deg,
@@ -220,100 +145,56 @@ body {
             #131313 45%,
             #090909 100%
         );
-
     box-shadow:
         0 25px 70px rgba(0, 0, 0, 0.55),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
     transition:
         transform 0.4s ease,
         border-color 0.4s ease,
         box-shadow 0.4s ease;
 }
 
-/* =========================
-   CARD LIGHT
-========================= */
-
 .section-card::before {
     content: "";
-
     position: absolute;
-
     width: 500px;
     height: 500px;
-
     top: -300px;
     left: -300px;
-
     border-radius: 50%;
-
-    background:
-        rgba(255, 255, 255, 0.035);
-
+    background: rgba(255, 255, 255, 0.035);
     filter: blur(100px);
-
     transition: 0.6s ease;
-
     pointer-events: none;
 }
-
-/* =========================
-   INNER BORDER
-========================= */
 
 .section-card::after {
     content: "";
-
     position: absolute;
-
     inset: 10px;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.025);
-
+    border: 1px solid rgba(255, 255, 255, 0.025);
     border-radius: 23px;
-
     pointer-events: none;
 }
 
-/* =========================
-   CARD HOVER
-========================= */
-
 .section-card:hover {
-    transform:
-        translateY(-10px)
-        scale(1.01);
-
+    transform: translateY(-10px) scale(1.01);
     border-color: #4b4b4b;
-
     box-shadow:
         0 35px 90px rgba(0, 0, 0, 0.75),
         inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 .section-card:hover::before {
-    transform:
-        translate(180px, 180px);
+    transform: translate(180px, 180px);
 }
-
-/* =========================
-   ADMIN CARD
-========================= */
 
 .admin-home-card {
     grid-column: 1 / -1;
-
     width: calc(50% - 14px);
-
     justify-self: center;
-
     min-height: 500px;
-
-    border-color:
-        rgba(255, 122, 0, 0.25);
-
+    border-color: rgba(255, 122, 0, 0.25);
     background:
         linear-gradient(
             145deg,
@@ -324,315 +205,212 @@ body {
 }
 
 .admin-home-card:hover {
-    border-color:
-        rgba(255, 122, 0, 0.55);
-
+    border-color: rgba(255, 122, 0, 0.55);
     box-shadow:
         0 35px 90px rgba(0, 0, 0, 0.78),
         0 0 35px rgba(255, 122, 0, 0.08);
 }
 
-/* =========================
-   ICON
-========================= */
-
 .icon {
     position: relative;
-
     font-size: 82px;
-
     margin-bottom: 27px;
-
     line-height: 1;
-
-    filter:
-        drop-shadow(
-            0 18px 25px rgba(0, 0, 0, 0.75)
-        );
-
+    filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.75));
     transition:
         transform 0.4s ease,
         filter 0.4s ease;
 }
 
 .section-card:hover .icon {
-    transform:
-        scale(1.12)
-        translateY(-7px);
-
-    filter:
-        drop-shadow(
-            0 25px 35px rgba(0, 0, 0, 0.9)
-        );
+    transform: scale(1.12) translateY(-7px);
+    filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.9));
 }
-
-/* =========================
-   CARD TITLE
-========================= */
 
 .section-card h2 {
     position: relative;
-
     margin: 0 0 22px;
-
     font-size: 42px;
-
     font-weight: 1000;
-
     color: #fff;
-
-    text-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
 }
-
-/* =========================
-   CARD DESCRIPTION
-========================= */
 
 .section-card p {
     position: relative;
-
     max-width: 650px;
-
     margin: 7px 0;
-
     font-size: 19px;
-
     line-height: 1.85;
-
     color: #fff;
-
     opacity: 0.82;
 }
 
 .section-card p strong {
     color: #fff;
-
     font-size: 20px;
-
     font-weight: 900;
 }
 
-/* =========================
-   OPEN BUTTON
-========================= */
-
 .open {
     position: relative;
-
     margin-top: 25px;
-
     padding: 11px 22px;
-
-    border:
-        1px solid #303030;
-
+    border: 1px solid #303030;
     border-radius: 13px;
-
     background: #111;
-
     color: #fff;
-
     font-size: 16px;
-
     font-weight: 900;
-
     opacity: 0.75;
-
     transition: 0.35s ease;
 }
 
 .section-card:hover .open {
     opacity: 1;
-
     background: #191919;
-
     border-color: #555;
-
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 }
 
 /* =========================
-   CHARACTER PAGE
+   CHARACTER / ADMIN PAGES
 ========================= */
 
 .character-page {
     width: 92%;
     max-width: 1200px;
-
     margin: 40px auto 80px;
-
-    animation:
-        pageIn 0.6s ease both;
+    animation: pageIn 0.6s ease both;
 }
 
 .characters-box {
     padding: 45px;
-
-    border:
-        1px solid #292929;
-
+    border: 1px solid #292929;
     border-radius: 28px;
-
     background:
         linear-gradient(
             145deg,
             #191919,
             #0b0b0b
         );
-
     box-shadow:
         0 25px 70px rgba(0, 0, 0, 0.55),
         inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
-/* =========================
-   CHARACTER LIST
-========================= */
-
 .characters-list {
     display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
 }
 
 .character-card {
     padding: 30px;
-
-    border:
-        1px solid #292929;
-
+    border: 1px solid #292929;
     border-radius: 21px;
-
     background:
         linear-gradient(
             145deg,
             #161616,
             #0d0d0d
         );
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.4);
-
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
     transition: 0.35s ease;
 }
 
 .character-card:hover {
-    transform:
-        translateY(-6px);
-
+    transform: translateY(-6px);
     border-color: #555;
-
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
 }
 
 .character-name {
     margin-bottom: 20px;
-
     font-size: 27px;
-
     font-weight: 900;
-
     color: #fff;
 }
 
 .character-details {
     display: flex;
-
     flex-direction: column;
-
     gap: 12px;
-
     font-size: 17px;
-
     line-height: 1.7;
+    color: #fff;
+}
 
+.character-details strong {
     color: #fff;
 }
 
 /* =========================
-   CHARACTER REGISTER
+   FORMS
 ========================= */
 
 .character-register-box {
     max-width: 1000px;
-
     margin: 0 auto;
 }
 
-/* =========================
-   FORM
-========================= */
-
 .character-form {
     display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
 
 .form-group {
     display: flex;
-
     flex-direction: column;
-
     gap: 9px;
 }
 
 .form-group label {
     color: #fff;
-
     font-size: 16px;
-
     font-weight: 900;
 }
 
-.character-form input {
+.character-form input,
+.character-form select,
+.character-form textarea {
     width: 100%;
-
     min-height: 58px;
-
     padding: 0 18px;
-
-    border:
-        1px solid #303030;
-
+    border: 1px solid #303030;
     border-radius: 14px;
-
     outline: none;
-
     background: #0b0b0b;
-
     color: #fff;
-
+    font-family: inherit;
     font-size: 17px;
-
     transition: 0.25s ease;
 }
 
-.character-form input::placeholder {
+.character-form textarea {
+    padding-top: 15px;
+    min-height: 120px;
+    resize: vertical;
+}
+
+.character-form input::placeholder,
+.character-form textarea::placeholder {
     color: #777;
 }
 
-.character-form input:hover {
+.character-form input:hover,
+.character-form select:hover,
+.character-form textarea:hover {
     border-color: #444;
 }
 
-.character-form input:focus {
+.character-form input:focus,
+.character-form select:focus,
+.character-form textarea:focus {
     border-color: #666;
-
     background: #111;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(255, 255, 255, 0.035);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.035);
 }
 
 .character-form input[type="date"] {
@@ -644,144 +422,132 @@ body {
 }
 
 /* =========================
-   BUTTON
+   BUTTONS
 ========================= */
 
 .register-button {
     display: flex;
-
     width: fit-content;
-
     min-width: 245px;
-
     min-height: 60px;
-
     margin: 10px auto 0;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 14px 28px;
-
-    border:
-        1px solid #444;
-
+    border: 1px solid #444;
     border-radius: 15px;
-
     background:
         linear-gradient(
             145deg,
             #1c1c1c,
             #101010
         );
-
     color: #fff;
-
     text-decoration: none;
-
     font-size: 18px;
-
     font-weight: 900;
-
     cursor: pointer;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.45);
-
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
     transition: 0.35s ease;
 }
 
 .register-button:hover {
-    transform:
-        translateY(-5px);
-
+    transform: translateY(-5px);
     border-color: #666;
-
     background: #1e1e1e;
-
-    box-shadow:
-        0 25px 55px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65);
 }
 
 .register-button:active {
-    transform:
-        translateY(-1px);
+    transform: translateY(-1px);
 }
 
 /* =========================
-   SECTION HEADINGS
+   SECTION HEADERS
 ========================= */
 
 .section-header {
     text-align: center;
-
     margin-bottom: 35px;
 }
 
 .section-header h2 {
     margin: 0;
-
     color: #fff;
-
     font-size: 34px;
-
     font-weight: 900;
 }
 
 .section-line {
     width: 90px;
-
     height: 2px;
-
     display: block;
-
     margin: 16px auto 0;
-
     background: #555;
-
-    box-shadow:
-        0 0 15px
-        rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 .page-heading h1 {
     color: #fff;
-
     font-size: 44px;
-
     font-weight: 900;
-
     margin-bottom: 0;
 }
 
 .page-heading p {
     margin-top: 12px;
-
     color: #fff;
-
     font-size: 19px;
 }
 
 /* =========================
-   EMPTY STATE
+   FLASH
+========================= */
+
+.flash-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.flash {
+    padding: 15px 18px;
+    border: 1px solid rgba(255, 122, 0, 0.3);
+    border-radius: 14px;
+    background: rgba(255, 122, 0, 0.08);
+    color: #fff;
+    text-align: center;
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 8px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 122, 0, 0.35);
+    border-radius: 9px;
+    background: rgba(255, 122, 0, 0.08);
+    color: #ffb067;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+/* =========================
+   EMPTY
 ========================= */
 
 .empty {
     padding: 38px 20px;
-
-    border:
-        1px dashed #333;
-
+    border: 1px dashed #333;
     border-radius: 18px;
-
-    background:
-        rgba(255, 255, 255, 0.015);
-
+    background: rgba(255, 255, 255, 0.015);
     color: #fff;
-
     text-align: center;
-
     font-size: 18px;
 }
 
@@ -791,11 +557,8 @@ body {
 
 footer {
     padding: 60px 20px 30px;
-
     text-align: center;
-
     color: #666;
-
     font-size: 14px;
 }
 
@@ -806,13 +569,11 @@ footer {
 @keyframes mtFloat {
     0%,
     100% {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(-6px);
+        transform: translateY(-6px);
     }
 }
 
@@ -840,34 +601,27 @@ footer {
 @keyframes pageIn {
     from {
         opacity: 0;
-
-        transform:
-            translateY(20px);
+        transform: translateY(20px);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 }
 
 /* =========================
    MOBILE
-   2 × 2
 ========================= */
 
 @media (max-width: 700px) {
 
     .hero {
-        padding:
-            55px 10px 40px;
+        padding: 55px 10px 40px;
     }
 
     .mt-logo {
         font-size: 82px;
-
         letter-spacing: 6px;
     }
 
@@ -879,53 +633,37 @@ footer {
         font-size: 15px;
     }
 
-    /* الصفحة الرئيسية تبقى 2 × 2 */
-
     .sections {
         width: 96%;
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
-
         margin-top: 25px;
     }
 
     .section-card {
         min-height: 340px;
-
-        padding:
-            25px 12px;
-
+        padding: 25px 12px;
         border-radius: 20px;
     }
 
-    /* الإدارة تبقى في المنتصف */
-
     .admin-home-card {
         grid-column: 1 / -1;
-
         width: 100%;
-
         min-height: 340px;
     }
 
     .icon {
         font-size: 45px;
-
         margin-bottom: 17px;
     }
 
     .section-card h2 {
         font-size: 23px;
-
         margin-bottom: 14px;
     }
 
     .section-card p {
         font-size: 13px;
-
         line-height: 1.65;
     }
 
@@ -935,34 +673,27 @@ footer {
 
     .open {
         margin-top: 16px;
-
-        padding:
-            8px 12px;
-
+        padding: 8px 12px;
         font-size: 12px;
     }
 
     .character-page {
         width: 94%;
-
         margin-top: 25px;
     }
 
     .characters-box {
         padding: 25px 15px;
-
         border-radius: 20px;
     }
 
     .characters-list {
         grid-template-columns: 1fr 1fr;
-
         gap: 10px;
     }
 
     .character-card {
         padding: 18px;
-
         border-radius: 17px;
     }
 
@@ -972,13 +703,11 @@ footer {
 
     .character-details {
         font-size: 13px;
-
         gap: 8px;
     }
 
     .character-form {
         grid-template-columns: 1fr;
-
         gap: 15px;
     }
 
@@ -988,7 +717,6 @@ footer {
 
     .register-button {
         width: 100%;
-
         min-width: 0;
     }
 
@@ -1021,9 +749,7 @@ footer {
 
     .section-card {
         min-height: 320px;
-
-        padding:
-            20px 8px;
+        padding: 20px 8px;
     }
 
     .admin-home-card {
@@ -1048,9 +774,7 @@ footer {
 
     .open {
         font-size: 10px;
-
-        padding:
-            7px 9px;
+        padding: 7px 9px;
     }
 
     .character-card {
