@@ -2,60 +2,457 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>الشرطة - MT</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 
 <body>
 
+
 <header class="hero">
 
-    <div class="mt-logo">MT</div>
+    <div class="mt-logo">
+        MT
+    </div>
 
     <div class="page-heading">
 
-        <h1>👮 الشرطة</h1>
+        <h1>
+            👮 الشرطة
+        </h1>
 
-        <p>قائمة أفراد الشرطة</p>
+        <p>
+            إدارة واستعراض أفراد الشرطة
+        </p>
 
     </div>
 
 </header>
 
 
+
 <main class="character-page">
+
 
     <section class="characters-box">
 
+
         <div class="section-header">
 
-            <h2>أفراد الشرطة</h2>
+            <h2>
+                أفراد الشرطة
+            </h2>
 
             <span class="section-line"></span>
 
         </div>
 
 
-        <div class="empty">
 
-            لا يوجد أفراد حاليًا
+        {% if police %}
+
+
+            <div class="department-grid">
+
+
+                {% for item in police %}
+
+
+                    {% set character =
+                        item.character if item.character is defined
+                        else item
+                    %}
+
+
+                    <div class="department-member">
+
+
+                        <div class="member-icon">
+                            👮
+                        </div>
+
+
+                        <div class="member-info">
+
+                            <h3>
+                                {{ character["full_name"] }}
+                            </h3>
+
+
+                            {% if item.rank_name is defined
+                                  and item.rank_name %}
+
+                                <span class="member-rank">
+
+                                    {{ item.rank_name }}
+
+                                </span>
+
+                            {% elif item["rank_name"] is defined
+                                  and item["rank_name"] %}
+
+                                <span class="member-rank">
+
+                                    {{ item["rank_name"] }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="member-rank">
+
+                                    بدون رتبة
+
+                                </span>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                        <a
+                            href="{{ url_for(
+                                'character_details',
+                                character_id=character['id']
+                            ) }}"
+                            class="member-button"
+                        >
+
+                            عرض
+
+                        </a>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="empty department-empty">
+
+                <div class="empty-icon">
+                    👮
+                </div>
+
+                <h3>
+                    لا يوجد أفراد شرطة حاليًا
+                </h3>
+
+                <p>
+                    عند إضافة شخصية إلى قسم الشرطة ستظهر هنا.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+
+        <div class="page-actions">
+
+            <a
+                href="{{ url_for('characters') }}"
+                class="register-button"
+            >
+
+                ← العودة إلى الشخصيات
+
+            </a>
 
         </div>
 
+
     </section>
+
 
 </main>
 
 
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
 
 
+
+<style>
+
+
+.department-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+.department-member {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0e0e0e
+        );
+
+    border: 1px solid #282828;
+
+    border-radius: 16px;
+
+    transition: .2s;
+
+}
+
+
+.department-member:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(255, 122, 0, .4);
+
+}
+
+
+.member-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #111;
+
+    border-radius: 13px;
+
+    font-size: 22px;
+
+}
+
+
+.member-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.member-info h3 {
+
+    margin: 0 0 6px;
+
+    color: #fff;
+
+    font-size: 15px;
+
+    font-weight: 900;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.member-rank {
+
+    display: inline-block;
+
+    color: #ff7a00;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+.member-button {
+
+    padding: 9px 14px;
+
+    border-radius: 10px;
+
+    background: rgba(255, 122, 0, .08);
+
+    border: 1px solid rgba(255, 122, 0, .3);
+
+    color: #ff7a00;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    transition: .2s;
+
+}
+
+
+.member-button:hover {
+
+    background: rgba(255, 122, 0, .16);
+
+}
+
+
+.department-empty {
+
+    padding: 45px 20px;
+
+}
+
+
+.empty-icon {
+
+    font-size: 42px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.department-empty h3 {
+
+    margin: 0 0 8px;
+
+    color: #ddd;
+
+}
+
+
+.department-empty p {
+
+    margin: 0;
+
+    color: #666;
+
+    font-size: 13px;
+
+}
+
+
+.page-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 30px;
+
+}
+
+
+.page-actions .register-button {
+
+    margin: 0;
+
+}
+
+
+@media (max-width: 700px) {
+
+    .department-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+    }
+
+
+    .department-member {
+
+        padding: 13px;
+
+        gap: 10px;
+
+    }
+
+
+    .member-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 19px;
+
+    }
+
+
+    .member-info h3 {
+
+        font-size: 13px;
+
+    }
+
+
+    .member-rank {
+
+        font-size: 11px;
+
+    }
+
+
+    .member-button {
+
+        padding: 8px 11px;
+
+        font-size: 11px;
+
+    }
+
+}
+
+</style>
+
+
 </body>
+
 </html>
