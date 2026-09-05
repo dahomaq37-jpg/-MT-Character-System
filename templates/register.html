@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إنشاء حساب - MT</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero">
+
+    <div class="mt-logo">MT</div>
+
+    <div class="page-heading">
+        <h1>إنشاء حساب</h1>
+        <p>إنشاء حساب جديد في MT Character System</p>
+    </div>
+
+</header>
+
+
+<main class="character-page">
+
+    <section class="characters-box character-register-box">
+
+        <div class="section-header">
+            <h2>بيانات الحساب</h2>
+            <span class="section-line"></span>
+        </div>
+
+
+        {% if error %}
+            <div class="empty">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+        <form method="POST" class="character-form">
+
+            <div class="form-group">
+
+                <label for="username">
+                    اسم المستخدم
+                </label>
+
+                <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    placeholder="اكتب اسم المستخدم"
+                    autocomplete="username"
+                    minlength="3"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    كلمة المرور
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="اكتب كلمة المرور"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="confirm_password">
+                    تأكيد كلمة المرور
+                </label>
+
+                <input
+                    id="confirm_password"
+                    type="password"
+                    name="confirm_password"
+                    placeholder="أعد كتابة كلمة المرور"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="register-button">
+                إنشاء الحساب
+            </button>
+
+        </form>
+
+
+        <div style="text-align:center; margin-top:25px; color:#fff;">
+
+            <span>لديك حساب بالفعل؟</span>
+
+            <a href="{{ url_for('login') }}"
+               style="color:#fff; font-weight:800; text-decoration:none;">
+
+                تسجيل الدخول
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    MT Character System © 2026
+</footer>
+
+
+</body>
+</html>
