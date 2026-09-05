@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +14,17 @@
 <body>
 
 <header class="hero">
+
     <div class="mt-logo">MT</div>
 
     <h1>الشخصيات</h1>
 
     <p>إدارة شخصياتك وبياناتها</p>
+
 </header>
 
 
 <main class="character-page">
-
-    <!-- تسجيل شخصية -->
 
     <a href="{{ url_for('register_character') }}"
        class="register-button">
@@ -32,8 +33,6 @@
 
     </a>
 
-
-    <!-- الشخصيات -->
 
     <section class="characters-box">
 
@@ -44,14 +43,19 @@
 
             <div class="characters-list">
 
-                {% for character in characters %}
+                {% for item in characters %}
+
+                    {% set character = item["character"] %}
 
                     <div class="character-card">
 
                         <div class="character-name">
+
                             👤
+
                             {{ character["first_name"] }}
                             {{ character["second_name"] }}
+
                         </div>
 
 
@@ -74,11 +78,53 @@
 
                         </div>
 
+
+                        {% if item["ranks"] %}
+
+                            <div class="character-ranks">
+
+                                {% for rank in item["ranks"] %}
+
+                                    <div>
+                                        الرتبة:
+                                        {{ rank["rank"] }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% if item["departments"] %}
+
+                            <div class="character-departments">
+
+                                {% for department in item["departments"] %}
+
+                                    <span>
+                                        {{ department["department"] }}
+                                    </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="general-rank">
+                                الرتبة العامة: يوجد شخصية
+                            </div>
+
+                        {% endif %}
+
                     </div>
 
                 {% endfor %}
 
             </div>
+
 
         {% else %}
 
