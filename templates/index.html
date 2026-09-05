@@ -5,25 +5,19 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>
         MT Character System
     </title>
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
-
 <body>
-
 
 <header class="hero">
 
@@ -39,62 +33,14 @@
         نظام إدارة الشخصيات والأقسام
     </p>
 
-
-    {% if current_user %}
-
-        <div class="user-bar">
-
-            <span>
-                مرحبًا،
-                {{ current_user["username"] }}
-            </span>
-
-            {% if current_user["is_owner"] %}
-
-                <span class="role-badge">
-                    Owner
-                </span>
-
-            {% else %}
-
-                <span class="role-badge">
-                    {{ current_user["role"] or "Helper" }}
-                </span>
-
-            {% endif %}
-
-            <a href="/logout">
-                تسجيل الخروج
-            </a>
-
-        </div>
-
-    {% else %}
-
-        <div class="user-bar">
-
-            <a href="/login">
-                تسجيل الدخول
-            </a>
-
-            <a href="/register">
-                إنشاء حساب
-            </a>
-
-        </div>
-
-    {% endif %}
-
 </header>
 
 
 <main class="sections">
 
 
-    <a
-        href="/characters"
-        class="section-card"
-    >
+    <a href="/characters"
+       class="section-card">
 
         <div class="icon">
             👤
@@ -105,29 +51,24 @@
         </h2>
 
         <p>
-
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            إنشاء وعرض وإدارة الشخصيات
-            الخاصة بك.
-
+            إنشاء وعرض وإدارة الشخصيات.
         </p>
 
         <p>
-
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            لكل مستخدم لديه حساب
-            ويريد إنشاء شخصياته.
-
+            لكل حساب لإدارة شخصياته،
+            والمدراء حسب الصلاحيات.
         </p>
 
         <span class="open">
@@ -137,11 +78,8 @@
     </a>
 
 
-
-    <a
-        href="/police"
-        class="section-card"
-    >
+    <a href="/police"
+       class="section-card">
 
         <div class="icon">
             👮
@@ -152,28 +90,23 @@
         </h2>
 
         <p>
-
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            قسم الشرطة والرتب والبيانات.
-
+            إدارة أفراد الشرطة والرتب.
         </p>
 
         <p>
-
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            أفراد الشرطة والمدراء
-            المخولين.
-
+            أصحاب صلاحيات الشرطة.
         </p>
 
         <span class="open">
@@ -183,11 +116,8 @@
     </a>
 
 
-
-    <a
-        href="/justice"
-        class="section-card"
-    >
+    <a href="/justice"
+       class="section-card">
 
         <div class="icon">
             ⚖️
@@ -198,29 +128,23 @@
         </h2>
 
         <p>
-
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            إدارة أفراد وزارة العدل
-            ورتبهم.
-
+            إدارة أفراد وزارة العدل والرتب.
         </p>
 
         <p>
-
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            أفراد العدل والمدراء
-            المخولين.
-
+            أصحاب صلاحيات وزارة العدل.
         </p>
 
         <span class="open">
@@ -230,11 +154,8 @@
     </a>
 
 
-
-    <a
-        href="/health"
-        class="section-card"
-    >
+    <a href="/health"
+       class="section-card">
 
         <div class="icon">
             🏥
@@ -245,29 +166,23 @@
         </h2>
 
         <p>
-
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            إدارة أفراد القطاع الصحي
-            ورتبهم.
-
+            إدارة أفراد القطاع الصحي والرتب.
         </p>
 
         <p>
-
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            أفراد الصحة والمدراء
-            المخولين.
-
+            أصحاب صلاحيات الصحة.
         </p>
 
         <span class="open">
@@ -280,25 +195,16 @@
 </main>
 
 
-{% if current_user and (
-    current_user["is_owner"]
-    or has_permission("permissions_view")
-    or has_permission("admins_manage")
-) %}
-
+{% if current_user and current_user["is_owner"] %}
 
 <section class="admin-section">
 
-
-    <a
-        href="/admin/permissions"
-        class="admin-card"
-    >
+    <a href="/admin"
+       class="admin-card">
 
         <div class="admin-icon">
             ⚙️
         </div>
-
 
         <div class="admin-content">
 
@@ -307,21 +213,51 @@
             </h2>
 
             <p>
-                إدارة المدراء والصلاحيات
-                وإعطاء الرتب للشخصيات.
+                اختيار شخصية موجودة وتعيين
+                رتبة إدارية لها وإدارة المدراء.
             </p>
 
             <span>
-                دخول لوحة الإدارة ←
+                دخول الإدارة ←
             </span>
 
         </div>
 
     </a>
 
-
 </section>
 
+{% elif current_user and has_permission("admins_manage") %}
+
+<section class="admin-section">
+
+    <a href="/admin"
+       class="admin-card">
+
+        <div class="admin-icon">
+            ⚙️
+        </div>
+
+        <div class="admin-content">
+
+            <h2>
+                الإدارة
+            </h2>
+
+            <p>
+                اختيار شخصية موجودة وتعيين
+                رتبة إدارية لها.
+            </p>
+
+            <span>
+                دخول الإدارة ←
+            </span>
+
+        </div>
+
+    </a>
+
+</section>
 
 {% endif %}
 
@@ -335,211 +271,158 @@
 
 <style>
 
-    .user-bar {
+.admin-section {
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    width: 94%;
 
-        gap: 12px;
+    max-width: 1100px;
 
-        margin-top: 25px;
+    margin: 35px auto 0;
 
-        flex-wrap: wrap;
-
-    }
+}
 
 
-    .user-bar a {
+.admin-card {
 
-        color: white;
+    display: flex;
 
-        text-decoration: none;
+    align-items: center;
 
-        padding: 8px 15px;
+    gap: 25px;
 
-        border: 1px solid #333;
+    padding: 28px;
 
-        border-radius: 10px;
+    text-decoration: none;
 
-        background: #111;
+    color: white;
 
-    }
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #080808
+        );
+
+    border: 1px solid #333;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.45);
+
+    transition: .25s;
+
+}
 
 
-    .user-bar a:hover {
+.admin-card:hover {
 
-        border-color: #ff7a00;
+    transform: translateY(-4px);
 
-    }
+    border-color: #ff7a00;
+
+    box-shadow:
+        0 15px 50px
+        rgba(255,122,0,.18);
+
+}
 
 
-    .role-badge {
+.admin-icon {
 
-        padding: 7px 14px;
+    width: 75px;
 
-        border-radius: 10px;
+    height: 75px;
 
-        border: 1px solid #ff7a00;
+    display: flex;
 
-        color: #ff7a00;
+    align-items: center;
 
-        background: #111;
+    justify-content: center;
 
-        font-weight: bold;
+    flex-shrink: 0;
 
-    }
+    border-radius: 18px;
 
+    background: #111;
+
+    border: 1px solid #333;
+
+    font-size: 35px;
+
+}
+
+
+.admin-content h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 27px;
+
+}
+
+
+.admin-content p {
+
+    margin: 0 0 10px;
+
+    color: #aaa;
+
+    line-height: 1.7;
+
+}
+
+
+.admin-content span {
+
+    color: #ff7a00;
+
+    font-weight: bold;
+
+}
+
+
+@media (max-width: 700px) {
 
     .admin-section {
 
-        width: 94%;
-
-        max-width: 1100px;
-
-        margin: 35px auto 0;
+        width: 96%;
 
     }
-
 
     .admin-card {
 
-        display: flex;
+        padding: 20px;
 
-        align-items: center;
-
-        gap: 25px;
-
-        padding: 28px;
-
-        text-decoration: none;
-
-        color: white;
-
-        background:
-            linear-gradient(
-                145deg,
-                #151515,
-                #080808
-            );
-
-        border: 1px solid #333;
-
-        border-radius: 22px;
-
-        box-shadow:
-            0 15px 50px
-            rgba(0,0,0,.45);
-
-        transition: .25s;
+        gap: 15px;
 
     }
-
-
-    .admin-card:hover {
-
-        transform: translateY(-4px);
-
-        border-color: #ff7a00;
-
-        box-shadow:
-            0 15px 50px
-            rgba(255,122,0,.18);
-
-    }
-
 
     .admin-icon {
 
-        width: 75px;
-        height: 75px;
+        width: 55px;
 
-        display: flex;
+        height: 55px;
 
-        align-items: center;
-        justify-content: center;
-
-        flex-shrink: 0;
-
-        border-radius: 18px;
-
-        background: #111;
-
-        border: 1px solid #333;
-
-        font-size: 35px;
+        font-size: 25px;
 
     }
 
+    .admin-content h2 {
 
-    .admin-card h2 {
-
-        margin: 0 0 8px;
-
-        font-size: 27px;
+        font-size: 21px;
 
     }
 
+    .admin-content p {
 
-    .admin-card p {
-
-        margin: 0 0 10px;
-
-        color: #aaa;
-
-        line-height: 1.7;
+        font-size: 13px;
 
     }
 
-
-    .admin-card span {
-
-        color: #ff7a00;
-
-        font-weight: bold;
-
-    }
-
-
-    @media (max-width: 700px) {
-
-        .admin-card {
-
-            padding: 20px;
-
-            gap: 15px;
-
-        }
-
-
-        .admin-icon {
-
-            width: 55px;
-            height: 55px;
-
-            font-size: 25px;
-
-        }
-
-
-        .admin-card h2 {
-
-            font-size: 21px;
-
-        }
-
-
-        .admin-card p {
-
-            font-size: 13px;
-
-        }
-
-    }
+}
 
 </style>
 
-
 </body>
-
 </html>
