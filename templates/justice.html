@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>وزارة العدل - MT</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
 <header class="hero">
+
     <div class="mt-logo">MT</div>
-    <h1>⚖️ وزارة العدل</h1>
-    <p>قائمة أفراد وزارة العدل</p>
+
+    <div class="page-heading">
+
+        <h1>⚖️ وزارة العدل</h1>
+
+        <p>قائمة أفراد وزارة العدل</p>
+
+    </div>
+
 </header>
 
+
 <main class="character-page">
+
     <section class="characters-box">
-        <h2>أفراد وزارة العدل</h2>
-        <div class="empty">لا يوجد أفراد حاليًا</div>
+
+        <div class="section-header">
+
+            <h2>أفراد وزارة العدل</h2>
+
+            <span class="section-line"></span>
+
+        </div>
+
+
+        <div class="empty">
+
+            لا يوجد أفراد حاليًا
+
+        </div>
+
     </section>
+
 </main>
+
+
+<footer>
+    MT Character System © 2026
+</footer>
+
 
 </body>
 </html>
