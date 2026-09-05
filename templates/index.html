@@ -3,17 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MT Character System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <h1>MT Character System</h1>
 
-    <h2>الأقسام</h2>
+    <header class="hero">
+        <div class="mt-logo">MT</div>
+        <h1>MT Character System</h1>
+        <p>نظام إدارة الشخصيات والأقسام</p>
+    </header>
 
-    <button>👤 الشخصيات</button>
-    <button>👮 الشرطة</button>
-    <button>⚖️ وزارة العدل</button>
-    <button>🏥 الصحة</button>
-    <button>🏴 العصابات</button>
+    <main class="sections">
+
+        <div class="section-card">
+            <div class="icon">👤</div>
+            <h2>الشخصيات</h2>
+            <p>
+                إنشاء وإدارة شخصياتك ومتابعة بياناتها
+                بكل سهولة من مكان واحد.
+            </p>
+        </div>
+
+        <div class="section-card">
+            <div class="icon">👮</div>
+            <h2>الشرطة</h2>
+            <p>
+                عرض وإدارة أفراد الشرطة وبياناتهم
+                حسب الصلاحيات الممنوحة.
+            </p>
+        </div>
+
+        <div class="section-card">
+            <div class="icon">⚖️</div>
+            <h2>وزارة العدل</h2>
+            <p>
+                تنظيم وإدارة أفراد وزارة العدل
+                وبياناتهم داخل النظام.
+            </p>
+        </div>
+
+        <div class="section-card">
+            <div class="icon">🏥</div>
+            <h2>الصحة</h2>
+            <p>
+                إدارة أفراد القطاع الصحي وبياناتهم
+                بطريقة منظمة وسريعة.
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>MT Character System © 2026</p>
+    </footer>
+
 </body>
 </html>
