@@ -1,36 +1,96 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>تسجيل الدخول - MT</title>
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
+
 <body>
+
+
 <header class="hero">
-    <div class="mt-logo">MT</div>
-    <div class="page-heading">
-        <h1>تسجيل الدخول</h1>
-        <p>الدخول إلى MT Character System</p>
+
+    <div class="mt-logo">
+        MT
     </div>
+
+    <div class="page-heading">
+
+        <h1>
+            تسجيل الدخول
+        </h1>
+
+        <p>
+            الدخول إلى MT Character System
+        </p>
+
+    </div>
+
 </header>
+
+
+
 <main class="character-page">
+
+
     <section class="characters-box login-box">
-        <div class="section-header">
-            <h2>تسجيل الدخول</h2>
-            <span class="section-line"></span>
-        </div>
-        {% if error %}
-            <div class="empty">
-                {{ error }}
+
+
+        <div class="login-header">
+
+            <div class="login-icon">
+                🔐
             </div>
+
+            <h2>
+                مرحبًا بك في MT
+            </h2>
+
+            <p>
+                قم بتسجيل الدخول للوصول إلى حسابك
+            </p>
+
+        </div>
+
+
+
+        {% if error %}
+
+            <div class="login-error">
+
+                ⚠️
+
+                <span>
+                    {{ error }}
+                </span>
+
+            </div>
+
         {% endif %}
-        <form method="POST" class="character-form">
+
+
+
+        <form method="POST"
+              class="character-form login-form">
+
+
             <div class="form-group">
+
                 <label for="username">
                     اسم المستخدم
                 </label>
+
                 <input
                     id="username"
                     type="text"
@@ -39,11 +99,17 @@
                     autocomplete="username"
                     required
                 >
+
             </div>
+
+
+
             <div class="form-group">
+
                 <label for="password">
                     كلمة المرور
                 </label>
+
                 <input
                     id="password"
                     type="password"
@@ -52,22 +118,378 @@
                     autocomplete="current-password"
                     required
                 >
+
             </div>
-            <button type="submit" class="register-button">
+
+
+
+            <button type="submit"
+                    class="register-button login-button">
+
                 تسجيل الدخول
+
+                <span>
+                    ←
+                </span>
+
             </button>
+
+
         </form>
-        <div style="text-align:center; margin-top:25px; color:#fff;">
-            <span>ليس لديك حساب؟</span>
-            <a href="{{ url_for('register') }}"
-               style="color:#fff; font-weight:800; text-decoration:none;">
-                إنشاء حساب
-            </a>
+
+
+
+        <div class="login-divider">
+
+            <span>
+                أو
+            </span>
+
         </div>
+
+
+
+        <div class="register-account">
+
+            <span>
+                ليس لديك حساب؟
+            </span>
+
+            <a href="{{ url_for('register') }}">
+                إنشاء حساب جديد
+            </a>
+
+        </div>
+
+
     </section>
+
+
 </main>
+
+
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
+
+
+
+<style>
+
+
+.login-box {
+
+    max-width: 520px;
+
+    margin: 45px auto;
+
+    padding: 35px;
+
+}
+
+
+.login-header {
+
+    text-align: center;
+
+    padding-bottom: 25px;
+
+}
+
+
+.login-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #101010
+        );
+
+    border: 1px solid
+        rgba(255, 122, 0, 0.35);
+
+    font-size: 30px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.login-header h2 {
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+}
+
+
+.login-header p {
+
+    margin: 8px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.login-error {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    background: rgba(255, 60, 60, 0.08);
+
+    border: 1px solid
+        rgba(255, 60, 60, 0.25);
+
+    color: #ff7777;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.login-form {
+
+    gap: 18px;
+
+}
+
+
+.login-form .form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.login-form label {
+
+    color: #ddd;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.login-form input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 15px 16px;
+
+    border-radius: 12px;
+
+    border: 1px solid #292929;
+
+    outline: none;
+
+    background: #101010;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    transition: .2s;
+
+}
+
+
+.login-form input::placeholder {
+
+    color: #555;
+
+}
+
+
+.login-form input:focus {
+
+    border-color:
+        rgba(255, 122, 0, 0.7);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255, 122, 0, 0.08);
+
+}
+
+
+.login-button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    cursor: pointer;
+
+}
+
+
+.login-button span {
+
+    font-size: 17px;
+
+}
+
+
+.login-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 28px 0 20px;
+
+    color: #555;
+
+    font-size: 12px;
+
+}
+
+
+.login-divider::before,
+.login-divider::after {
+
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #252525;
+
+}
+
+
+.register-account {
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.register-account a {
+
+    display: inline-block;
+
+    margin-right: 6px;
+
+    color: #ff7a00;
+
+    font-weight: 900;
+
+    text-decoration: none;
+
+    transition: .2s;
+
+}
+
+
+.register-account a:hover {
+
+    color: #ff9a3d;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .login-box {
+
+        width: 92%;
+
+        box-sizing: border-box;
+
+        margin: 25px auto;
+
+        padding: 22px 16px;
+
+    }
+
+
+    .login-header h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .login-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 26px;
+
+    }
+
+}
+
+</style>
+
+
 </body>
+
 </html>
