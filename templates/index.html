@@ -246,52 +246,43 @@
 
     <!-- الإدارة -->
 
-    {% if current_user and
-          (
-              current_user["is_owner"]
-              or has_permission("admins_manage")
-          )
-    %}
+    <a href="/admin"
+       class="section-card admin-home-card">
 
-        <a href="/admin"
-           class="section-card admin-home-card">
+        <div class="icon">
+            ⚙️
+        </div>
 
-            <div class="icon">
-                ⚙️
-            </div>
+        <h2>
+            الإدارة
+        </h2>
 
-            <h2>
-                الإدارة
-            </h2>
+        <p>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
 
-            <p>
-                <strong>
-                    وش معنى ذا الخيار؟
-                </strong>
+            <br>
 
-                <br>
+            مركز تحكم كامل لإدارة النظام
+            والرتب والصلاحيات والأقسام.
+        </p>
 
-                مركز تحكم كامل لإدارة النظام
-                والرتب والصلاحيات والأقسام.
-            </p>
+        <p>
+            <strong>
+                مخصص لمين؟
+            </strong>
 
-            <p>
-                <strong>
-                    مخصص لمين؟
-                </strong>
+            <br>
 
-                <br>
+            أصحاب صلاحيات الإدارة.
+        </p>
 
-                أصحاب صلاحيات الإدارة.
-            </p>
+        <span class="open">
+            دخول الإدارة ←
+        </span>
 
-            <span class="open">
-                دخول الإدارة ←
-            </span>
-
-        </a>
-
-    {% endif %}
+    </a>
 
 
 </main>
