@@ -11,6 +11,7 @@ from flask import (
     session,
     flash
 )
+
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -33,7 +34,10 @@ DATABASE = "mt_characters.db"
 
 PERMISSIONS = {
 
+    # =====================================================
     # الشخصيات
+    # =====================================================
+
     "characters_view_all": "عرض جميع الشخصيات",
     "characters_view_details": "عرض تفاصيل الشخصيات",
     "characters_search": "البحث عن الشخصيات",
@@ -44,7 +48,11 @@ PERMISSIONS = {
     "characters_transfer": "نقل شخصية بين الحسابات",
     "characters_reset": "إعادة تعيين بيانات الشخصية",
 
+
+    # =====================================================
     # الشرطة
+    # =====================================================
+
     "police_manage": "إدارة الشرطة",
     "police_view": "عرض أفراد الشرطة",
     "police_add": "إضافة أفراد الشرطة",
@@ -54,7 +62,11 @@ PERMISSIONS = {
     "police_change_rank": "تغيير رتبة شرطة",
     "police_remove": "إزالة فرد من الشرطة",
 
+
+    # =====================================================
     # العدل
+    # =====================================================
+
     "justice_manage": "إدارة وزارة العدل",
     "justice_view": "عرض أفراد العدل",
     "justice_add": "إضافة أفراد العدل",
@@ -64,7 +76,11 @@ PERMISSIONS = {
     "justice_change_rank": "تغيير رتبة عدل",
     "justice_remove": "إزالة فرد من العدل",
 
+
+    # =====================================================
     # الصحة
+    # =====================================================
+
     "health_manage": "إدارة الصحة",
     "health_view": "عرض أفراد الصحة",
     "health_add": "إضافة أفراد الصحة",
@@ -74,7 +90,11 @@ PERMISSIONS = {
     "health_change_rank": "تغيير رتبة صحية",
     "health_remove": "إزالة فرد من الصحة",
 
+
+    # =====================================================
     # العصابات
+    # =====================================================
+
     "gangs_manage": "إدارة العصابات",
     "gangs_view": "عرض العصابات",
     "gangs_add": "إنشاء عصابة",
@@ -84,7 +104,11 @@ PERMISSIONS = {
     "gangs_remove_members": "إزالة أعضاء",
     "gangs_change_leader": "تغيير قائد العصابة",
 
+
+    # =====================================================
     # المستخدمون
+    # =====================================================
+
     "users_view": "عرض المستخدمين",
     "users_edit": "تعديل المستخدمين",
     "users_ban": "حظر المستخدمين",
@@ -93,24 +117,40 @@ PERMISSIONS = {
     "users_disable": "تعطيل الحسابات",
     "users_enable": "تفعيل الحسابات",
 
+
+    # =====================================================
     # الصلاحيات
+    # =====================================================
+
     "permissions_view": "عرض صلاحيات المستخدمين",
     "permissions_give": "إعطاء الصلاحيات",
     "permissions_remove": "سحب الصلاحيات",
     "permissions_edit": "تعديل صلاحيات المستخدم",
 
+
+    # =====================================================
     # الموقع
+    # =====================================================
+
     "site_settings": "تعديل إعدادات الموقع",
     "site_sections": "إدارة الأقسام",
     "site_home": "إدارة الصفحة الرئيسية",
     "site_maintenance": "صيانة الموقع",
 
+
+    # =====================================================
     # السجلات
+    # =====================================================
+
     "logs_view": "عرض سجل العمليات",
     "logs_search": "البحث في السجلات",
     "logs_export": "تصدير السجلات",
 
+
+    # =====================================================
     # الإدارة العليا
+    # =====================================================
+
     "admins_manage": "إدارة المدراء",
     "admins_add": "تعيين مدير",
     "admins_remove": "إزالة مدير",
@@ -124,10 +164,20 @@ PERMISSIONS = {
 # =========================================================
 
 ROLES = {
+
+    # =====================================================
+    # Owner
+    # =====================================================
+
     "owner": {
         "name": "Owner",
         "permissions": set(PERMISSIONS.keys())
     },
+
+
+    # =====================================================
+    # Co Owner
+    # =====================================================
 
     "co_owner": {
         "name": "Co-Owner",
@@ -136,6 +186,11 @@ ROLES = {
             "admins_remove"
         }
     },
+
+
+    # =====================================================
+    # Founder
+    # =====================================================
 
     "founder": {
         "name": "Founder",
@@ -146,6 +201,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Super Admin
+    # =====================================================
+
     "super_admin": {
         "name": "Super Admin",
         "permissions": set(PERMISSIONS.keys())
@@ -155,9 +215,16 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Admin
+    # =====================================================
+
     "admin": {
         "name": "Admin",
         "permissions": {
+
+            # الشخصيات
             "characters_view_all",
             "characters_view_details",
             "characters_search",
@@ -166,6 +233,7 @@ ROLES = {
             "characters_hide",
             "characters_show",
 
+            # الشرطة
             "police_manage",
             "police_view",
             "police_add",
@@ -175,6 +243,7 @@ ROLES = {
             "police_change_rank",
             "police_remove",
 
+            # العدل
             "justice_manage",
             "justice_view",
             "justice_add",
@@ -184,6 +253,7 @@ ROLES = {
             "justice_change_rank",
             "justice_remove",
 
+            # الصحة
             "health_manage",
             "health_view",
             "health_add",
@@ -193,6 +263,7 @@ ROLES = {
             "health_change_rank",
             "health_remove",
 
+            # العصابات
             "gangs_manage",
             "gangs_view",
             "gangs_add",
@@ -202,6 +273,7 @@ ROLES = {
             "gangs_remove_members",
             "gangs_change_leader",
 
+            # المستخدمون
             "users_view",
             "users_edit",
             "users_ban",
@@ -209,16 +281,25 @@ ROLES = {
             "users_disable",
             "users_enable",
 
+            # الصلاحيات
             "permissions_view",
             "permissions_give",
             "permissions_remove",
             "permissions_edit",
 
+            # الموقع
             "site_sections",
+
+            # السجلات
             "logs_view",
             "logs_search"
         }
     },
+
+
+    # =====================================================
+    # Moderator
+    # =====================================================
 
     "moderator": {
         "name": "Moderator",
@@ -232,6 +313,11 @@ ROLES = {
             "logs_view"
         }
     },
+
+
+    # =====================================================
+    # Supervisor
+    # =====================================================
 
     "supervisor": {
         "name": "Supervisor",
@@ -249,6 +335,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Manager
+    # =====================================================
+
     "manager": {
         "name": "Manager",
         "permissions": {
@@ -262,6 +353,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Department Manager
+    # =====================================================
+
     "department_manager": {
         "name": "Department Manager",
         "permissions": {
@@ -274,6 +370,11 @@ ROLES = {
             "users_view"
         }
     },
+
+
+    # =====================================================
+    # Police Director
+    # =====================================================
 
     "police_director": {
         "name": "Police Director",
@@ -289,6 +390,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Justice Director
+    # =====================================================
+
     "justice_director": {
         "name": "Justice Director",
         "permissions": {
@@ -302,6 +408,11 @@ ROLES = {
             "justice_remove"
         }
     },
+
+
+    # =====================================================
+    # Health Director
+    # =====================================================
 
     "health_director": {
         "name": "Health Director",
@@ -317,6 +428,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Gang Manager
+    # =====================================================
+
     "gang_manager": {
         "name": "Gang Manager",
         "permissions": {
@@ -331,6 +447,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Police Supervisor
+    # =====================================================
+
     "police_supervisor": {
         "name": "Police Supervisor",
         "permissions": {
@@ -342,6 +463,11 @@ ROLES = {
             "police_remove"
         }
     },
+
+
+    # =====================================================
+    # Justice Supervisor
+    # =====================================================
 
     "justice_supervisor": {
         "name": "Justice Supervisor",
@@ -355,6 +481,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Health Supervisor
+    # =====================================================
+
     "health_supervisor": {
         "name": "Health Supervisor",
         "permissions": {
@@ -367,6 +498,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Gang Supervisor
+    # =====================================================
+
     "gang_supervisor": {
         "name": "Gang Supervisor",
         "permissions": {
@@ -378,6 +514,11 @@ ROLES = {
             "gangs_change_leader"
         }
     },
+
+
+    # =====================================================
+    # Senior Staff
+    # =====================================================
 
     "senior_staff": {
         "name": "Senior Staff",
@@ -393,6 +534,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Staff
+    # =====================================================
+
     "staff": {
         "name": "Staff",
         "permissions": {
@@ -405,6 +551,11 @@ ROLES = {
         }
     },
 
+
+    # =====================================================
+    # Helper
+    # =====================================================
+
     "helper": {
         "name": "Helper",
         "permissions": {
@@ -414,6 +565,10 @@ ROLES = {
     }
 }
 
+
+# =========================================================
+# الأقسام
+# =========================================================
 
 DEPARTMENTS = {
     "police": "الشرطة",
@@ -428,29 +583,52 @@ DEPARTMENTS = {
 # =========================================================
 
 def get_db():
+
     db = sqlite3.connect(DATABASE)
+
     db.row_factory = sqlite3.Row
-    db.execute("PRAGMA foreign_keys = ON")
+
+    db.execute(
+        "PRAGMA foreign_keys = ON"
+    )
+
     return db
 
 
 def init_db():
+
     db = get_db()
+
+    # =====================================================
+    # المستخدمون
+    # =====================================================
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS users (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             username TEXT UNIQUE NOT NULL,
+
             password_hash TEXT NOT NULL,
+
             is_banned INTEGER DEFAULT 0,
+
             is_disabled INTEGER DEFAULT 0,
+
             is_owner INTEGER DEFAULT 0,
+
             role TEXT DEFAULT 'helper',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+            created_at TIMESTAMP
+            DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
-    # إضافة role للنسخ القديمة من قاعدة البيانات
+    # =====================================================
+    # ترقية قواعد البيانات القديمة
+    # =====================================================
+
     columns = db.execute(
         "PRAGMA table_info(users)"
     ).fetchall()
@@ -461,24 +639,41 @@ def init_db():
     }
 
     if "role" not in column_names:
+
         db.execute("""
             ALTER TABLE users
             ADD COLUMN role TEXT DEFAULT 'helper'
         """)
 
+    # =====================================================
+    # الشخصيات
+    # =====================================================
+
     db.execute("""
         CREATE TABLE IF NOT EXISTS characters (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             user_id INTEGER,
+
             first_name TEXT NOT NULL,
+
             second_name TEXT NOT NULL,
+
             full_name TEXT NOT NULL,
+
             full_name_key TEXT UNIQUE NOT NULL,
+
             country TEXT NOT NULL,
+
             nationality TEXT NOT NULL,
+
             birth_date TEXT NOT NULL,
+
             hidden INTEGER DEFAULT 0,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+            created_at TIMESTAMP
+            DEFAULT CURRENT_TIMESTAMP,
 
             FOREIGN KEY (user_id)
             REFERENCES users(id)
@@ -486,10 +681,17 @@ def init_db():
         )
     """)
 
+    # =====================================================
+    # صلاحيات المستخدمين
+    # =====================================================
+
     db.execute("""
         CREATE TABLE IF NOT EXISTS user_permissions (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             user_id INTEGER NOT NULL,
+
             permission TEXT NOT NULL,
 
             UNIQUE(user_id, permission),
@@ -500,10 +702,17 @@ def init_db():
         )
     """)
 
+    # =====================================================
+    # أقسام الشخصيات
+    # =====================================================
+
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_departments (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             character_id INTEGER NOT NULL,
+
             department TEXT NOT NULL,
 
             UNIQUE(character_id, department),
@@ -514,11 +723,19 @@ def init_db():
         )
     """)
 
+    # =====================================================
+    # رتب الشخصيات
+    # =====================================================
+
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_ranks (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             character_id INTEGER NOT NULL,
+
             department TEXT NOT NULL,
+
             rank_name TEXT NOT NULL,
 
             UNIQUE(character_id, department),
@@ -529,12 +746,21 @@ def init_db():
         )
     """)
 
+    # =====================================================
+    # السجلات
+    # =====================================================
+
     db.execute("""
         CREATE TABLE IF NOT EXISTS activity_logs (
+
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+
             user_id INTEGER,
+
             action TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+            created_at TIMESTAMP
+            DEFAULT CURRENT_TIMESTAMP,
 
             FOREIGN KEY (user_id)
             REFERENCES users(id)
@@ -543,11 +769,12 @@ def init_db():
     """)
 
     db.commit()
+
     db.close()
 
 
 # =========================================================
-# إنشاء Owner
+# إنشاء Owner الأساسي
 # =========================================================
 
 def create_owner():
@@ -581,7 +808,8 @@ def create_owner():
                 is_owner,
                 role
             )
-            VALUES (?, ?, 1, 'owner')
+            VALUES
+            (?, ?, 1, 'owner')
         """, (
             username,
             generate_password_hash(password)
@@ -593,9 +821,11 @@ def create_owner():
 
         db.execute("""
             UPDATE users
+
             SET
                 role = 'owner',
                 is_owner = 1
+
             WHERE is_owner = 1
         """)
 
@@ -640,17 +870,32 @@ def get_role_permissions(user):
         return set()
 
     if user["is_owner"]:
-        return set(PERMISSIONS.keys())
 
-    role_key = user["role"] or "helper"
+        return set(
+            PERMISSIONS.keys()
+        )
 
-    role = ROLES.get(role_key)
+    role_key = (
+        user["role"]
+        or "helper"
+    )
+
+    role = ROLES.get(
+        role_key
+    )
 
     if not role:
+
         return set()
 
-    return set(role["permissions"])
+    return set(
+        role["permissions"]
+    )
 
+
+# =========================================================
+# فحص الصلاحية
+# =========================================================
 
 def has_permission(permission):
 
@@ -659,19 +904,27 @@ def has_permission(permission):
     if not user:
         return False
 
+    # Owner عنده كل شيء
     if user["is_owner"]:
+
         return True
 
+    # صلاحيات الرتبة
     if permission in get_role_permissions(user):
+
         return True
 
+    # الصلاحيات اليدوية
     db = get_db()
 
     result = db.execute("""
         SELECT id
         FROM user_permissions
+
         WHERE user_id = ?
+
         AND permission = ?
+
         LIMIT 1
     """, (
         user["id"],
@@ -683,6 +936,10 @@ def has_permission(permission):
     return result is not None
 
 
+# =========================================================
+# حماية الصلاحيات
+# =========================================================
+
 def permission_required(permission):
 
     def decorator(function):
@@ -693,6 +950,7 @@ def permission_required(permission):
             user = current_user()
 
             if not user:
+
                 return redirect(
                     url_for("login")
                 )
@@ -707,7 +965,10 @@ def permission_required(permission):
                     url_for("home")
                 )
 
-            return function(*args, **kwargs)
+            return function(
+                *args,
+                **kwargs
+            )
 
         return wrapper
 
@@ -740,6 +1001,7 @@ def log_action(action):
     ))
 
     db.commit()
+
     db.close()
 
 
@@ -750,6 +1012,7 @@ def log_action(action):
 def normalize_name(name):
 
     replacements = {
+
         "أ": "ا",
         "إ": "ا",
         "آ": "ا",
@@ -760,10 +1023,20 @@ def normalize_name(name):
     name = name.strip()
 
     for old, new in replacements.items():
-        name = name.replace(old, new)
 
-    name = name.replace("ـ", "")
-    name = " ".join(name.split())
+        name = name.replace(
+            old,
+            new
+        )
+
+    name = name.replace(
+        "ـ",
+        ""
+    )
+
+    name = " ".join(
+        name.split()
+    )
 
     return name.casefold()
 
@@ -828,7 +1101,9 @@ def login():
 
         if user["is_banned"]:
 
-            flash("الحساب محظور.")
+            flash(
+                "الحساب محظور."
+            )
 
             return redirect(
                 url_for("login")
@@ -836,7 +1111,9 @@ def login():
 
         if user["is_disabled"]:
 
-            flash("الحساب معطل.")
+            flash(
+                "الحساب معطل."
+            )
 
             return redirect(
                 url_for("login")
@@ -859,7 +1136,9 @@ def login():
 
         session["user_id"] = user["id"]
 
-        log_action("تسجيل الدخول")
+        log_action(
+            "تسجيل الدخول"
+        )
 
         return redirect(
             url_for("home")
@@ -934,7 +1213,9 @@ def register_character():
             )
 
             return redirect(
-                url_for("register_character")
+                url_for(
+                    "register_character"
+                )
             )
 
         full_name = (
@@ -964,7 +1245,9 @@ def register_character():
             )
 
             return redirect(
-                url_for("register_character")
+                url_for(
+                    "register_character"
+                )
             )
 
         cursor = db.execute("""
@@ -979,6 +1262,7 @@ def register_character():
                 nationality,
                 birth_date
             )
+
             VALUES
             (
                 NULL,
@@ -1011,6 +1295,7 @@ def register_character():
         ))
 
         db.commit()
+
         db.close()
 
         flash(
@@ -1048,10 +1333,12 @@ def characters():
             SELECT
                 characters.*,
                 users.username
+
             FROM characters
 
             LEFT JOIN users
-            ON users.id = characters.user_id
+            ON users.id =
+               characters.user_id
 
             ORDER BY characters.id DESC
         """).fetchall()
@@ -1063,7 +1350,9 @@ def characters():
         rows = db.execute("""
             SELECT *
             FROM characters
+
             WHERE hidden = 0
+
             ORDER BY id DESC
         """).fetchall()
 
@@ -1077,7 +1366,9 @@ def characters():
             SELECT
                 department,
                 rank_name
+
             FROM character_ranks
+
             WHERE character_id = ?
         """, (
             character["id"],
@@ -1086,33 +1377,45 @@ def characters():
         departments = db.execute("""
             SELECT
                 department
+
             FROM character_departments
+
             WHERE character_id = ?
         """, (
             character["id"],
         )).fetchall()
 
         characters_data.append({
+
             "character": character,
+
             "ranks": ranks,
+
             "departments": departments
+
         })
 
     db.close()
 
     return render_template(
         "characters.html",
+
         characters=characters_data,
+
         admin_view=admin_view,
+
         can_edit_all=has_permission(
             "characters_edit_all"
         ),
+
         can_delete_all=has_permission(
             "characters_delete_all"
         ),
+
         can_manage_sections=has_permission(
             "site_sections"
         ),
+
         user=user
     )
 
@@ -1156,6 +1459,7 @@ def character_details(character_id):
         FROM character_departments
 
         LEFT JOIN character_ranks
+
         ON character_ranks.character_id =
            character_departments.character_id
 
@@ -1169,9 +1473,13 @@ def character_details(character_id):
 
     general_rank = db.execute("""
         SELECT rank_name
+
         FROM character_ranks
+
         WHERE character_id = ?
+
         AND department = 'general'
+
         LIMIT 1
     """, (
         character_id,
@@ -1181,9 +1489,13 @@ def character_details(character_id):
 
     return render_template(
         "character_details.html",
+
         character=character,
+
         departments=departments,
+
         general_rank=general_rank,
+
         user=current_user()
     )
 
@@ -1256,6 +1568,7 @@ def delete_character(character_id):
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1338,7 +1651,9 @@ def admin_edit_character(character_id):
     exists = db.execute("""
         SELECT id
         FROM characters
+
         WHERE full_name_key = ?
+
         AND id != ?
     """, (
         full_name_key,
@@ -1382,6 +1697,7 @@ def admin_edit_character(character_id):
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1414,13 +1730,16 @@ def hide_character(character_id):
 
     db.execute("""
         UPDATE characters
+
         SET hidden = 1
+
         WHERE id = ?
     """, (
         character_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1453,13 +1772,16 @@ def show_character(character_id):
 
     db.execute("""
         UPDATE characters
+
         SET hidden = 0
+
         WHERE id = ?
     """, (
         character_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1500,12 +1822,20 @@ def assign_department(character_id):
             url_for("characters")
         )
 
-    permission = f"{department}_manage"
+    permission = (
+        f"{department}_manage"
+    )
 
     if not (
         has_permission(permission)
-        or has_permission("site_sections")
-        or has_permission("admins_all_sections")
+
+        or has_permission(
+            "site_sections"
+        )
+
+        or has_permission(
+            "admins_all_sections"
+        )
     ):
 
         flash(
@@ -1567,6 +1897,7 @@ def assign_department(character_id):
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1607,14 +1938,20 @@ def remove_department(character_id):
             url_for("characters")
         )
 
-    permission = f"{department}_remove"
+    permission = (
+        f"{department}_remove"
+    )
 
     if not (
         has_permission(permission)
+
         or has_permission(
             f"{department}_manage"
         )
-        or has_permission("site_sections")
+
+        or has_permission(
+            "site_sections"
+        )
     ):
 
         flash(
@@ -1629,7 +1966,9 @@ def remove_department(character_id):
 
     db.execute("""
         DELETE FROM character_departments
+
         WHERE character_id = ?
+
         AND department = ?
     """, (
         character_id,
@@ -1638,7 +1977,9 @@ def remove_department(character_id):
 
     db.execute("""
         DELETE FROM character_ranks
+
         WHERE character_id = ?
+
         AND department = ?
     """, (
         character_id,
@@ -1647,7 +1988,9 @@ def remove_department(character_id):
 
     remaining = db.execute("""
         SELECT COUNT(*)
+
         FROM character_departments
+
         WHERE character_id = ?
     """, (
         character_id,
@@ -1671,6 +2014,7 @@ def remove_department(character_id):
         ))
 
     db.commit()
+
     db.close()
 
     flash(
@@ -1722,17 +2066,24 @@ def assign_rank(character_id):
             url_for("characters")
         )
 
-    permission = f"{department}_change_rank"
+    permission = (
+        f"{department}_change_rank"
+    )
 
     if not (
         has_permission(permission)
+
         or has_permission(
             f"{department}_assign_rank"
         )
+
         or has_permission(
             f"{department}_manage"
         )
-        or has_permission("site_sections")
+
+        or has_permission(
+            "site_sections"
+        )
     ):
 
         flash(
@@ -1747,8 +2098,11 @@ def assign_rank(character_id):
 
     exists = db.execute("""
         SELECT id
+
         FROM character_departments
+
         WHERE character_id = ?
+
         AND department = ?
     """, (
         character_id,
@@ -1783,6 +2137,7 @@ def assign_rank(character_id):
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -1802,7 +2157,9 @@ def assign_rank(character_id):
 # شخصيات الأقسام
 # =========================================================
 
-def get_department_characters(department):
+def get_department_characters(
+    department
+):
 
     db = get_db()
 
@@ -1814,16 +2171,19 @@ def get_department_characters(department):
         FROM characters
 
         JOIN character_departments
+
         ON character_departments.character_id =
            characters.id
 
         LEFT JOIN character_ranks
+
         ON character_ranks.character_id =
            characters.id
 
         AND character_ranks.department = ?
 
         WHERE character_departments.department = ?
+
         AND characters.hidden = 0
 
         ORDER BY characters.id DESC
@@ -1852,17 +2212,21 @@ def get_user_department_characters(
         FROM characters
 
         JOIN character_departments
+
         ON character_departments.character_id =
            characters.id
 
         LEFT JOIN character_ranks
+
         ON character_ranks.character_id =
            characters.id
 
         AND character_ranks.department = ?
 
         WHERE character_departments.department = ?
+
         AND characters.user_id = ?
+
         AND characters.hidden = 0
 
         ORDER BY characters.id DESC
@@ -1878,7 +2242,7 @@ def get_user_department_characters(
 
 
 # =========================================================
-# الأقسام
+# الشرطة
 # =========================================================
 
 @app.route("/police")
@@ -1906,6 +2270,10 @@ def police():
     )
 
 
+# =========================================================
+# العدل
+# =========================================================
+
 @app.route("/justice")
 def justice():
 
@@ -1931,6 +2299,10 @@ def justice():
     )
 
 
+# =========================================================
+# الصحة
+# =========================================================
+
 @app.route("/health")
 def health():
 
@@ -1955,6 +2327,10 @@ def health():
         user=user
     )
 
+
+# =========================================================
+# العصابات
+# =========================================================
 
 @app.route("/gangs")
 def gangs():
@@ -1982,11 +2358,13 @@ def gangs():
 
 
 # =========================================================
-# الصلاحيات
+# صفحة الصلاحيات
 # =========================================================
 
 @app.route("/admin/permissions")
-@permission_required("permissions_view")
+@permission_required(
+    "permissions_view"
+)
 def permissions():
 
     db = get_db()
@@ -1997,7 +2375,9 @@ def permissions():
             username,
             is_owner,
             role
+
         FROM users
+
         ORDER BY username
     """).fetchall()
 
@@ -2008,14 +2388,22 @@ def permissions():
     for user in users:
 
         user_roles[user["id"]] = (
+
             "owner"
+
             if user["is_owner"]
-            else (user["role"] or "helper")
+
+            else (
+                user["role"]
+                or "helper"
+            )
         )
 
         rows = db.execute("""
             SELECT permission
+
             FROM user_permissions
+
             WHERE user_id = ?
         """, (
             user["id"],
@@ -2030,10 +2418,15 @@ def permissions():
 
     return render_template(
         "permissions.html",
+
         users=users,
+
         permissions=PERMISSIONS,
+
         user_permissions=user_permissions,
+
         user_roles=user_roles,
+
         ROLES=ROLES
     )
 
@@ -2046,18 +2439,44 @@ def permissions():
     "/admin/permissions/<int:user_id>",
     methods=["POST"]
 )
-@permission_required("permissions_give")
+@permission_required(
+    "permissions_give"
+)
 def update_permissions(user_id):
 
     db = get_db()
 
+    # المستخدم الحالي
+    current = db.execute("""
+        SELECT *
+        FROM users
+
+        WHERE id = ?
+    """, (
+        session.get("user_id"),
+    )).fetchone()
+
+    # المستخدم المستهدف
     target = db.execute("""
         SELECT *
         FROM users
+
         WHERE id = ?
     """, (
         user_id,
     )).fetchone()
+
+    if not current:
+
+        db.close()
+
+        flash(
+            "جلسة المستخدم غير موجودة."
+        )
+
+        return redirect(
+            url_for("login")
+        )
 
     if not target:
 
@@ -2071,13 +2490,16 @@ def update_permissions(user_id):
             url_for("permissions")
         )
 
-    # لا أحد يعدل Owner
-    if target["is_owner"]:
+    # =====================================================
+    # حماية Owner
+    # =====================================================
+
+    if target["is_owner"] and not current["is_owner"]:
 
         db.close()
 
         flash(
-            "لا يمكن تعديل مالك الموقع."
+            "لا يمكنك تعديل مالك الموقع."
         )
 
         return redirect(
@@ -2089,18 +2511,6 @@ def update_permissions(user_id):
         "helper"
     ).strip()
 
-    if role_key == "owner":
-
-        db.close()
-
-        flash(
-            "لا يمكن تعيين Owner من هذه الصفحة."
-        )
-
-        return redirect(
-            url_for("permissions")
-        )
-
     if role_key not in ROLES:
 
         role_key = "helper"
@@ -2109,17 +2519,116 @@ def update_permissions(user_id):
         "permissions"
     )
 
-    db.execute("""
-        UPDATE users
-        SET role = ?
-        WHERE id = ?
-    """, (
-        role_key,
-        user_id
-    ))
+    # =====================================================
+    # إعطاء Owner
+    # =====================================================
+
+    if role_key == "owner":
+
+        # فقط Owner يستطيع إعطاء Owner
+        if not current["is_owner"]:
+
+            db.close()
+
+            flash(
+                "فقط Owner يستطيع تعيين Owner."
+            )
+
+            return redirect(
+                url_for("permissions")
+            )
+
+        db.execute("""
+            UPDATE users
+
+            SET
+                role = 'owner',
+                is_owner = 1
+
+            WHERE id = ?
+        """, (
+            user_id,
+        ))
+
+        # Owner يأخذ كل الصلاحيات تلقائيًا
+        db.execute("""
+            DELETE FROM user_permissions
+
+            WHERE user_id = ?
+        """, (
+            user_id,
+        ))
+
+        db.commit()
+
+        db.close()
+
+        log_action(
+            f"تعيين Owner للمستخدم: {target['username']}"
+        )
+
+        flash(
+            f"تم تعيين {target['username']} كـ Owner."
+        )
+
+        return redirect(
+            url_for("permissions")
+        )
+
+    # =====================================================
+    # إزالة Owner
+    # =====================================================
+
+    if target["is_owner"]:
+
+        # فقط Owner يستطيع إزالة Owner
+        if not current["is_owner"]:
+
+            db.close()
+
+            flash(
+                "لا يمكنك تغيير رتبة Owner."
+            )
+
+            return redirect(
+                url_for("permissions")
+            )
+
+        db.execute("""
+            UPDATE users
+
+            SET
+                is_owner = 0,
+                role = ?
+
+            WHERE id = ?
+        """, (
+            role_key,
+            user_id
+        ))
+
+    else:
+
+        db.execute("""
+            UPDATE users
+
+            SET
+                role = ?,
+                is_owner = 0
+
+            WHERE id = ?
+        """, (
+            role_key,
+            user_id
+        ))
+
+    # =====================================================
+    # الصلاحيات اليدوية
+    # =====================================================
 
     db.execute("""
         DELETE FROM user_permissions
+
         WHERE user_id = ?
     """, (
         user_id,
@@ -2128,6 +2637,7 @@ def update_permissions(user_id):
     for permission in selected:
 
         if permission not in PERMISSIONS:
+
             continue
 
         db.execute("""
@@ -2137,6 +2647,7 @@ def update_permissions(user_id):
                 user_id,
                 permission
             )
+
             VALUES (?, ?)
         """, (
             user_id,
@@ -2144,6 +2655,7 @@ def update_permissions(user_id):
         ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2164,7 +2676,9 @@ def update_permissions(user_id):
 # =========================================================
 
 @app.route("/admin/users")
-@permission_required("users_view")
+@permission_required(
+    "users_view"
+)
 def users():
 
     db = get_db()
@@ -2191,24 +2705,40 @@ def users():
     for account in users_list:
 
         if account["is_owner"]:
-            user_roles[account["id"]] = "Owner"
+
+            user_roles[
+                account["id"]
+            ] = "Owner"
 
         else:
 
-            role_key = account["role"] or "helper"
+            role_key = (
+                account["role"]
+                or "helper"
+            )
 
-            role = ROLES.get(role_key)
+            role = ROLES.get(
+                role_key
+            )
 
-            user_roles[account["id"]] = (
+            user_roles[
+                account["id"]
+            ] = (
+
                 role["name"]
+
                 if role
+
                 else "بدون رتبة"
             )
 
     return render_template(
         "users.html",
+
         users=users_list,
+
         user_roles=user_roles,
+
         ROLES=ROLES
     )
 
@@ -2221,7 +2751,9 @@ def users():
     "/admin/users/<int:user_id>/ban",
     methods=["POST"]
 )
-@permission_required("users_ban")
+@permission_required(
+    "users_ban"
+)
 def ban_user(user_id):
 
     db = get_db()
@@ -2229,6 +2761,7 @@ def ban_user(user_id):
     user = db.execute("""
         SELECT *
         FROM users
+
         WHERE id = ?
     """, (
         user_id,
@@ -2248,13 +2781,16 @@ def ban_user(user_id):
 
     db.execute("""
         UPDATE users
+
         SET is_banned = 1
+
         WHERE id = ?
     """, (
         user_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2274,20 +2810,25 @@ def ban_user(user_id):
     "/admin/users/<int:user_id>/unban",
     methods=["POST"]
 )
-@permission_required("users_unban")
+@permission_required(
+    "users_unban"
+)
 def unban_user(user_id):
 
     db = get_db()
 
     db.execute("""
         UPDATE users
+
         SET is_banned = 0
+
         WHERE id = ?
     """, (
         user_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2307,7 +2848,9 @@ def unban_user(user_id):
     "/admin/users/<int:user_id>/disable",
     methods=["POST"]
 )
-@permission_required("users_disable")
+@permission_required(
+    "users_disable"
+)
 def disable_user(user_id):
 
     db = get_db()
@@ -2315,6 +2858,7 @@ def disable_user(user_id):
     user = db.execute("""
         SELECT *
         FROM users
+
         WHERE id = ?
     """, (
         user_id,
@@ -2334,13 +2878,16 @@ def disable_user(user_id):
 
     db.execute("""
         UPDATE users
+
         SET is_disabled = 1
+
         WHERE id = ?
     """, (
         user_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2360,20 +2907,25 @@ def disable_user(user_id):
     "/admin/users/<int:user_id>/enable",
     methods=["POST"]
 )
-@permission_required("users_enable")
+@permission_required(
+    "users_enable"
+)
 def enable_user(user_id):
 
     db = get_db()
 
     db.execute("""
         UPDATE users
+
         SET is_disabled = 0
+
         WHERE id = ?
     """, (
         user_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2393,7 +2945,9 @@ def enable_user(user_id):
     "/admin/users/<int:user_id>/delete",
     methods=["POST"]
 )
-@permission_required("users_delete")
+@permission_required(
+    "users_delete"
+)
 def delete_user(user_id):
 
     db = get_db()
@@ -2401,6 +2955,7 @@ def delete_user(user_id):
     user = db.execute("""
         SELECT *
         FROM users
+
         WHERE id = ?
     """, (
         user_id,
@@ -2420,12 +2975,14 @@ def delete_user(user_id):
 
     db.execute("""
         DELETE FROM users
+
         WHERE id = ?
     """, (
         user_id,
     ))
 
     db.commit()
+
     db.close()
 
     log_action(
@@ -2442,7 +2999,9 @@ def delete_user(user_id):
 # =========================================================
 
 @app.route("/admin/logs")
-@permission_required("logs_view")
+@permission_required(
+    "logs_view"
+)
 def logs():
 
     db = get_db()
@@ -2455,7 +3014,9 @@ def logs():
         FROM activity_logs
 
         LEFT JOIN users
-        ON users.id = activity_logs.user_id
+
+        ON users.id =
+           activity_logs.user_id
 
         ORDER BY activity_logs.id DESC
     """).fetchall()
@@ -2469,17 +3030,24 @@ def logs():
 
 
 # =========================================================
-# التشغيل
+# تشغيل قاعدة البيانات
 # =========================================================
 
 init_db()
+
 create_owner()
 
+
+# =========================================================
+# تشغيل الموقع
+# =========================================================
 
 if __name__ == "__main__":
 
     app.run(
+
         host="0.0.0.0",
+
         port=int(
             os.environ.get(
                 "PORT",
