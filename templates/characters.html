@@ -3,37 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>الشخصيات - MT</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
 <header class="hero">
     <div class="mt-logo">MT</div>
+
     <h1>الشخصيات</h1>
+
     <p>إدارة شخصياتك وبياناتها</p>
 </header>
 
+
 <main class="character-page">
 
-    <a href="#" class="register-button">
+    <!-- تسجيل شخصية -->
+
+    <a href="{{ url_for('register_character') }}"
+       class="register-button">
+
         + تسجيل شخصية
+
     </a>
 
+
+    <!-- الشخصيات -->
+
     <section class="characters-box">
+
         <h2>شخصياتي</h2>
 
-        <div class="empty">
-            لا توجد شخصيات مسجلة حاليًا
-        </div>
+
+        {% if characters %}
+
+            <div class="characters-list">
+
+                {% for character in characters %}
+
+                    <div class="character-card">
+
+                        <div class="character-name">
+                            👤
+                            {{ character["first_name"] }}
+                            {{ character["second_name"] }}
+                        </div>
+
+
+                        <div class="character-details">
+
+                            <div>
+                                🌍 الدولة:
+                                {{ character["country"] }}
+                            </div>
+
+                            <div>
+                                🪪 الجنسية:
+                                {{ character["nationality"] }}
+                            </div>
+
+                            <div>
+                                🎂 تاريخ الميلاد:
+                                {{ character["birth_date"] }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+                لا توجد شخصيات مسجلة حاليًا
+            </div>
+
+        {% endif %}
+
     </section>
 
 </main>
 
+
 <footer>
     MT Character System © 2026
 </footer>
+
 
 </body>
 </html>
