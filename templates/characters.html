@@ -8,9 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>
-        الشخصيات - MT
-    </title>
+    <title>الشخصيات - MT</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -18,7 +16,6 @@
 </head>
 
 <body>
-
 
 <header class="hero">
 
@@ -31,7 +28,7 @@
     </h1>
 
     <p>
-        إدارة الشخصيات
+        نظام الشخصيات
     </p>
 
 </header>
@@ -39,6 +36,8 @@
 
 <main class="character-page">
 
+
+    <!-- الرسائل -->
 
     {% with messages = get_flashed_messages() %}
 
@@ -61,24 +60,33 @@
     {% endwith %}
 
 
-    {% if user %}
+    <!-- إنشاء شخصية -->
 
-    <a href="/characters/register"
-       class="register-button">
+    <div class="top-actions">
 
-        + إنشاء شخصية
+        <a href="{{ url_for('register_character') }}"
+           class="register-button">
 
-    </a>
+            ＋ إنشاء شخصية
 
-    {% endif %}
+        </a>
 
+    </div>
+
+
+    <!-- معلومات الوصول -->
 
     {% if admin_view %}
 
-        <div class="access-info">
+        <div class="access-info admin-info">
 
-            👑 أنت تشاهد جميع الشخصيات
-            لأن لديك صلاحية عرض جميع الشخصيات.
+            👑 وضع الإدارة
+
+            <br>
+
+            <span>
+                أنت تشاهد جميع الشخصيات.
+            </span>
 
         </div>
 
@@ -86,7 +94,13 @@
 
         <div class="access-info">
 
-            🔒 تظهر لك شخصيات حسابك فقط.
+            👤 شخصيات حسابك
+
+            <br>
+
+            <span>
+                تظهر لك الشخصيات المرتبطة بحسابك.
+            </span>
 
         </div>
 
@@ -94,18 +108,20 @@
 
         <div class="access-info">
 
-            🔐 يجب تسجيل الدخول لمشاهدة الشخصيات.
+            🌐 التسجيل متاح للجميع
 
-            <br><br>
+            <br>
 
-            <a href="/login">
-                تسجيل الدخول
-            </a>
+            <span>
+                يمكنك إنشاء شخصية بدون تسجيل دخول.
+            </span>
 
         </div>
 
     {% endif %}
 
+
+    <!-- صندوق الشخصيات -->
 
     <section class="characters-box">
 
@@ -123,253 +139,313 @@
 
         {% if characters %}
 
-        <div class="characters-list">
+            <div class="characters-list">
 
 
-            {% for item in characters %}
+                {% for item in characters %}
 
-            {% set character = item.character %}
-
-
-            <div class="character-card">
+                    {% set character = item.character %}
 
 
-                <div class="character-name">
-
-                    👤
-
-                    {{ character["full_name"] }}
-
-                    {% if character["hidden"] %}
-
-                        <span class="hidden-badge">
-                            مخفية
-                        </span>
-
-                    {% endif %}
-
-                </div>
+                    <div class="character-card">
 
 
-                <div class="character-details">
+                        <!-- اسم الشخصية -->
 
-                    <div>
-                        🌍 الدولة:
-                        {{ character["country"] }}
-                    </div>
+                        <div class="character-name">
 
-                    <div>
-                        🪪 الجنسية:
-                        {{ character["nationality"] }}
-                    </div>
+                            <span class="character-icon">
+                                👤
+                            </span>
 
-                    <div>
-                        🎂 تاريخ الميلاد:
-                        {{ character["birth_date"] }}
-                    </div>
+                            {{ character["full_name"] }}
 
 
-                    {% for rank in item.ranks %}
+                            {% if character["hidden"] %}
 
-                        {% if rank["department"] == "general" %}
+                                <span class="hidden-badge">
+                                    مخفية
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- بيانات الشخصية -->
+
+                        <div class="character-details">
+
 
                             <div>
-                                🏷️ الحالة:
-                                {{ rank["rank_name"] }}
+
+                                <span>
+                                    🌍 الدولة
+                                </span>
+
+                                {{ character["country"] }}
+
                             </div>
 
-                        {% endif %}
 
-                    {% endfor %}
+                            <div>
+
+                                <span>
+                                    🪪 الجنسية
+                                </span>
+
+                                {{ character["nationality"] }}
+
+                            </div>
 
 
-                    {% if item.departments %}
+                            <div>
 
-                        <div>
+                                <span>
+                                    🎂 تاريخ الميلاد
+                                </span>
 
-                            🏢 الأقسام:
+                                {{ character["birth_date"] }}
 
-                            {% for department in item.departments %}
+                            </div>
 
-                                {{ DEPARTMENTS.get(
-                                    department["department"],
-                                    department["department"]
-                                ) }}
 
-                                {% if not loop.last %}
-                                    ،
+                            {% for rank in item.ranks %}
+
+                                {% if rank["department"] == "general" %}
+
+                                    <div>
+
+                                        <span>
+                                            🏷️ الحالة
+                                        </span>
+
+                                        {{ rank["rank_name"] }}
+
+                                    </div>
+
                                 {% endif %}
 
                             {% endfor %}
 
+
+                            {% if item.departments %}
+
+                                <div>
+
+                                    <span>
+                                        🏢 الأقسام
+                                    </span>
+
+                                    {% for department in item.departments %}
+
+                                        {{ DEPARTMENTS.get(
+                                            department["department"],
+                                            department["department"]
+                                        ) }}
+
+                                        {% if not loop.last %}
+                                            ،
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+
                         </div>
 
-                    {% endif %}
 
-                </div>
+                        <!-- الأزرار -->
 
-
-                <div class="character-actions">
+                        <div class="character-actions">
 
 
-                    <a href="/characters/{{ character['id'] }}"
-                       class="view-button">
+                            <a href="{{ url_for(
+                                'character_details',
+                                character_id=character['id']
+                            ) }}"
+                               class="view-button">
 
-                        عرض الشخصية
+                                عرض الشخصية
 
-                    </a>
-
-
-                    {% if can_edit_all %}
-
-                    <form method="POST"
-                          action="/admin/characters/{{ character['id'] }}/edit">
-
-                        <input
-                            type="hidden"
-                            name="first_name"
-                            value="{{ character['first_name'] }}"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="second_name"
-                            value="{{ character['second_name'] }}"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="country"
-                            value="{{ character['country'] }}"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="nationality"
-                            value="{{ character['nationality'] }}"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="birth_date"
-                            value="{{ character['birth_date'] }}"
-                        >
-
-                        <button
-                            type="submit"
-                            class="edit-button">
-
-                            حفظ البيانات
-
-                        </button>
-
-                    </form>
-
-                    {% endif %}
+                            </a>
 
 
-                    {% if can_delete_all %}
+                            {% if can_edit_all %}
 
-                    <form method="POST"
-                          action="/characters/{{ character['id'] }}/delete"
-                          onsubmit="return confirm('هل أنت متأكد من حذف الشخصية؟');">
+                                <form method="POST"
+                                      action="/admin/characters/{{ character['id'] }}/edit">
 
-                        <button
-                            type="submit"
-                            class="delete-button">
+                                    <input
+                                        type="hidden"
+                                        name="first_name"
+                                        value="{{ character['first_name'] }}"
+                                    >
 
-                            حذف
+                                    <input
+                                        type="hidden"
+                                        name="second_name"
+                                        value="{{ character['second_name'] }}"
+                                    >
 
-                        </button>
+                                    <input
+                                        type="hidden"
+                                        name="country"
+                                        value="{{ character['country'] }}"
+                                    >
 
-                    </form>
+                                    <input
+                                        type="hidden"
+                                        name="nationality"
+                                        value="{{ character['nationality'] }}"
+                                    >
 
-                    {% endif %}
+                                    <input
+                                        type="hidden"
+                                        name="birth_date"
+                                        value="{{ character['birth_date'] }}"
+                                    >
 
+                                    <button
+                                        type="submit"
+                                        class="edit-button">
 
-                    {% if can_manage_sections %}
+                                        حفظ البيانات
 
-                    <form method="POST"
-                          action="/admin/characters/{{ character['id'] }}/department"
-                          class="department-form">
+                                    </button>
 
-                        <select name="department"
-                                required>
+                                </form>
 
-                            <option value="">
-                                اختر القسم
-                            </option>
-
-                            {% for key, name in DEPARTMENTS.items() %}
-
-                                <option value="{{ key }}">
-                                    {{ name }}
-                                </option>
-
-                            {% endfor %}
-
-                        </select>
-
-                        <button
-                            type="submit"
-                            class="manage-button">
-
-                            إضافة للقسم
-
-                        </button>
-
-                    </form>
-
-                    {% endif %}
+                            {% endif %}
 
 
-                </div>
+                            {% if can_delete_all %}
+
+                                <form method="POST"
+                                      action="/characters/{{ character['id'] }}/delete"
+                                      onsubmit="return confirm('هل أنت متأكد من حذف الشخصية؟');">
+
+                                    <button
+                                        type="submit"
+                                        class="delete-button">
+
+                                        حذف
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
 
 
-                {% if admin_view %}
+                            {% if can_manage_sections %}
 
-                <div class="admin-owner">
+                                <form method="POST"
+                                      action="/admin/characters/{{ character['id'] }}/department"
+                                      class="department-form">
 
-                    الحساب المرتبط:
+                                    <select name="department"
+                                            required>
 
-                    {% if character["username"] %}
+                                        <option value="">
+                                            اختر القسم
+                                        </option>
 
-                        {{ character["username"] }}
+                                        {% for key, name in DEPARTMENTS.items() %}
 
-                    {% else %}
+                                            <option value="{{ key }}">
+                                                {{ name }}
+                                            </option>
 
-                        غير مرتبط بحساب
+                                        {% endfor %}
 
-                    {% endif %}
+                                    </select>
 
-                </div>
 
-                {% endif %}
+                                    <button
+                                        type="submit"
+                                        class="manage-button">
+
+                                        إضافة للقسم
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                        <!-- الحساب المرتبط -->
+
+                        {% if admin_view %}
+
+                            <div class="admin-owner">
+
+                                <span>
+                                    الحساب المرتبط:
+                                </span>
+
+
+                                {% if character["username"] %}
+
+                                    <strong>
+                                        {{ character["username"] }}
+                                    </strong>
+
+                                {% else %}
+
+                                    <span class="not-linked">
+                                        غير مرتبط بحساب
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+                {% endfor %}
 
 
             </div>
 
 
-            {% endfor %}
-
-
-        </div>
-
         {% else %}
 
-        <div class="empty-box">
 
-            {% if user %}
+            <div class="empty-box">
 
-                لا توجد شخصيات مرتبطة بحسابك.
+                <div class="empty-icon">
+                    👤
+                </div>
 
-            {% else %}
+                <h3>
+                    لا توجد شخصيات
+                </h3>
 
-                لا توجد شخصيات للعرض.
+                <p>
+                    ابدأ بإنشاء أول شخصية في النظام.
+                </p>
 
-            {% endif %}
 
-        </div>
+                <a href="{{ url_for('register_character') }}"
+                   class="register-button">
+
+                    ＋ إنشاء شخصية
+
+                </a>
+
+            </div>
+
 
         {% endif %}
 
@@ -389,22 +465,30 @@
 
 <style>
 
+/* ============================= */
+/* صفحة الشخصيات */
+/* ============================= */
+
 .character-page {
 
     width: 94%;
 
-    max-width: 1100px;
+    max-width: 1200px;
 
     margin: auto;
 
 }
 
 
+/* ============================= */
+/* الرسائل */
+/* ============================= */
+
 .flash-box {
 
     margin: 20px auto;
 
-    padding: 15px;
+    padding: 16px;
 
     border-radius: 15px;
 
@@ -416,8 +500,70 @@
 
     text-align: center;
 
+    box-shadow:
+        0 0 25px rgba(255, 122, 0, 0.08);
+
 }
 
+
+/* ============================= */
+/* أعلى الصفحة */
+/* ============================= */
+
+.top-actions {
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    margin: 25px 0;
+
+}
+
+
+.register-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 24px;
+
+    background: #ff7a00;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-weight: 800;
+
+    border: 1px solid #ff7a00;
+
+    box-shadow:
+        0 8px 25px rgba(255, 122, 0, 0.15);
+
+    transition: 0.2s;
+
+}
+
+
+.register-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(255, 122, 0, 0.25);
+
+}
+
+
+/* ============================= */
+/* معلومات الوصول */
+/* ============================= */
 
 .access-info {
 
@@ -431,44 +577,246 @@
 
     border-radius: 15px;
 
-    color: #bbb;
+    color: #ddd;
 
     text-align: center;
 
 }
 
 
-.access-info a {
+.access-info span {
 
-    color: #ff7a00;
+    color: #777;
 
-    font-weight: bold;
+    font-size: 13px;
 
 }
 
 
-.register-button {
+.admin-info {
 
-    display: block;
+    border-color: rgba(255, 122, 0, 0.35);
 
-    width: fit-content;
+}
 
-    margin: 20px 0;
 
-    padding: 14px 22px;
+/* ============================= */
+/* صندوق الشخصيات */
+/* ============================= */
+
+.characters-box {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: rgba(10, 10, 10, 0.75);
+
+    border: 1px solid #242424;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* ============================= */
+/* العنوان */
+/* ============================= */
+
+.section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-header h2 {
+
+    margin: 0;
+
+    color: white;
+
+}
+
+
+.section-line {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            to left,
+            transparent,
+            #ff7a00
+        );
+
+}
+
+
+/* ============================= */
+/* القائمة */
+/* ============================= */
+
+.characters-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+}
+
+
+/* ============================= */
+/* بطاقة الشخصية */
+/* ============================= */
+
+.character-card {
+
+    position: relative;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0d0d0d
+        );
+
+    border: 1px solid #272727;
+
+    border-radius: 18px;
+
+    transition: 0.25s;
+
+    overflow: hidden;
+
+}
+
+
+.character-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    right: 0;
+
+    width: 4px;
+
+    height: 100%;
 
     background: #ff7a00;
 
-    color: #fff;
-
-    text-decoration: none;
-
-    border-radius: 12px;
-
-    font-weight: bold;
+    opacity: 0.7;
 
 }
 
+
+.character-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: rgba(255, 122, 0, 0.35);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* ============================= */
+/* اسم الشخصية */
+/* ============================= */
+
+.character-name {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    margin-bottom: 20px;
+
+}
+
+
+.character-icon {
+
+    font-size: 20px;
+
+}
+
+
+/* ============================= */
+/* البيانات */
+/* ============================= */
+
+.character-details {
+
+    display: grid;
+
+    gap: 10px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+}
+
+
+.character-details div {
+
+    padding: 10px 12px;
+
+    background: #111;
+
+    border-radius: 10px;
+
+    border: 1px solid #1d1d1d;
+
+}
+
+
+.character-details span {
+
+    color: #ff7a00;
+
+    font-weight: 700;
+
+    margin-left: 5px;
+
+}
+
+
+/* ============================= */
+/* الأزرار */
+/* ============================= */
 
 .character-actions {
 
@@ -476,7 +824,7 @@
 
     flex-wrap: wrap;
 
-    gap: 10px;
+    gap: 9px;
 
     margin-top: 20px;
 
@@ -507,6 +855,10 @@
 
     font-weight: bold;
 
+    font-family: inherit;
+
+    transition: 0.2s;
+
 }
 
 
@@ -515,6 +867,13 @@
     background: #222;
 
     color: white;
+
+}
+
+
+.view-button:hover {
+
+    background: #333;
 
 }
 
@@ -528,11 +887,25 @@
 }
 
 
+.edit-button:hover {
+
+    background: #444;
+
+}
+
+
 .delete-button {
 
     background: #4a1717;
 
     color: white;
+
+}
+
+
+.delete-button:hover {
+
+    background: #641f1f;
 
 }
 
@@ -545,6 +918,17 @@
 
 }
 
+
+.manage-button:hover {
+
+    background: #ff8c22;
+
+}
+
+
+/* ============================= */
+/* الأقسام */
+/* ============================= */
 
 .department-form {
 
@@ -567,16 +951,20 @@
 
     padding: 8px;
 
+    font-family: inherit;
+
 }
 
+
+/* ============================= */
+/* مخفية */
+/* ============================= */
 
 .hidden-badge {
 
     display: inline-block;
 
-    margin-right: 8px;
-
-    padding: 4px 8px;
+    padding: 4px 9px;
 
     border-radius: 7px;
 
@@ -589,9 +977,13 @@
 }
 
 
+/* ============================= */
+/* حساب الإدارة */
+/* ============================= */
+
 .admin-owner {
 
-    margin-top: 15px;
+    margin-top: 18px;
 
     padding-top: 15px;
 
@@ -604,9 +996,29 @@
 }
 
 
+.admin-owner strong {
+
+    color: #ff7a00;
+
+    margin-right: 5px;
+
+}
+
+
+.not-linked {
+
+    color: #666;
+
+}
+
+
+/* ============================= */
+/* لا توجد شخصيات */
+/* ============================= */
+
 .empty-box {
 
-    padding: 50px 20px;
+    padding: 70px 20px;
 
     text-align: center;
 
@@ -614,6 +1026,129 @@
 
 }
 
+
+.empty-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.empty-box h3 {
+
+    color: #ddd;
+
+    margin: 10px 0;
+
+}
+
+
+.empty-box p {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* ============================= */
+/* الجوال */
+/* ============================= */
+
+@media (max-width: 700px) {
+
+    .characters-list {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 10px;
+
+    }
+
+
+    .characters-box {
+
+        padding: 12px;
+
+    }
+
+
+    .character-card {
+
+        padding: 14px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .character-name {
+
+        font-size: 15px;
+
+    }
+
+
+    .character-details {
+
+        font-size: 11px;
+
+    }
+
+
+    .character-details div {
+
+        padding: 8px;
+
+    }
+
+
+    .character-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .character-actions > *,
+    .character-actions form,
+    .character-actions a {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .department-form {
+
+        flex-direction: column;
+
+    }
+
+
+    .department-form select,
+    .manage-button {
+
+        width: 100%;
+
+    }
+
+
+    .register-button {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+}
 
 </style>
 
