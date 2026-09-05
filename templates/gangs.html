@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العصابات - MT</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="hero">
+    <div class="mt-logo">MT</div>
+    <div class="page-heading">
+        <h1>العصابات</h1>
+        <p>إدارة العصابات وأعضائها</p>
+    </div>
+</header>
+<main class="character-page">
+    <section class="characters-box">
+        <div class="section-header">
+            <h2>قائمة العصابات</h2>
+            <span class="section-line"></span>
+        </div>
+        {% if gangs %}
+            <div class="characters-list">
+                {% for gang in gangs %}
+                    <div class="character-card">
+                        <div class="character-name">
+                            🏴 {{ gang["name"] }}
+                        </div>
+                        <div class="character-details">
+                            <div>
+                                قائد العصابة:
+                                {{ gang["leader"] or "غير محدد" }}
+                            </div>
+                            <div>
+                                عدد الأعضاء:
+                                {{ gang["members_count"] or 0 }}
+                            </div>
+                            <div>
+                                الحالة:
+                                {{ gang["status"] or "نشطة" }}
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; justify-content:center;">
+                            {% if has_gang_edit %}
+                                <a href="{{ url_for('edit_gang', gang_id=gang['id']) }}"
+                                   class="register-button">
+                                    تعديل
+                                </a>
+                            {% endif %}
+                            {% if has_gang_delete %}
+                                <form method="POST"
+                                      action="{{ url_for('delete_gang', gang_id=gang['id']) }}"
+                                      onsubmit="return confirm('هل أنت متأكد من حذف العصابة؟');">
+                                    <button type="submit"
+                                            class="register-button">
+                                        حذف
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                لا توجد عصابات مسجلة حاليًا
+            </div>
+        {% endif %}
+        {% if has_gang_create %}
+            <a href="{{ url_for('create_gang') }}"
+               class="register-button">
+                + إنشاء عصابة
+            </a>
+        {% endif %}
+    </section>
+</main>
+<footer>
+    MT Character System © 2026
+</footer>
+</body>
+</html>
