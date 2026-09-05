@@ -12,7 +12,12 @@ body {
 body {
     font-family: Arial, Tahoma, sans-serif;
     background:
-        radial-gradient(circle at 50% -10%, #252525 0%, #0e0e0e 35%, #030303 80%);
+        radial-gradient(
+            circle at 50% -10%,
+            #252525 0%,
+            #0e0e0e 35%,
+            #030303 80%
+        );
     color: #fff;
     overflow-x: hidden;
 }
@@ -31,53 +36,69 @@ body {
 .hero::before {
     content: "";
     position: absolute;
+
     top: -180px;
     left: 50%;
-    width: 650px;
-    height: 420px;
+
+    width: 700px;
+    height: 450px;
+
     transform: translateX(-50%);
-    background: radial-gradient(
-        circle,
-        rgba(255, 122, 0, 0.13),
-        transparent 68%
-    );
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 122, 0, 0.16),
+            transparent 68%
+        );
+
     filter: blur(25px);
+
     pointer-events: none;
 }
 
 /* =========================
-   MT
+   MT LOGO
 ========================= */
 
 .mt-logo {
     position: relative;
     display: inline-block;
 
-    font-family: Arial Black, Arial, sans-serif;
+    font-family:
+        Arial Black,
+        Arial,
+        sans-serif;
+
     font-size: 175px;
     font-weight: 1000;
+
     line-height: 0.8;
+
     letter-spacing: 12px;
 
     color: #ff7a00;
 
     text-shadow:
-        0 0 8px rgba(255, 122, 0, 0.85),
-        0 0 25px rgba(255, 122, 0, 0.55),
-        0 0 55px rgba(255, 122, 0, 0.25),
-        0 20px 50px rgba(0, 0, 0, 0.85);
+        0 0 8px rgba(255, 122, 0, 0.95),
+        0 0 25px rgba(255, 122, 0, 0.70),
+        0 0 55px rgba(255, 122, 0, 0.40),
+        0 0 100px rgba(255, 122, 0, 0.18),
+        0 20px 50px rgba(0, 0, 0, 0.9);
 
     animation: mtFloat 4s ease-in-out infinite;
 }
 
 .mt-logo::before {
     content: "MT";
+
     position: absolute;
     inset: 0;
 
     color: transparent;
 
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.18);
+    -webkit-text-stroke:
+        1px rgba(255, 255, 255, 0.20);
 
     filter: blur(1px);
 
@@ -88,6 +109,7 @@ body {
     content: "";
 
     position: absolute;
+
     top: 0;
     left: -100%;
 
@@ -96,17 +118,22 @@ body {
 
     transform: skewX(-20deg);
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.45),
-        transparent
-    );
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.55),
+            transparent
+        );
 
     animation: shine 4.5s ease-in-out infinite;
 
     pointer-events: none;
 }
+
+/* =========================
+   HERO TITLE
+========================= */
 
 .hero h1 {
     position: relative;
@@ -137,8 +164,7 @@ body {
 }
 
 /* =========================
-   4 CARDS
-   2 × 2
+   HOME SECTIONS
 ========================= */
 
 .sections {
@@ -149,13 +175,14 @@ body {
 
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
     gap: 28px;
 }
 
 /* =========================
-   CARD
+   MAIN CARD
 ========================= */
 
 .section-card {
@@ -166,8 +193,11 @@ body {
     padding: 50px 45px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     align-items: center;
 
     text-align: center;
@@ -178,7 +208,8 @@ body {
 
     overflow: hidden;
 
-    border: 1px solid #292929;
+    border:
+        1px solid #292929;
 
     border-radius: 30px;
 
@@ -200,7 +231,9 @@ body {
         box-shadow 0.4s ease;
 }
 
-/* إضاءة داخلية */
+/* =========================
+   CARD LIGHT
+========================= */
 
 .section-card::before {
     content: "";
@@ -215,7 +248,8 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.035);
+    background:
+        rgba(255, 255, 255, 0.035);
 
     filter: blur(100px);
 
@@ -224,7 +258,9 @@ body {
     pointer-events: none;
 }
 
-/* حدود داخلية */
+/* =========================
+   INNER BORDER
+========================= */
 
 .section-card::after {
     content: "";
@@ -233,15 +269,22 @@ body {
 
     inset: 10px;
 
-    border: 1px solid rgba(255, 255, 255, 0.025);
+    border:
+        1px solid rgba(255, 255, 255, 0.025);
 
     border-radius: 23px;
 
     pointer-events: none;
 }
 
+/* =========================
+   CARD HOVER
+========================= */
+
 .section-card:hover {
-    transform: translateY(-10px) scale(1.01);
+    transform:
+        translateY(-10px)
+        scale(1.01);
 
     border-color: #4b4b4b;
 
@@ -251,7 +294,42 @@ body {
 }
 
 .section-card:hover::before {
-    transform: translate(180px, 180px);
+    transform:
+        translate(180px, 180px);
+}
+
+/* =========================
+   ADMIN CARD
+========================= */
+
+.admin-home-card {
+    grid-column: 1 / -1;
+
+    width: calc(50% - 14px);
+
+    justify-self: center;
+
+    min-height: 500px;
+
+    border-color:
+        rgba(255, 122, 0, 0.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            #1e1a17 0%,
+            #131110 45%,
+            #090909 100%
+        );
+}
+
+.admin-home-card:hover {
+    border-color:
+        rgba(255, 122, 0, 0.55);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.78),
+        0 0 35px rgba(255, 122, 0, 0.08);
 }
 
 /* =========================
@@ -268,7 +346,9 @@ body {
     line-height: 1;
 
     filter:
-        drop-shadow(0 18px 25px rgba(0, 0, 0, 0.75));
+        drop-shadow(
+            0 18px 25px rgba(0, 0, 0, 0.75)
+        );
 
     transition:
         transform 0.4s ease,
@@ -276,14 +356,18 @@ body {
 }
 
 .section-card:hover .icon {
-    transform: scale(1.12) translateY(-7px);
+    transform:
+        scale(1.12)
+        translateY(-7px);
 
     filter:
-        drop-shadow(0 25px 35px rgba(0, 0, 0, 0.9));
+        drop-shadow(
+            0 25px 35px rgba(0, 0, 0, 0.9)
+        );
 }
 
 /* =========================
-   TITLE
+   CARD TITLE
 ========================= */
 
 .section-card h2 {
@@ -302,7 +386,7 @@ body {
 }
 
 /* =========================
-   DESCRIPTION
+   CARD DESCRIPTION
 ========================= */
 
 .section-card p {
@@ -330,7 +414,7 @@ body {
 }
 
 /* =========================
-   OPEN
+   OPEN BUTTON
 ========================= */
 
 .open {
@@ -340,7 +424,8 @@ body {
 
     padding: 11px 22px;
 
-    border: 1px solid #303030;
+    border:
+        1px solid #303030;
 
     border-radius: 13px;
 
@@ -364,7 +449,8 @@ body {
 
     border-color: #555;
 
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 }
 
 /* =========================
@@ -377,13 +463,15 @@ body {
 
     margin: 40px auto 80px;
 
-    animation: pageIn 0.6s ease both;
+    animation:
+        pageIn 0.6s ease both;
 }
 
 .characters-box {
     padding: 45px;
 
-    border: 1px solid #292929;
+    border:
+        1px solid #292929;
 
     border-radius: 28px;
 
@@ -406,7 +494,8 @@ body {
 .characters-list {
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
     gap: 22px;
 }
@@ -414,7 +503,8 @@ body {
 .character-card {
     padding: 30px;
 
-    border: 1px solid #292929;
+    border:
+        1px solid #292929;
 
     border-radius: 21px;
 
@@ -432,7 +522,8 @@ body {
 }
 
 .character-card:hover {
-    transform: translateY(-6px);
+    transform:
+        translateY(-6px);
 
     border-color: #555;
 
@@ -465,61 +556,13 @@ body {
 }
 
 /* =========================
-   BUTTON
+   CHARACTER REGISTER
 ========================= */
 
-.register-button {
-    display: flex;
+.character-register-box {
+    max-width: 1000px;
 
-    width: fit-content;
-
-    min-width: 245px;
-
-    min-height: 60px;
-
-    margin: 0 auto 30px;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 14px 28px;
-
-    border: 1px solid #444;
-
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1c1c1c,
-            #101010
-        );
-
-    color: #fff;
-
-    text-decoration: none;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.45);
-
-    transition: 0.35s ease;
-}
-
-.register-button:hover {
-    transform: translateY(-5px);
-
-    border-color: #666;
-
-    background: #1e1e1e;
-
-    box-shadow:
-        0 25px 55px rgba(0, 0, 0, 0.65);
+    margin: 0 auto;
 }
 
 /* =========================
@@ -529,7 +572,8 @@ body {
 .character-form {
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
     gap: 20px;
 }
@@ -557,7 +601,8 @@ body {
 
     padding: 0 18px;
 
-    border: 1px solid #303030;
+    border:
+        1px solid #303030;
 
     border-radius: 14px;
 
@@ -576,13 +621,18 @@ body {
     color: #777;
 }
 
+.character-form input:hover {
+    border-color: #444;
+}
+
 .character-form input:focus {
-    border-color: #555;
+    border-color: #666;
 
     background: #111;
 
     box-shadow:
-        0 0 0 3px rgba(255, 255, 255, 0.035);
+        0 0 0 3px
+        rgba(255, 255, 255, 0.035);
 }
 
 .character-form input[type="date"] {
@@ -594,7 +644,73 @@ body {
 }
 
 /* =========================
-   HEADINGS
+   BUTTON
+========================= */
+
+.register-button {
+    display: flex;
+
+    width: fit-content;
+
+    min-width: 245px;
+
+    min-height: 60px;
+
+    margin: 10px auto 0;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 28px;
+
+    border:
+        1px solid #444;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1c1c1c,
+            #101010
+        );
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.45);
+
+    transition: 0.35s ease;
+}
+
+.register-button:hover {
+    transform:
+        translateY(-5px);
+
+    border-color: #666;
+
+    background: #1e1e1e;
+
+    box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.65);
+}
+
+.register-button:active {
+    transform:
+        translateY(-1px);
+}
+
+/* =========================
+   SECTION HEADINGS
 ========================= */
 
 .section-header {
@@ -604,6 +720,8 @@ body {
 }
 
 .section-header h2 {
+    margin: 0;
+
     color: #fff;
 
     font-size: 34px;
@@ -621,6 +739,10 @@ body {
     margin: 16px auto 0;
 
     background: #555;
+
+    box-shadow:
+        0 0 15px
+        rgba(255, 255, 255, 0.08);
 }
 
 .page-heading h1 {
@@ -629,6 +751,8 @@ body {
     font-size: 44px;
 
     font-weight: 900;
+
+    margin-bottom: 0;
 }
 
 .page-heading p {
@@ -640,17 +764,19 @@ body {
 }
 
 /* =========================
-   EMPTY
+   EMPTY STATE
 ========================= */
 
 .empty {
     padding: 38px 20px;
 
-    border: 1px dashed #333;
+    border:
+        1px dashed #333;
 
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.015);
+    background:
+        rgba(255, 255, 255, 0.015);
 
     color: #fff;
 
@@ -680,11 +806,13 @@ footer {
 @keyframes mtFloat {
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-6px);
+        transform:
+            translateY(-6px);
     }
 }
 
@@ -712,28 +840,34 @@ footer {
 @keyframes pageIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+
+        transform:
+            translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
 /* =========================
    MOBILE
-   STILL 2 × 2
+   2 × 2
 ========================= */
 
 @media (max-width: 700px) {
 
     .hero {
-        padding: 55px 10px 40px;
+        padding:
+            55px 10px 40px;
     }
 
     .mt-logo {
         font-size: 82px;
+
         letter-spacing: 6px;
     }
 
@@ -745,16 +879,13 @@ footer {
         font-size: 15px;
     }
 
-    /*
-       مهم:
-       لا نغيرها إلى 1 column
-       تبقى 2 × 2
-    */
+    /* الصفحة الرئيسية تبقى 2 × 2 */
 
     .sections {
         width: 96%;
 
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
 
         gap: 10px;
 
@@ -764,9 +895,20 @@ footer {
     .section-card {
         min-height: 340px;
 
-        padding: 25px 12px;
+        padding:
+            25px 12px;
 
         border-radius: 20px;
+    }
+
+    /* الإدارة تبقى في المنتصف */
+
+    .admin-home-card {
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+        min-height: 340px;
     }
 
     .icon {
@@ -794,21 +936,72 @@ footer {
     .open {
         margin-top: 16px;
 
-        padding: 8px 12px;
+        padding:
+            8px 12px;
 
         font-size: 12px;
     }
 
+    .character-page {
+        width: 94%;
+
+        margin-top: 25px;
+    }
+
+    .characters-box {
+        padding: 25px 15px;
+
+        border-radius: 20px;
+    }
+
     .characters-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .character-card {
+        padding: 18px;
+
+        border-radius: 17px;
+    }
+
+    .character-name {
+        font-size: 20px;
+    }
+
+    .character-details {
+        font-size: 13px;
+
+        gap: 8px;
     }
 
     .character-form {
         grid-template-columns: 1fr;
+
+        gap: 15px;
     }
 
     .character-form .register-button {
-        grid-column: auto;
+        grid-column: 1 / -1;
+    }
+
+    .register-button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .section-header h2 {
+        font-size: 27px;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .page-heading p {
+        font-size: 15px;
     }
 }
 
@@ -829,7 +1022,12 @@ footer {
     .section-card {
         min-height: 320px;
 
-        padding: 20px 8px;
+        padding:
+            20px 8px;
+    }
+
+    .admin-home-card {
+        min-height: 320px;
     }
 
     .icon {
@@ -851,6 +1049,19 @@ footer {
     .open {
         font-size: 10px;
 
-        padding: 7px 9px;
+        padding:
+            7px 9px;
+    }
+
+    .character-card {
+        padding: 14px;
+    }
+
+    .character-name {
+        font-size: 17px;
+    }
+
+    .character-details {
+        font-size: 11px;
     }
 }
