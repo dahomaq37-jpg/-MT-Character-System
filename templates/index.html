@@ -15,9 +15,7 @@
 
 </head>
 
-
 <body>
-
 
 <header class="hero">
 
@@ -34,7 +32,6 @@
     </p>
 
 </header>
-
 
 
 <main class="sections">
@@ -81,7 +78,6 @@
     </a>
 
 
-
     <!-- الشرطة -->
 
     <a href="/police"
@@ -120,7 +116,6 @@
         </span>
 
     </a>
-
 
 
     <!-- وزارة العدل -->
@@ -163,7 +158,6 @@
     </a>
 
 
-
     <!-- الصحة -->
 
     <a href="/health"
@@ -204,6 +198,51 @@
     </a>
 
 
+    <!-- العصابات -->
+
+    <a href="/gangs"
+       class="section-card">
+
+        <div class="icon">
+            🏴
+        </div>
+
+        <h2>
+            العصابات
+        </h2>
+
+        <p>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
+
+            <br>
+
+            إدارة العصابات والأعضاء والرتب.
+        </p>
+
+        <p>
+            <strong>
+                العصابات الموجودة
+            </strong>
+
+            <br>
+
+            Scrap
+            <br>
+
+            Death Line
+            <br>
+
+            Trickster
+        </p>
+
+        <span class="open">
+            دخول القسم ←
+        </span>
+
+    </a>
+
 
     <!-- الإدارة -->
 
@@ -232,8 +271,8 @@
 
                 <br>
 
-                إدارة الرتب والصلاحيات
-                وإدارة المدراء والأقسام.
+                مركز تحكم كامل لإدارة النظام
+                والرتب والصلاحيات والأقسام.
             </p>
 
             <p>
@@ -243,7 +282,7 @@
 
                 <br>
 
-                أصحاب صلاحيات الإدارة فقط.
+                أصحاب صلاحيات الإدارة.
             </p>
 
             <span class="open">
@@ -258,7 +297,6 @@
 </main>
 
 
-
 <footer>
 
     MT Character System © 2026
@@ -266,22 +304,70 @@
 </footer>
 
 
-
 <style>
 
-/* ================================= */
-/* بطاقة الإدارة */
-/* ================================= */
+.sections {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px;
+
+    width: min(1200px, 94%);
+
+    margin: 40px auto;
+
+}
+
+
+.section-card {
+
+    min-height: 360px;
+
+    box-sizing: border-box;
+
+}
+
+
+.section-card .icon {
+
+    font-size: 48px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.section-card h2 {
+
+    margin-bottom: 14px;
+
+}
+
+
+.section-card p {
+
+    line-height: 1.8;
+
+}
+
+
+.open {
+
+    display: inline-block;
+
+    margin-top: 18px;
+
+    font-weight: bold;
+
+}
+
+
+/* الإدارة */
 
 .admin-home-card {
-
-    grid-column: 1 / -1;
-
-    width: calc(50% - 14px);
-
-    justify-self: center;
-
-    min-height: 500px;
 
     border-color:
         rgba(255, 122, 0, 0.25);
@@ -307,19 +393,20 @@
 }
 
 
-/* ================================= */
 /* الجوال */
-/* ================================= */
 
 @media (max-width: 700px) {
 
-    .admin-home-card {
+    .sections {
 
-        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
 
-        width: 100%;
+    }
 
-        min-height: 340px;
+
+    .section-card {
+
+        min-height: 320px;
 
     }
 
