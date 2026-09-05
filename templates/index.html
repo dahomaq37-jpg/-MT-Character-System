@@ -2,17 +2,23 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         MT Character System
     </title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
 </head>
 
 
@@ -33,19 +39,62 @@
         نظام إدارة الشخصيات والأقسام
     </p>
 
-</header>
 
+    {% if current_user %}
+
+        <div class="user-bar">
+
+            <span>
+                مرحبًا،
+                {{ current_user["username"] }}
+            </span>
+
+            {% if current_user["is_owner"] %}
+
+                <span class="role-badge">
+                    Owner
+                </span>
+
+            {% else %}
+
+                <span class="role-badge">
+                    {{ current_user["role"] or "Helper" }}
+                </span>
+
+            {% endif %}
+
+            <a href="/logout">
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="user-bar">
+
+            <a href="/login">
+                تسجيل الدخول
+            </a>
+
+            <a href="/register">
+                إنشاء حساب
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</header>
 
 
 <main class="sections">
 
 
-    <!-- ==============================
-         الشخصيات
-    =============================== -->
-
-    <a href="/characters"
-       class="section-card">
+    <a
+        href="/characters"
+        class="section-card"
+    >
 
         <div class="icon">
             👤
@@ -56,25 +105,29 @@
         </h2>
 
         <p>
+
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            إنشاء وعرض وإدارة بيانات الشخصيات
-            داخل النظام.
+            إنشاء وعرض وإدارة الشخصيات
+            الخاصة بك.
+
         </p>
 
         <p>
+
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            لجميع الأشخاص الذين يريدون إنشاء
-            أو مشاهدة الشخصيات.
+            لكل مستخدم لديه حساب
+            ويريد إنشاء شخصياته.
+
         </p>
 
         <span class="open">
@@ -85,12 +138,10 @@
 
 
 
-    <!-- ==============================
-         الشرطة
-    =============================== -->
-
-    <a href="/police"
-       class="section-card">
+    <a
+        href="/police"
+        class="section-card"
+    >
 
         <div class="icon">
             👮
@@ -101,25 +152,28 @@
         </h2>
 
         <p>
+
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
 
             <br>
 
-            قسم خاص بإدارة أفراد الشرطة
-            والرتب والبيانات.
+            قسم الشرطة والرتب والبيانات.
+
         </p>
 
         <p>
+
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            أفراد الشرطة والمدراء المخولين
-            بإدارة القطاع.
+            أفراد الشرطة والمدراء
+            المخولين.
+
         </p>
 
         <span class="open">
@@ -130,12 +184,10 @@
 
 
 
-    <!-- ==============================
-         وزارة العدل
-    =============================== -->
-
-    <a href="/justice"
-       class="section-card">
+    <a
+        href="/justice"
+        class="section-card"
+    >
 
         <div class="icon">
             ⚖️
@@ -146,6 +198,7 @@
         </h2>
 
         <p>
+
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
@@ -153,18 +206,21 @@
             <br>
 
             إدارة أفراد وزارة العدل
-            وبياناتهم ورتبهم.
+            ورتبهم.
+
         </p>
 
         <p>
+
             <strong>
                 مخصص لمين؟
             </strong>
 
             <br>
 
-            أفراد وزارة العدل والمدراء
-            المخولين بالإدارة.
+            أفراد العدل والمدراء
+            المخولين.
+
         </p>
 
         <span class="open">
@@ -175,12 +231,10 @@
 
 
 
-    <!-- ==============================
-         الصحة
-    =============================== -->
-
-    <a href="/health"
-       class="section-card">
+    <a
+        href="/health"
+        class="section-card"
+    >
 
         <div class="icon">
             🏥
@@ -191,6 +245,7 @@
         </h2>
 
         <p>
+
             <strong>
                 وش معنى ذا الخيار؟
             </strong>
@@ -198,10 +253,12 @@
             <br>
 
             إدارة أفراد القطاع الصحي
-            وبياناتهم ورتبهم.
+            ورتبهم.
+
         </p>
 
         <p>
+
             <strong>
                 مخصص لمين؟
             </strong>
@@ -209,7 +266,8 @@
             <br>
 
             أفراد الصحة والمدراء
-            المخولين بإدارة القطاع.
+            المخولين.
+
         </p>
 
         <span class="open">
@@ -222,51 +280,50 @@
 </main>
 
 
+{% if current_user and (
+    current_user["is_owner"]
+    or has_permission("permissions_view")
+    or has_permission("admins_manage")
+) %}
 
-<!-- ==============================
-     الإدارة
-================================ -->
 
-{% if current_user %}
+<section class="admin-section">
 
-    {% if current_user["is_owner"]
-       or has_permission("permissions_view")
-       or has_permission("admins_manage") %}
 
-    <section class="admin-section">
+    <a
+        href="/admin/permissions"
+        class="admin-card"
+    >
 
-        <a href="/admin/permissions"
-           class="admin-card">
+        <div class="admin-icon">
+            ⚙️
+        </div>
 
-            <div class="admin-icon">
-                ⚙️
-            </div>
 
-            <div>
+        <div class="admin-content">
 
-                <h2>
-                    الإدارة
-                </h2>
+            <h2>
+                الإدارة
+            </h2>
 
-                <p>
-                    إدارة المستخدمين والرتب
-                    والصلاحيات الخاصة بالنظام.
-                </p>
+            <p>
+                إدارة المدراء والصلاحيات
+                وإعطاء الرتب للشخصيات.
+            </p>
 
-                <span>
-                    دخول لوحة الإدارة ←
-                </span>
+            <span>
+                دخول لوحة الإدارة ←
+            </span>
 
-            </div>
+        </div>
 
-        </a>
+    </a>
 
-    </section>
 
-    {% endif %}
+</section>
+
 
 {% endif %}
-
 
 
 <footer>
@@ -276,12 +333,68 @@
 </footer>
 
 
-
 <style>
+
+    .user-bar {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 12px;
+
+        margin-top: 25px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .user-bar a {
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 8px 15px;
+
+        border: 1px solid #333;
+
+        border-radius: 10px;
+
+        background: #111;
+
+    }
+
+
+    .user-bar a:hover {
+
+        border-color: #ff7a00;
+
+    }
+
+
+    .role-badge {
+
+        padding: 7px 14px;
+
+        border-radius: 10px;
+
+        border: 1px solid #ff7a00;
+
+        color: #ff7a00;
+
+        background: #111;
+
+        font-weight: bold;
+
+    }
+
 
     .admin-section {
 
         width: 94%;
+
         max-width: 1100px;
 
         margin: 35px auto 0;
@@ -315,7 +428,8 @@
         border-radius: 22px;
 
         box-shadow:
-            0 15px 50px rgba(0,0,0,.45);
+            0 15px 50px
+            rgba(0,0,0,.45);
 
         transition: .25s;
 
@@ -389,12 +503,6 @@
 
     @media (max-width: 700px) {
 
-        .admin-section {
-
-            width: 96%;
-
-        }
-
         .admin-card {
 
             padding: 20px;
@@ -402,6 +510,7 @@
             gap: 15px;
 
         }
+
 
         .admin-icon {
 
@@ -412,11 +521,13 @@
 
         }
 
+
         .admin-card h2 {
 
             font-size: 21px;
 
         }
+
 
         .admin-card p {
 
@@ -430,4 +541,5 @@
 
 
 </body>
+
 </html>
