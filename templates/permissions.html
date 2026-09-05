@@ -1,84 +1,258 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>الصلاحيات - MT</title>
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
+
 <body>
+
+
 <header class="hero">
-    <div class="mt-logo">MT</div>
-    <div class="page-heading">
-        <h1>إدارة الصلاحيات</h1>
-        <p>التحكم في صلاحيات مستخدمي النظام</p>
+
+    <div class="mt-logo">
+        MT
     </div>
+
+    <h1>
+        إدارة الصلاحيات
+    </h1>
+
+    <p>
+        الرتب والصلاحيات الإدارية
+    </p>
+
 </header>
+
+
 <main class="character-page">
-    <section class="characters-box">
-        <div class="section-header">
-            <h2>الصلاحيات</h2>
-            <span class="section-line"></span>
+
+
+<section class="characters-box">
+
+
+<div class="section-header">
+
+    <h2>
+        إدارة رتب وصلاحيات المستخدمين
+    </h2>
+
+    <span class="section-line"></span>
+
+</div>
+
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        <div class="flash-messages">
+
+            {% for message in messages %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
         </div>
-        {% if users %}
-            <div class="characters-list">
-                {% for user in users %}
-                    <div class="character-card">
-                        <div class="character-name">
-                            👤 {{ user["username"] }}
-                        </div>
-                        <div class="character-details">
-                            <div>
-                                رقم المستخدم:
-                                {{ user["id"] }}
-                            </div>
-                            <div>
-                                الصلاحيات الحالية:
-                            </div>
-                        </div>
-                        <form method="POST"
-                              action="{{ url_for('permissions') }}">
-                            <input
-                                type="hidden"
-                                name="user_id"
-                                value="{{ user['id'] }}"
-                            >
-                            <div class="permission-list">
-                                {% for key, name in permissions.items() %}
-                                    <label class="permission-item">
-                                        <input
-                                            type="checkbox"
-                                            name="permissions"
-                                            value="{{ key }}"
-                                            {% if key in user_permissions.get(user["id"], []) %}
-                                                checked
-                                            {% endif %}
-                                        >
-                                        <span>
-                                            {{ name }}
-                                        </span>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            <button
-                                type="submit"
-                                class="register-button">
-                                حفظ الصلاحيات
-                            </button>
-                        </form>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="empty">
-                لا يوجد مستخدمون حاليًا
-            </div>
-        {% endif %}
-    </section>
+
+    {% endif %}
+
+{% endwith %}
+
+
+{% if users %}
+
+
+<div class="characters-list">
+
+
+{% for account in users %}
+
+
+<div class="character-card">
+
+
+<div class="character-name">
+
+    👤 {{ account["username"] }}
+
+    {% if account["is_owner"] %}
+
+        <span>
+            👑 Owner
+        </span>
+
+    {% endif %}
+
+</div>
+
+
+{% if account["is_owner"] %}
+
+
+<div class="character-details">
+
+    <div>
+        👑 الرتبة:
+        <strong>
+            Owner
+        </strong>
+    </div>
+
+    <div>
+        🔐 الصلاحيات:
+        <strong>
+            جميع الصلاحيات
+        </strong>
+    </div>
+
+    <div>
+        ⚠️ لا يمكن تعديل أو سحب صلاحيات الـ Owner.
+    </div>
+
+</div>
+
+
+{% else %}
+
+
+<form method="POST"
+      action="{{ url_for('update_permissions', user_id=account['id']) }}"
+      class="character-form">
+
+
+<label>
+    🏷️ الرتبة
+</label>
+
+
+<select name="role">
+
+{% for role_key, role_data in ROLES.items() %}
+
+    {% if role_key != "owner" %}
+
+        <option value="{{ role_key }}"
+            {% if user_roles.get(account["id"]) == role_key %}
+                selected
+            {% endif %}>
+
+            {{ role_data["name"] }}
+
+        </option>
+
+    {% endif %}
+
+{% endfor %}
+
+</select>
+
+
+<div class="section-header"
+     style="margin-top:25px;">
+
+    <h2>
+        🔐 الصلاحيات
+    </h2>
+
+    <span class="section-line"></span>
+
+</div>
+
+
+<div class="permissions-grid">
+
+
+{% for permission_key, permission_name in permissions.items() %}
+
+
+<label class="permission-item">
+
+
+<input
+    type="checkbox"
+    name="permissions"
+    value="{{ permission_key }}"
+
+    {% if permission_key in user_permissions.get(account["id"], set()) %}
+        checked
+    {% endif %}
+
+/>
+
+
+<span>
+    {{ permission_name }}
+</span>
+
+
+</label>
+
+
+{% endfor %}
+
+
+</div>
+
+
+<button type="submit"
+        class="register-button">
+
+    حفظ الرتبة والصلاحيات
+
+</button>
+
+
+</form>
+
+
+{% endif %}
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="empty">
+    لا يوجد مستخدمون.
+</div>
+
+
+{% endif %}
+
+
+</section>
+
+
 </main>
+
+
 <footer>
     MT Character System © 2026
 </footer>
+
+
 </body>
 </html>
