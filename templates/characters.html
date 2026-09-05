@@ -2,147 +2,643 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>الشخصيات - MT</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>
+        الشخصيات - MT
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
 </head>
+
 
 <body>
 
+
 <header class="hero">
 
-    <div class="mt-logo">MT</div>
+    <div class="mt-logo">
+        MT
+    </div>
 
-    <h1>الشخصيات</h1>
+    <h1>
+        الشخصيات
+    </h1>
 
-    <p>إدارة شخصياتك وبياناتها</p>
+    <p>
+        إدارة ومشاهدة الشخصيات
+    </p>
 
 </header>
 
 
 <main class="character-page">
 
-    <a href="{{ url_for('register_character') }}"
-       class="register-button">
 
-        + تسجيل شخصية
+    <div class="character-topbar">
 
-    </a>
+        <div>
 
+            {% if admin_view %}
 
-    <section class="characters-box">
+                <h2>
+                    جميع الشخصيات
+                </h2>
 
-        <h2>شخصياتي</h2>
+                <p>
+                    عندك صلاحية مشاهدة جميع الشخصيات.
+                </p>
 
+            {% else %}
 
-        {% if characters %}
+                <h2>
+                    شخصياتي
+                </h2>
 
-            <div class="characters-list">
+                <p>
+                    تظهر هنا الشخصيات التي أنشأتها
+                    من حسابك.
+                </p>
 
-                {% for item in characters %}
+            {% endif %}
 
-                    {% set character = item["character"] %}
-
-                    <div class="character-card">
-
-                        <div class="character-name">
-
-                            👤
-
-                            {{ character["first_name"] }}
-                            {{ character["second_name"] }}
-
-                        </div>
+        </div>
 
 
-                        <div class="character-details">
+        <a
+            href="/characters/register"
+            class="register-button"
+        >
+            + إنشاء شخصية
+        </a>
 
-                            <div>
-                                🌍 الدولة:
-                                {{ character["country"] }}
-                            </div>
-
-                            <div>
-                                🪪 الجنسية:
-                                {{ character["nationality"] }}
-                            </div>
-
-                            <div>
-                                🎂 تاريخ الميلاد:
-                                {{ character["birth_date"] }}
-                            </div>
-
-                        </div>
+    </div>
 
 
-                        {% if item["ranks"] %}
+    {% with messages = get_flashed_messages() %}
 
-                            <div class="character-ranks">
+        {% if messages %}
 
-                                {% for rank in item["ranks"] %}
+            <div class="messages">
 
-                                    <div>
-                                        الرتبة:
-                                        {{ rank["rank"] }}
-                                    </div>
+                {% for message in messages %}
 
-                                {% endfor %}
-
-                            </div>
-
-                        {% endif %}
-
-
-                        {% if item["departments"] %}
-
-                            <div class="character-departments">
-
-                                {% for department in item["departments"] %}
-
-                                    <span>
-                                        {{ department["department"] }}
-                                    </span>
-
-                                {% endfor %}
-
-                            </div>
-
-                        {% else %}
-
-                            <div class="general-rank">
-                                الرتبة العامة: يوجد شخصية
-                            </div>
-
-                        {% endif %}
-
+                    <div class="message">
+                        {{ message }}
                     </div>
 
                 {% endfor %}
 
             </div>
 
-
-        {% else %}
-
-            <div class="empty">
-                لا توجد شخصيات مسجلة حاليًا
-            </div>
-
         {% endif %}
 
-    </section>
+    {% endwith %}
+
+
+
+    {% if characters %}
+
+
+    <div class="characters-list">
+
+
+        {% for item in characters %}
+
+
+        <article class="character-card">
+
+
+            <div class="character-name">
+
+                👤
+
+                {{ item.character["full_name"] }}
+
+            </div>
+
+
+            <div class="character-details">
+
+                <div>
+                    🌍 الدولة:
+                    {{ item.character["country"] }}
+                </div>
+
+                <div>
+                    🪪 الجنسية:
+                    {{ item.character["nationality"] }}
+                </div>
+
+                <div>
+                    🎂 تاريخ الميلاد:
+                    {{ item.character["birth_date"] }}
+                </div>
+
+
+                <div>
+
+                    🏷️ الحالة:
+
+                    <strong>
+                        يوجد شخصية
+                    </strong>
+
+                </div>
+
+
+                {% if item.departments %}
+
+
+                <div class="department-list">
+
+                    <strong>
+                        الأقسام:
+                    </strong>
+
+
+                    {% for department in item.departments %}
+
+                        <div class="department-item">
+
+                            🏢
+
+                            {{ DEPARTMENTS.get(
+                                department["department"],
+                                department["department"]
+                            ) }}
+
+                            —
+
+                            <span>
+                                {{ department["rank_name"] or "بدون رتبة" }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+            <div class="character-actions">
+
+                <a
+                    href="/characters/{{ item.character['id'] }}"
+                    class="open-button"
+                >
+                    عرض التفاصيل
+                </a>
+
+
+                {% if can_edit_all %}
+
+                    <span class="permission-label">
+                        تعديل متاح
+                    </span>
+
+                {% endif %}
+
+
+                {% if can_delete_all %}
+
+                    <span class="permission-label">
+                        حذف متاح
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+        </article>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="empty-box">
+
+        <div class="empty-icon">
+            👤
+        </div>
+
+        <h2>
+            ما عندك شخصيات
+        </h2>
+
+        <p>
+            أنشئ شخصيتك الأولى وبتظهر هنا.
+        </p>
+
+        <a
+            href="/characters/register"
+            class="register-button"
+        >
+            إنشاء شخصية
+        </a>
+
+    </div>
+
+
+    {% endif %}
+
+
+    <a
+        href="/"
+        class="back-button"
+    >
+        ← العودة للرئيسية
+    </a>
+
 
 </main>
 
 
 <footer>
+
     MT Character System © 2026
+
 </footer>
 
 
+<style>
+
+    .character-page {
+
+        width: 94%;
+
+        max-width: 1100px;
+
+        margin: auto;
+
+    }
+
+
+    .character-topbar {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 20px;
+
+        margin-bottom: 30px;
+
+        padding: 20px;
+
+        background: #0d0d0d;
+
+        border: 1px solid #292929;
+
+        border-radius: 18px;
+
+    }
+
+
+    .character-topbar h2 {
+
+        margin: 0 0 7px;
+
+    }
+
+
+    .character-topbar p {
+
+        margin: 0;
+
+        color: #999;
+
+    }
+
+
+    .characters-list {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+
+    }
+
+
+    .character-card {
+
+        padding: 24px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #151515,
+                #090909
+            );
+
+        border: 1px solid #292929;
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 15px 40px
+            rgba(0,0,0,.35);
+
+    }
+
+
+    .character-card:hover {
+
+        border-color: #ff7a00;
+
+    }
+
+
+    .character-name {
+
+        font-size: 23px;
+
+        font-weight: bold;
+
+        margin-bottom: 20px;
+
+        color: white;
+
+    }
+
+
+    .character-details {
+
+        display: grid;
+
+        gap: 12px;
+
+        color: #bbb;
+
+        line-height: 1.7;
+
+    }
+
+
+    .character-details strong {
+
+        color: #ff7a00;
+
+    }
+
+
+    .department-list {
+
+        margin-top: 8px;
+
+        padding-top: 15px;
+
+        border-top: 1px solid #292929;
+
+    }
+
+
+    .department-item {
+
+        margin-top: 8px;
+
+        padding: 10px;
+
+        background: #101010;
+
+        border-radius: 10px;
+
+    }
+
+
+    .department-item span {
+
+        color: #ff7a00;
+
+        font-weight: bold;
+
+    }
+
+
+    .character-actions {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        flex-wrap: wrap;
+
+        margin-top: 22px;
+
+    }
+
+
+    .open-button,
+    .register-button,
+    .back-button {
+
+        display: inline-block;
+
+        padding: 11px 18px;
+
+        border-radius: 10px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+    }
+
+
+    .open-button {
+
+        color: white;
+
+        background: #151515;
+
+        border: 1px solid #333;
+
+    }
+
+
+    .open-button:hover {
+
+        border-color: #ff7a00;
+
+    }
+
+
+    .register-button {
+
+        color: white;
+
+        background: #ff7a00;
+
+        border: 1px solid #ff7a00;
+
+    }
+
+
+    .register-button:hover {
+
+        background: #e86e00;
+
+    }
+
+
+    .permission-label {
+
+        color: #ff7a00;
+
+        font-size: 13px;
+
+    }
+
+
+    .empty-box {
+
+        text-align: center;
+
+        padding: 60px 20px;
+
+        background: #0d0d0d;
+
+        border: 1px solid #292929;
+
+        border-radius: 20px;
+
+    }
+
+
+    .empty-icon {
+
+        font-size: 50px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .empty-box p {
+
+        color: #999;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .back-button {
+
+        margin-top: 25px;
+
+        color: #aaa;
+
+        border: 1px solid #292929;
+
+    }
+
+
+    .messages {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .message {
+
+        padding: 14px;
+
+        background: #111;
+
+        border: 1px solid #ff7a00;
+
+        color: white;
+
+        border-radius: 12px;
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .characters-list {
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+
+        }
+
+
+        .character-card {
+
+            padding: 15px;
+
+        }
+
+
+        .character-name {
+
+            font-size: 17px;
+
+        }
+
+
+        .character-details {
+
+            font-size: 12px;
+
+        }
+
+
+        .character-topbar {
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+        }
+
+
+        .register-button {
+
+            text-align: center;
+
+        }
+
+    }
+
+</style>
+
+
 </body>
+
 </html>
