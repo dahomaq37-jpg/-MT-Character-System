@@ -3404,35 +3404,29 @@ def remove_gang(character_id):
 # =========================================================
 # الإدارة
 # =========================================================
-
 @app.route("/admin")
 def admin_panel():
-
     user = current_user()
-
+    # لا توجد صفحة تسجيل دخول إضافية للإدارة.
+    # يجب أن يكون المستخدم مسجل دخول بحسابه العادي،
+    # وأن تكون لديه رتبة/صلاحية تسمح له بدخول الإدارة.
     if not user:
-
         return redirect(
             url_for("login")
         )
-
     if not (
         has_section_access("admin")
         or has_permission("admins_manage")
         or has_permission("admins_add")
         or has_permission("permissions_view")
     ):
-
         flash(
             "لا تملك صلاحية دخول الإدارة."
         )
-
         return redirect(
             url_for("home")
         )
-
     db = get_db()
-
     characters = db.execute("""
         SELECT
             characters.id,
@@ -3441,15 +3435,11 @@ def admin_panel():
             users.username,
             users.role,
             users.is_owner
-
         FROM characters
-
         LEFT JOIN users
         ON users.id = characters.user_id
-
         ORDER BY characters.full_name
     """).fetchall()
-
     users_list = db.execute("""
         SELECT
             id,
@@ -3461,15 +3451,12 @@ def admin_panel():
         FROM users
         ORDER BY username
     """).fetchall()
-
     custom_roles = db.execute("""
         SELECT *
         FROM custom_admin_roles
         ORDER BY id DESC
     """).fetchall()
-
     db.close()
-
     return render_template(
         "permissions.html",
         characters=characters,
@@ -3482,7 +3469,7 @@ def admin_panel():
         admin_permissions_page=True,
         role_display_name=role_display_name
     )
-
+    
 
 # =========================================================
 # إعطاء رتبة إدارية لشخصية
