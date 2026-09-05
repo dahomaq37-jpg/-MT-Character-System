@@ -1,87 +1,101 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MT Character System</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <header class="hero">
-        <div class="mt-logo">MT</div>
+<header class="hero">
 
-        <h1>MT Character System</h1>
-        <p>نظام إدارة الشخصيات والأقسام</p>
-    </header>
+    <div class="mt-logo">MT</div>
 
+    <h1>MT Character System</h1>
 
-    <main class="sections">
+    <p>نظام إدارة الشخصيات والأقسام</p>
 
-        <a href="/characters" class="section-card">
-            <div class="icon">👤</div>
-
-            <h2>الشخصيات</h2>
-
-            <p>
-                إنشاء وإدارة الشخصيات وعرض بياناتها
-                ومتابعة جميع التفاصيل الخاصة بها.
-            </p>
-
-            <span class="open">دخول القسم ←</span>
-        </a>
+</header>
 
 
-        <a href="/police" class="section-card">
-            <div class="icon">👮</div>
+<main class="sections">
 
-            <h2>الشرطة</h2>
+    <a href="/characters" class="section-card">
 
-            <p>
-                إدارة أفراد الشرطة وبياناتهم
-                حسب الصلاحيات الممنوحة لهم.
-            </p>
+        <div class="icon">👤</div>
 
-            <span class="open">دخول القسم ←</span>
-        </a>
+        <h2>الشخصيات</h2>
 
+        <p>
+            إنشاء وإدارة الشخصيات وعرض بياناتها
+            ومتابعة جميع التفاصيل الخاصة بها.
+        </p>
 
-        <a href="/justice" class="section-card">
-            <div class="icon">⚖️</div>
+        <span class="open">دخول القسم ←</span>
 
-            <h2>وزارة العدل</h2>
-
-            <p>
-                تنظيم وإدارة أفراد وزارة العدل
-                والبيانات الخاصة بالقسم.
-            </p>
-
-            <span class="open">دخول القسم ←</span>
-        </a>
+    </a>
 
 
-        <a href="/health" class="section-card">
-            <div class="icon">🏥</div>
+    <a href="/police" class="section-card">
 
-            <h2>الصحة</h2>
+        <div class="icon">👮</div>
 
-            <p>
-                إدارة أفراد القطاع الصحي
-                ومتابعة بياناتهم داخل النظام.
-            </p>
+        <h2>الشرطة</h2>
 
-            <span class="open">دخول القسم ←</span>
-        </a>
+        <p>
+            إدارة أفراد الشرطة وبياناتهم
+            حسب الصلاحيات الممنوحة لهم.
+        </p>
 
-    </main>
+        <span class="open">دخول القسم ←</span>
+
+    </a>
 
 
-    <footer>
-        MT Character System © 2026
-    </footer>
+    <a href="/justice" class="section-card">
+
+        <div class="icon">⚖️</div>
+
+        <h2>وزارة العدل</h2>
+
+        <p>
+            تنظيم وإدارة أفراد وزارة العدل
+            والبيانات الخاصة بالقسم.
+        </p>
+
+        <span class="open">دخول القسم ←</span>
+
+    </a>
+
+
+    <a href="/health" class="section-card">
+
+        <div class="icon">🏥</div>
+
+        <h2>الصحة</h2>
+
+        <p>
+            إدارة أفراد القطاع الصحي
+            ومتابعة بياناتهم داخل النظام.
+        </p>
+
+        <span class="open">دخول القسم ←</span>
+
+    </a>
+
+</main>
+
+
+<footer>
+    MT Character System © 2026
+</footer>
+
 
 </body>
 </html>
