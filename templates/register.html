@@ -2,47 +2,88 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>إنشاء حساب - MT</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 
 <body>
 
+
 <header class="hero">
 
-    <div class="mt-logo">MT</div>
+    <div class="mt-logo">
+        MT
+    </div>
 
     <div class="page-heading">
-        <h1>إنشاء حساب</h1>
-        <p>إنشاء حساب جديد في MT Character System</p>
+
+        <h1>
+            إنشاء حساب
+        </h1>
+
+        <p>
+            إنشاء حساب جديد في MT Character System
+        </p>
+
     </div>
 
 </header>
 
 
+
 <main class="character-page">
+
 
     <section class="characters-box character-register-box">
 
-        <div class="section-header">
-            <h2>بيانات الحساب</h2>
-            <span class="section-line"></span>
+
+        <div class="register-header">
+
+            <div class="register-icon">
+                ✦
+            </div>
+
+            <h2>
+                إنشاء حساب جديد
+            </h2>
+
+            <p>
+                أدخل بياناتك لإنشاء حساب في النظام
+            </p>
+
         </div>
 
 
+
         {% if error %}
-            <div class="empty">
-                {{ error }}
+
+            <div class="register-error">
+
+                ⚠️
+
+                <span>
+                    {{ error }}
+                </span>
+
             </div>
+
         {% endif %}
 
 
-        <form method="POST" class="character-form">
+
+        <form method="POST"
+              class="character-form register-form">
+
 
             <div class="form-group">
 
@@ -60,7 +101,12 @@
                     required
                 >
 
+                <small>
+                    يجب أن يكون اسم المستخدم 3 أحرف أو أكثر.
+                </small>
+
             </div>
+
 
 
             <div class="form-group">
@@ -79,7 +125,12 @@
                     required
                 >
 
+                <small>
+                    يجب أن تكون كلمة المرور 6 أحرف أو أكثر.
+                </small>
+
             </div>
+
 
 
             <div class="form-group">
@@ -101,35 +152,388 @@
             </div>
 
 
-            <button type="submit" class="register-button">
+
+            <button type="submit"
+                    class="register-button register-submit">
+
                 إنشاء الحساب
+
+                <span>
+                    ←
+                </span>
+
             </button>
+
 
         </form>
 
 
-        <div style="text-align:center; margin-top:25px; color:#fff;">
 
-            <span>لديك حساب بالفعل؟</span>
+        <div class="register-divider">
 
-            <a href="{{ url_for('login') }}"
-               style="color:#fff; font-weight:800; text-decoration:none;">
+            <span>
+                أو
+            </span>
 
+        </div>
+
+
+
+        <div class="login-link">
+
+            <span>
+                لديك حساب بالفعل؟
+            </span>
+
+            <a href="{{ url_for('login') }}">
                 تسجيل الدخول
-
             </a>
 
         </div>
 
+
     </section>
+
 
 </main>
 
 
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
 
 
+
+<style>
+
+
+.character-register-box {
+
+    max-width: 540px;
+
+    margin: 45px auto;
+
+    padding: 35px;
+
+}
+
+
+.register-header {
+
+    text-align: center;
+
+    padding-bottom: 25px;
+
+}
+
+
+.register-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #101010
+        );
+
+    border: 1px solid
+        rgba(255, 122, 0, 0.35);
+
+    color: #ff7a00;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.register-header h2 {
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+}
+
+
+.register-header p {
+
+    margin: 8px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.register-error {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 60, 60, 0.08);
+
+    border: 1px solid
+        rgba(255, 60, 60, 0.25);
+
+    color: #ff7777;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.register-form {
+
+    gap: 18px;
+
+}
+
+
+.register-form .form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.register-form label {
+
+    color: #ddd;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.register-form input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 15px 16px;
+
+    border-radius: 12px;
+
+    border: 1px solid #292929;
+
+    outline: none;
+
+    background: #101010;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    transition: .2s;
+
+}
+
+
+.register-form input::placeholder {
+
+    color: #555;
+
+}
+
+
+.register-form input:focus {
+
+    border-color:
+        rgba(255, 122, 0, 0.7);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255, 122, 0, 0.08);
+
+}
+
+
+.register-form small {
+
+    color: #555;
+
+    font-size: 11px;
+
+}
+
+
+.register-submit {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    cursor: pointer;
+
+}
+
+
+.register-submit span {
+
+    font-size: 17px;
+
+}
+
+
+.register-divider {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 28px 0 20px;
+
+    color: #555;
+
+    font-size: 12px;
+
+}
+
+
+.register-divider::before,
+.register-divider::after {
+
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #252525;
+
+}
+
+
+.login-link {
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.login-link a {
+
+    display: inline-block;
+
+    margin-right: 6px;
+
+    color: #ff7a00;
+
+    font-weight: 900;
+
+    text-decoration: none;
+
+    transition: .2s;
+
+}
+
+
+.login-link a:hover {
+
+    color: #ff9a3d;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .character-register-box {
+
+        width: 92%;
+
+        box-sizing: border-box;
+
+        margin: 25px auto;
+
+        padding: 22px 16px;
+
+    }
+
+
+    .register-header h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .register-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 26px;
+
+    }
+
+}
+
+</style>
+
+
 </body>
+
 </html>
