@@ -7,7 +7,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>MT Character System</title>
+    <title>
+        MT Character System
+    </title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -34,12 +36,13 @@
 </header>
 
 
+
 <main class="sections">
 
 
-    <!-- =========================
+    <!-- ==============================
          الشخصيات
-    ========================== -->
+    =============================== -->
 
     <a href="/characters"
        class="section-card">
@@ -53,15 +56,23 @@
         </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
+
             <br>
+
             إنشاء وعرض وإدارة بيانات الشخصيات
             داخل النظام.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong>
+            <strong>
+                مخصص لمين؟
+            </strong>
+
             <br>
+
             لجميع الأشخاص الذين يريدون إنشاء
             أو مشاهدة الشخصيات.
         </p>
@@ -73,9 +84,10 @@
     </a>
 
 
-    <!-- =========================
+
+    <!-- ==============================
          الشرطة
-    ========================== -->
+    =============================== -->
 
     <a href="/police"
        class="section-card">
@@ -89,15 +101,23 @@
         </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
+
             <br>
+
             قسم خاص بإدارة أفراد الشرطة
             والرتب والبيانات.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong>
+            <strong>
+                مخصص لمين؟
+            </strong>
+
             <br>
+
             أفراد الشرطة والمدراء المخولين
             بإدارة القطاع.
         </p>
@@ -109,9 +129,10 @@
     </a>
 
 
-    <!-- =========================
+
+    <!-- ==============================
          وزارة العدل
-    ========================== -->
+    =============================== -->
 
     <a href="/justice"
        class="section-card">
@@ -125,15 +146,23 @@
         </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
+
             <br>
+
             إدارة أفراد وزارة العدل
             وبياناتهم ورتبهم.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong>
+            <strong>
+                مخصص لمين؟
+            </strong>
+
             <br>
+
             أفراد وزارة العدل والمدراء
             المخولين بالإدارة.
         </p>
@@ -145,9 +174,10 @@
     </a>
 
 
-    <!-- =========================
+
+    <!-- ==============================
          الصحة
-    ========================== -->
+    =============================== -->
 
     <a href="/health"
        class="section-card">
@@ -161,17 +191,25 @@
         </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong>
+            <strong>
+                وش معنى ذا الخيار؟
+            </strong>
+
             <br>
+
             إدارة أفراد القطاع الصحي
             وبياناتهم ورتبهم.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong>
+            <strong>
+                مخصص لمين؟
+            </strong>
+
             <br>
-            أفراد الصحة والمدراء المخولين
-            بإدارة القطاع.
+
+            أفراد الصحة والمدراء
+            المخولين بإدارة القطاع.
         </p>
 
         <span class="open">
@@ -184,9 +222,211 @@
 </main>
 
 
+
+<!-- ==============================
+     الإدارة
+================================ -->
+
+{% if current_user %}
+
+    {% if current_user["is_owner"]
+       or has_permission("permissions_view")
+       or has_permission("admins_manage") %}
+
+    <section class="admin-section">
+
+        <a href="/admin/permissions"
+           class="admin-card">
+
+            <div class="admin-icon">
+                ⚙️
+            </div>
+
+            <div>
+
+                <h2>
+                    الإدارة
+                </h2>
+
+                <p>
+                    إدارة المستخدمين والرتب
+                    والصلاحيات الخاصة بالنظام.
+                </p>
+
+                <span>
+                    دخول لوحة الإدارة ←
+                </span>
+
+            </div>
+
+        </a>
+
+    </section>
+
+    {% endif %}
+
+{% endif %}
+
+
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
+
+
+
+<style>
+
+    .admin-section {
+
+        width: 94%;
+        max-width: 1100px;
+
+        margin: 35px auto 0;
+
+    }
+
+
+    .admin-card {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 25px;
+
+        padding: 28px;
+
+        text-decoration: none;
+
+        color: white;
+
+        background:
+            linear-gradient(
+                145deg,
+                #151515,
+                #080808
+            );
+
+        border: 1px solid #333;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 15px 50px rgba(0,0,0,.45);
+
+        transition: .25s;
+
+    }
+
+
+    .admin-card:hover {
+
+        transform: translateY(-4px);
+
+        border-color: #ff7a00;
+
+        box-shadow:
+            0 15px 50px
+            rgba(255,122,0,.18);
+
+    }
+
+
+    .admin-icon {
+
+        width: 75px;
+        height: 75px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 18px;
+
+        background: #111;
+
+        border: 1px solid #333;
+
+        font-size: 35px;
+
+    }
+
+
+    .admin-card h2 {
+
+        margin: 0 0 8px;
+
+        font-size: 27px;
+
+    }
+
+
+    .admin-card p {
+
+        margin: 0 0 10px;
+
+        color: #aaa;
+
+        line-height: 1.7;
+
+    }
+
+
+    .admin-card span {
+
+        color: #ff7a00;
+
+        font-weight: bold;
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .admin-section {
+
+            width: 96%;
+
+        }
+
+        .admin-card {
+
+            padding: 20px;
+
+            gap: 15px;
+
+        }
+
+        .admin-icon {
+
+            width: 55px;
+            height: 55px;
+
+            font-size: 25px;
+
+        }
+
+        .admin-card h2 {
+
+            font-size: 21px;
+
+        }
+
+        .admin-card p {
+
+            font-size: 13px;
+
+        }
+
+    }
+
+</style>
 
 
 </body>
