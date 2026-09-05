@@ -8,9 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>
-        الإدارة - MT
-    </title>
+    <title>الإدارة - MT</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -18,6 +16,7 @@
 </head>
 
 <body>
+
 
 <header class="hero">
 
@@ -28,11 +27,11 @@
     <div class="page-heading">
 
         <h1>
-            الإدارة
+            🛡️ الإدارة
         </h1>
 
         <p>
-            إدارة الرتب والصلاحيات والأقسام
+            إدارة الرتب والصلاحيات والوصول إلى أقسام النظام
         </p>
 
     </div>
@@ -65,16 +64,14 @@
 
 
 
-    <!-- ================================================= -->
-    <!-- إنشاء رتبة مخصصة -->
-    <!-- ================================================= -->
+    <!-- إنشاء رتبة -->
 
     <section class="admin-box">
 
         <div class="section-header">
 
             <h2>
-                إنشاء رتبة مخصصة
+                ➕ إنشاء رتبة مخصصة
             </h2>
 
             <span class="section-line"></span>
@@ -84,21 +81,15 @@
 
         <p class="admin-description">
 
-            أنشئ أي رتبة بالاسم الذي تريده.
-            تستطيع تحديد الأقسام التي يمكن للرتبة فتحها
-            والصلاحيات التي تملكها.
-
-            <br>
-
-            يمكن إنشاء الرتبة بدون أي صلاحيات.
+            أنشئ رتبة بأي اسم تريده، ثم حدد الأقسام التي تستطيع فتحها
+            والصلاحيات التي تمتلكها. يمكنك إنشاء رتبة بدون أي صلاحيات.
 
         </p>
 
 
-        <form
-            method="POST"
-            action="/admin/roles/create"
-            class="role-builder-form">
+        <form method="POST"
+              action="/admin/roles/create"
+              class="role-builder-form">
 
 
             <div class="form-group">
@@ -111,9 +102,10 @@
                     id="role_name"
                     type="text"
                     name="role_name"
-                    placeholder="مثال: قائد العصابة"
+                    placeholder="مثال: قائد الشرطة"
                     maxlength="80"
-                    required>
+                    required
+                >
 
             </div>
 
@@ -122,7 +114,7 @@
             <div class="form-group">
 
                 <label>
-                    الأقسام التي تستطيع الرتبة فتحها
+                    الأقسام المسموح بفتحها
                 </label>
 
 
@@ -134,10 +126,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="characters">
+                            value="characters"
+                        >
 
                         <span>
-                            الشخصيات
+                            👤 الشخصيات
                         </span>
 
                     </label>
@@ -148,10 +141,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="police">
+                            value="police"
+                        >
 
                         <span>
-                            الشرطة
+                            👮 الشرطة
                         </span>
 
                     </label>
@@ -162,10 +156,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="justice">
+                            value="justice"
+                        >
 
                         <span>
-                            وزارة العدل
+                            ⚖️ وزارة العدل
                         </span>
 
                     </label>
@@ -176,10 +171,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="health">
+                            value="health"
+                        >
 
                         <span>
-                            الصحة
+                            🏥 الصحة
                         </span>
 
                     </label>
@@ -190,10 +186,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="gangs">
+                            value="gangs"
+                        >
 
                         <span>
-                            العصابات
+                            🏴 العصابات
                         </span>
 
                     </label>
@@ -204,10 +201,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="users">
+                            value="users"
+                        >
 
                         <span>
-                            المستخدمون
+                            👥 المستخدمون
                         </span>
 
                     </label>
@@ -218,10 +216,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="permissions">
+                            value="permissions"
+                        >
 
                         <span>
-                            الصلاحيات
+                            🔐 الصلاحيات
                         </span>
 
                     </label>
@@ -232,10 +231,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="logs">
+                            value="logs"
+                        >
 
                         <span>
-                            السجلات
+                            📋 السجلات
                         </span>
 
                     </label>
@@ -246,10 +246,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="admin">
+                            value="admin"
+                        >
 
                         <span>
-                            الإدارة
+                            🛡️ الإدارة
                         </span>
 
                     </label>
@@ -260,10 +261,11 @@
                         <input
                             type="checkbox"
                             name="sections"
-                            value="settings">
+                            value="settings"
+                        >
 
                         <span>
-                            الإعدادات
+                            ⚙️ الإعدادات
                         </span>
 
                     </label>
@@ -292,7 +294,8 @@
                             <input
                                 type="checkbox"
                                 name="permissions"
-                                value="{{ key }}">
+                                value="{{ key }}"
+                            >
 
                             <span>
                                 {{ permission["name"] }}
@@ -311,9 +314,10 @@
 
             <button
                 type="submit"
-                class="admin-submit">
+                class="admin-submit"
+            >
 
-                إنشاء الرتبة
+                ➕ إنشاء الرتبة
 
             </button>
 
@@ -324,17 +328,14 @@
 
 
 
-
-    <!-- ================================================= -->
     <!-- الرتب المخصصة -->
-    <!-- ================================================= -->
 
     <section class="admin-box">
 
         <div class="section-header">
 
             <h2>
-                الرتب المخصصة
+                🏷️ الرتب المخصصة
             </h2>
 
             <span class="section-line"></span>
@@ -356,9 +357,17 @@
 
                         <div class="custom-role-info">
 
-                            <strong>
-                                {{ custom_role["role_name"] }}
-                            </strong>
+                            <div class="role-title">
+
+                                <span class="role-icon">
+                                    🏷️
+                                </span>
+
+                                <strong>
+                                    {{ custom_role["role_name"] }}
+                                </strong>
+
+                            </div>
 
                             <span>
                                 رتبة مخصصة
@@ -369,12 +378,12 @@
 
                         <div class="custom-role-actions">
 
-
                             <a
                                 href="#edit-role-{{ custom_role['id'] }}"
-                                class="small-button">
+                                class="small-button"
+                            >
 
-                                تعديل
+                                ✏️ تعديل
 
                             </a>
 
@@ -382,21 +391,21 @@
                             <form
                                 method="POST"
                                 action="/admin/roles/{{ custom_role['id'] }}/delete"
-                                onsubmit="return confirm('هل أنت متأكد من حذف هذه الرتبة؟');">
+                                onsubmit="return confirm('هل أنت متأكد من حذف هذه الرتبة؟');"
+                            >
 
                                 <button
                                     type="submit"
-                                    class="delete-button">
+                                    class="delete-button"
+                                >
 
-                                    حذف
+                                    🗑️ حذف
 
                                 </button>
 
                             </form>
 
-
                         </div>
-
 
                     </div>
 
@@ -404,12 +413,13 @@
 
                     <div
                         id="edit-role-{{ custom_role['id'] }}"
-                        class="edit-role-box">
+                        class="edit-role-box"
+                    >
 
 
                         <h3>
 
-                            تعديل الرتبة:
+                            تعديل:
                             {{ custom_role["role_name"] }}
 
                         </h3>
@@ -418,7 +428,8 @@
                         <form
                             method="POST"
                             action="/admin/roles/{{ custom_role['id'] }}/update"
-                            class="edit-role-form">
+                            class="edit-role-form"
+                        >
 
 
                             <div class="form-group">
@@ -432,7 +443,8 @@
                                     name="role_name"
                                     value="{{ custom_role['role_name'] }}"
                                     maxlength="80"
-                                    required>
+                                    required
+                                >
 
                             </div>
 
@@ -448,174 +460,39 @@
                                 <div class="check-grid">
 
 
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="characters"
-                                            {% if "characters" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            الشخصيات
-                                        </span>
-
-                                    </label>
+                                    {% for section_key, section_name in [
+                                        ("characters", "👤 الشخصيات"),
+                                        ("police", "👮 الشرطة"),
+                                        ("justice", "⚖️ وزارة العدل"),
+                                        ("health", "🏥 الصحة"),
+                                        ("gangs", "🏴 العصابات"),
+                                        ("users", "👥 المستخدمون"),
+                                        ("permissions", "🔐 الصلاحيات"),
+                                        ("logs", "📋 السجلات"),
+                                        ("admin", "🛡️ الإدارة"),
+                                        ("settings", "⚙️ الإعدادات")
+                                    ] %}
 
 
-                                    <label class="check-item">
+                                        <label class="check-item">
 
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="police"
-                                            {% if "police" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
+                                            <input
+                                                type="checkbox"
+                                                name="sections"
+                                                value="{{ section_key }}"
+                                                {% if section_key in custom_role["sections"] %}
+                                                    checked
+                                                {% endif %}
+                                            >
 
-                                        <span>
-                                            الشرطة
-                                        </span>
+                                            <span>
+                                                {{ section_name }}
+                                            </span>
 
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="justice"
-                                            {% if "justice" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            وزارة العدل
-                                        </span>
-
-                                    </label>
+                                        </label>
 
 
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="health"
-                                            {% if "health" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            الصحة
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="gangs"
-                                            {% if "gangs" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            العصابات
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="users"
-                                            {% if "users" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            المستخدمون
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="permissions"
-                                            {% if "permissions" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            الصلاحيات
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="logs"
-                                            {% if "logs" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            السجلات
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="admin"
-                                            {% if "admin" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            الإدارة
-                                        </span>
-
-                                    </label>
-
-
-                                    <label class="check-item">
-
-                                        <input
-                                            type="checkbox"
-                                            name="sections"
-                                            value="settings"
-                                            {% if "settings" in custom_role["sections"] %}
-                                                checked
-                                            {% endif %}>
-
-                                        <span>
-                                            الإعدادات
-                                        </span>
-
-                                    </label>
+                                    {% endfor %}
 
 
                                 </div>
@@ -644,7 +521,8 @@
                                                 value="{{ key }}"
                                                 {% if key in custom_role["permissions"] %}
                                                     checked
-                                                {% endif %}>
+                                                {% endif %}
+                                            >
 
                                             <span>
                                                 {{ permission["name"] }}
@@ -663,14 +541,16 @@
 
                             <button
                                 type="submit"
-                                class="admin-submit">
+                                class="admin-submit"
+                            >
 
-                                حفظ التعديلات
+                                💾 حفظ التعديلات
 
                             </button>
 
 
                         </form>
+
 
                     </div>
 
@@ -686,6 +566,10 @@
 
             <div class="empty-box">
 
+                <div class="empty-icon">
+                    🏷️
+                </div>
+
                 لا توجد رتب مخصصة حتى الآن.
 
             </div>
@@ -693,340 +577,150 @@
 
         {% endif %}
 
+
     </section>
 
 
 
-
-    <!-- ================================================= -->
-    <!-- إعطاء رتبة إدارية -->
-    <!-- ================================================= -->
+    <!-- إعطاء رتبة -->
 
     {% if characters is defined %}
 
+        <section class="admin-box">
 
-    <section class="admin-box">
+            <div class="section-header">
 
-        <div class="section-header">
+                <h2>
+                    👤 إعطاء رتبة
+                </h2>
 
-            <h2>
-                إعطاء رتبة
-            </h2>
-
-            <span class="section-line"></span>
-
-        </div>
-
-
-        <p class="admin-description">
-
-            اختر الشخصية ثم اختر الرتبة التي تريد إعطائها لصاحب الحساب.
-
-        </p>
-
-
-        {% if characters %}
-
-
-        <form
-            method="POST"
-            action="/admin/character-role"
-            class="admin-form">
-
-
-            <div class="form-group">
-
-                <label>
-                    الشخصية
-                </label>
-
-
-                <select
-                    name="character_id"
-                    required>
-
-                    <option value="">
-                        اختر الشخصية
-                    </option>
-
-
-                    {% for character in characters %}
-
-                        <option
-                            value="{{ character['id'] }}">
-
-                            {{ character['full_name'] }}
-
-                            {% if character['username'] %}
-
-                                — حساب:
-                                {{ character['username'] }}
-
-                            {% else %}
-
-                                — غير مرتبطة بحساب
-
-                            {% endif %}
-
-                        </option>
-
-                    {% endfor %}
-
-
-                </select>
+                <span class="section-line"></span>
 
             </div>
 
 
+            <p class="admin-description">
 
-            <div class="form-group">
+                اختر الشخصية ثم حدد الرتبة التي تريد إعطائها لها.
 
-                <label>
-                    الرتبة
-                </label>
-
-
-                <select
-                    name="role"
-                    required>
-
-                    <option value="">
-                        اختر الرتبة
-                    </option>
+            </p>
 
 
-                    {% for key, role in ROLES.items() %}
-
-                        <option value="{{ key }}">
-
-                            {{ role["name"] }}
-
-                        </option>
-
-                    {% endfor %}
+            {% if characters %}
 
 
-                    {% if custom_roles %}
+                <form
+                    method="POST"
+                    action="/admin/character-role"
+                    class="admin-form"
+                >
 
-                        <optgroup label="الرتب المخصصة">
 
-                            {% for custom_role in custom_roles %}
+                    <div class="form-group">
+
+                        <label>
+                            الشخصية
+                        </label>
+
+                        <select
+                            name="character_id"
+                            required
+                        >
+
+                            <option value="">
+                                اختر الشخصية
+                            </option>
+
+
+                            {% for character in characters %}
 
                                 <option
-                                    value="{{ custom_role['role_key'] }}">
+                                    value="{{ character['id'] }}"
+                                >
 
-                                    {{ custom_role["role_name"] }}
+                                    {{ character["full_name"] }}
+
+                                    {% if character["username"] %}
+
+                                        — {{ character["username"] }}
+
+                                    {% else %}
+
+                                        — غير مرتبطة بحساب
+
+                                    {% endif %}
 
                                 </option>
 
                             {% endfor %}
 
-                        </optgroup>
 
-                    {% endif %}
+                        </select>
 
+                    </div>
 
-                </select>
 
-            </div>
 
+                    <div class="form-group">
 
+                        <label>
+                            الرتبة
+                        </label>
 
-            <button
-                type="submit"
-                class="admin-submit">
+                        <select
+                            name="role"
+                            required
+                        >
 
-                إعطاء الرتبة
+                            <option value="">
+                                اختر الرتبة
+                            </option>
 
-            </button>
 
+                            {% for key, role in ROLES.items() %}
 
-        </form>
+                                <option value="{{ key }}">
 
+                                    {{ role["name"] }}
 
-        {% else %}
-
-
-        <div class="empty-box">
-
-            لا توجد شخصيات في النظام حتى الآن.
-
-            <br><br>
-
-            يجب إنشاء شخصية أولاً.
-
-        </div>
-
-
-        {% endif %}
-
-
-    </section>
-
-
-    {% endif %}
-
-
-
-
-    <!-- ================================================= -->
-    <!-- الرتب الحالية -->
-    <!-- ================================================= -->
-
-    {% if characters is defined and characters %}
-
-
-    <section class="admin-box">
-
-        <div class="section-header">
-
-            <h2>
-                الرتب الحالية
-            </h2>
-
-            <span class="section-line"></span>
-
-        </div>
-
-
-        <div class="admin-list">
-
-
-            {% for character in characters %}
-
-
-            <div class="admin-row">
-
-
-                <div class="admin-character">
-
-                    <strong>
-                        👤 {{ character["full_name"] }}
-                    </strong>
-
-
-                    <span>
-
-                        الحساب:
-
-                        {% if character["username"] %}
-
-                            {{ character["username"] }}
-
-                        {% else %}
-
-                            غير مرتبط
-
-                        {% endif %}
-
-                    </span>
-
-                </div>
-
-
-
-                <div class="admin-role">
-
-
-                    {% if character["is_owner"] %}
-
-                        <span class="owner-role">
-                            Owner
-                        </span>
-
-
-                    {% elif character["role"] %}
-
-
-                        {% set built_in_role =
-                            ROLES.get(character["role"]) %}
-
-
-                        {% if built_in_role %}
-
-                            <span>
-                                {{ built_in_role["name"] }}
-                            </span>
-
-
-                        {% elif custom_roles %}
-
-
-                            {% set found_custom =
-                                namespace(role=None) %}
-
-
-                            {% for custom_role in custom_roles %}
-
-                                {% if custom_role["role_key"]
-                                   == character["role"] %}
-
-                                    {% set found_custom.role =
-                                        custom_role %}
-
-                                {% endif %}
+                                </option>
 
                             {% endfor %}
 
 
-                            {% if found_custom.role %}
+                            {% if custom_roles %}
 
-                                <span>
-                                    {{ found_custom.role["role_name"] }}
-                                </span>
+                                <optgroup label="الرتب المخصصة">
 
-                            {% else %}
+                                    {% for custom_role in custom_roles %}
 
-                                <span>
-                                    Helper
-                                </span>
+                                        <option
+                                            value="{{ custom_role['role_key'] }}"
+                                        >
+
+                                            {{ custom_role["role_name"] }}
+
+                                        </option>
+
+                                    {% endfor %}
+
+                                </optgroup>
 
                             {% endif %}
 
 
-                        {% else %}
+                        </select>
 
-                            <span>
-                                Helper
-                            </span>
+                    </div>
 
-                        {% endif %}
-
-
-                    {% else %}
-
-                        <span>
-                            Helper
-                        </span>
-
-                    {% endif %}
-
-
-                </div>
-
-
-
-                {% if character["user_id"]
-                   and not character["is_owner"] %}
-
-
-                <form
-                    method="POST"
-                    action="/admin/character-role/remove"
-                    onsubmit="return confirm('هل أنت متأكد من إزالة الرتبة؟');">
-
-
-                    <input
-                        type="hidden"
-                        name="character_id"
-                        value="{{ character['id'] }}">
 
 
                     <button
                         type="submit"
-                        class="remove-role">
+                        class="admin-submit"
+                    >
 
-                        إزالة الرتبة
+                        🎖️ إعطاء الرتبة
 
                     </button>
 
@@ -1034,18 +728,198 @@
                 </form>
 
 
-                {% endif %}
+            {% else %}
+
+
+                <div class="empty-box">
+
+                    <div class="empty-icon">
+                        👤
+                    </div>
+
+                    لا توجد شخصيات في النظام حتى الآن.
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+    {% endif %}
+
+
+
+    <!-- الرتب الحالية -->
+
+    {% if characters is defined and characters %}
+
+
+        <section class="admin-box">
+
+            <div class="section-header">
+
+                <h2>
+                    🎖️ الرتب الحالية
+                </h2>
+
+                <span class="section-line"></span>
+
+            </div>
+
+
+            <div class="admin-list">
+
+
+                {% for character in characters %}
+
+
+                    <div class="admin-row">
+
+
+                        <div class="admin-character">
+
+                            <strong>
+                                👤 {{ character["full_name"] }}
+                            </strong>
+
+                            <span>
+
+                                الحساب:
+
+                                {% if character["username"] %}
+
+                                    {{ character["username"] }}
+
+                                {% else %}
+
+                                    غير مرتبط
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="admin-role">
+
+
+                            {% if character["is_owner"] %}
+
+                                <span class="owner-role">
+                                    👑 Owner
+                                </span>
+
+
+                            {% elif character["role"] %}
+
+
+                                {% set built_in_role =
+                                    ROLES.get(character["role"]) %}
+
+
+                                {% if built_in_role %}
+
+                                    <span>
+                                        {{ built_in_role["name"] }}
+                                    </span>
+
+
+                                {% else %}
+
+                                    {% set found_custom =
+                                        namespace(role=None) %}
+
+
+                                    {% for custom_role in custom_roles %}
+
+                                        {% if custom_role["role_key"]
+                                           == character["role"] %}
+
+                                            {% set found_custom.role =
+                                                custom_role %}
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+
+                                    {% if found_custom.role %}
+
+                                        <span>
+                                            {{ found_custom.role["role_name"] }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span>
+                                            بدون رتبة
+                                        </span>
+
+                                    {% endif %}
+
+
+                                {% endif %}
+
+
+                            {% else %}
+
+                                <span>
+                                    بدون رتبة
+                                </span>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+
+                        {% if character["user_id"]
+                           and not character["is_owner"] %}
+
+
+                            <form
+                                method="POST"
+                                action="/admin/character-role/remove"
+                                onsubmit="return confirm('هل أنت متأكد من إزالة الرتبة؟');"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="character_id"
+                                    value="{{ character['id'] }}"
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="remove-role"
+                                >
+
+                                    إزالة الرتبة
+
+                                </button>
+
+                            </form>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                {% endfor %}
 
 
             </div>
 
 
-            {% endfor %}
-
-
-        </div>
-
-    </section>
+        </section>
 
 
     {% endif %}
@@ -1068,9 +942,7 @@
 .admin-page {
 
     width: 94%;
-
     max-width: 1150px;
-
     margin: auto;
 
 }
@@ -1079,7 +951,6 @@
 .flash-box {
 
     margin: 20px 0;
-
     padding: 15px;
 
     border-radius: 15px;
@@ -1098,7 +969,6 @@
 .admin-box {
 
     margin-bottom: 30px;
-
     padding: 28px;
 
     background:
@@ -1133,9 +1003,7 @@
 .edit-role-form {
 
     display: flex;
-
     flex-direction: column;
-
     gap: 22px;
 
 }
@@ -1160,9 +1028,7 @@
 .form-group {
 
     display: flex;
-
     flex-direction: column;
-
     gap: 9px;
 
 }
@@ -1259,6 +1125,8 @@
 
     cursor: pointer;
 
+    transition: .2s;
+
 }
 
 
@@ -1266,13 +1134,14 @@
 
     border-color: #ff7a00;
 
+    background: #151515;
+
 }
 
 
 .check-item input {
 
     width: 17px;
-
     height: 17px;
 
     accent-color: #ff7a00;
@@ -1298,12 +1167,16 @@
 
     cursor: pointer;
 
+    transition: .2s;
+
 }
 
 
 .admin-submit:hover {
 
     background: #ff8b1f;
+
+    transform: translateY(-1px);
 
 }
 
@@ -1347,6 +1220,24 @@
     flex-direction: column;
 
     gap: 5px;
+
+}
+
+
+.role-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.role-icon {
+
+    font-size: 16px;
 
 }
 
@@ -1441,7 +1332,6 @@
 .edit-role-box {
 
     margin-top: -2px;
-
     margin-bottom: 10px;
 
     padding: 22px;
@@ -1551,6 +1441,15 @@
     padding: 45px;
 
     color: #777;
+
+}
+
+
+.empty-icon {
+
+    font-size: 35px;
+
+    margin-bottom: 10px;
 
 }
 
