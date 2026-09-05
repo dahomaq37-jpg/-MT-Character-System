@@ -15,9 +15,7 @@
 
 </head>
 
-
 <body>
-
 
 <header class="hero">
 
@@ -36,19 +34,61 @@
 </header>
 
 
-
 <main class="character-page">
 
+    {% with messages = get_flashed_messages() %}
 
-    <!-- بيانات الشخصية -->
+        {% if messages %}
+
+            <div class="flash-box">
+
+                {% for message in messages %}
+
+                    <div>
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
 
     <section class="characters-box">
 
 
+        <!-- الملف الشخصي -->
+
+        <div class="details-profile">
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+            <div class="profile-name">
+                {{ character["full_name"] }}
+            </div>
+
+            {% if general_rank %}
+
+                <div class="profile-status">
+                    {{ general_rank["rank_name"] }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- البيانات الأساسية -->
+
         <div class="section-header">
 
             <h2>
-                بيانات الشخصية
+                البيانات الأساسية
             </h2>
 
             <span class="section-line"></span>
@@ -56,37 +96,7 @@
         </div>
 
 
-
-        <div class="details-profile">
-
-
-            <div class="profile-icon">
-                👤
-            </div>
-
-
-            <div class="profile-name">
-                {{ character["full_name"] }}
-            </div>
-
-
-            {% if general_rank %}
-
-                <div class="profile-status">
-
-                    {{ general_rank["rank_name"] }}
-
-                </div>
-
-            {% endif %}
-
-
-        </div>
-
-
-
         <div class="details-grid">
-
 
             <div class="detail-box">
 
@@ -99,7 +109,6 @@
                 </strong>
 
             </div>
-
 
 
             <div class="detail-box">
@@ -115,7 +124,6 @@
             </div>
 
 
-
             <div class="detail-box">
 
                 <span class="detail-label">
@@ -127,7 +135,6 @@
                 </strong>
 
             </div>
-
 
 
             {% if general_rank %}
@@ -146,44 +153,35 @@
 
             {% endif %}
 
+        </div>
+
+
+        <!-- الأقسام والرتب -->
+
+        <div class="section-header details-section-title">
+
+            <h2>
+                الأقسام والرتب
+            </h2>
+
+            <span class="section-line"></span>
 
         </div>
 
 
-
-        <!-- الأقسام -->
-
         {% if departments %}
-
-
-            <div class="section-header details-section-title">
-
-                <h2>
-                    الأقسام والرتب
-                </h2>
-
-                <span class="section-line"></span>
-
-            </div>
-
-
 
             <div class="details-departments">
 
-
                 {% for department in departments %}
 
-
                     <div class="department-card">
-
 
                         <div class="department-icon">
                             🏢
                         </div>
 
-
                         <div class="department-info">
-
 
                             <div class="department-name">
 
@@ -202,32 +200,33 @@
 
                             </div>
 
-
                             <div class="department-rank">
 
                                 <span>
-                                    الرتبة
+                                    الرتبة:
                                 </span>
 
-                                {{ department["rank_name"] or "بدون رتبة" }}
+                                {% if department["rank_name"] %}
+
+                                    {{ department["rank_name"] }}
+
+                                {% else %}
+
+                                    بدون رتبة
+
+                                {% endif %}
 
                             </div>
 
-
                         </div>
-
 
                     </div>
 
-
                 {% endfor %}
-
 
             </div>
 
-
         {% else %}
-
 
             <div class="no-departments">
 
@@ -241,9 +240,99 @@
 
             </div>
 
+        {% endif %}
+
+
+        <!-- العصابات -->
+
+        {% if gangs %}
+
+            <div class="section-header details-section-title">
+
+                <h2>
+                    العصابات والرتب
+                </h2>
+
+                <span class="section-line"></span>
+
+            </div>
+
+
+            <div class="details-departments">
+
+                {% for gang in gangs %}
+
+                    <div class="department-card gang-card">
+
+                        <div class="department-icon">
+                            🏴
+                        </div>
+
+                        <div class="department-info">
+
+                            <div class="department-name">
+                                {{ gang["gang_name"] }}
+                            </div>
+
+                            <div class="department-rank">
+
+                                <span>
+                                    الرتبة:
+                                </span>
+
+                                {{ gang["rank_name"] }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
 
         {% endif %}
 
+
+        <!-- الحساب -->
+
+        {% if character["username"] is defined %}
+
+            <div class="section-header details-section-title">
+
+                <h2>
+                    الحساب المرتبط
+                </h2>
+
+                <span class="section-line"></span>
+
+            </div>
+
+
+            <div class="account-box">
+
+                {% if character["username"] %}
+
+                    👤
+
+                    <strong>
+                        {{ character["username"] }}
+                    </strong>
+
+                {% else %}
+
+                    🌐
+
+                    <span>
+                        شخصية بدون حساب مرتبط
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
 
 
         <!-- العودة -->
@@ -262,31 +351,69 @@
 
     </section>
 
-
 </main>
 
 
-
 <footer>
-
     MT Character System © 2026
-
 </footer>
-
 
 
 <style>
 
-/* ============================== */
-/* ملف تفاصيل الشخصية */
-/* ============================== */
+.character-page {
+
+    width: 94%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+}
+
+
+.flash-box {
+
+    margin: 20px auto;
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    background: #151515;
+
+    border: 1px solid #ff7a00;
+
+    color: white;
+
+    text-align: center;
+
+}
+
+
+.characters-box {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: rgba(10, 10, 10, 0.75);
+
+    border: 1px solid #242424;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+}
 
 
 .details-profile {
 
     text-align: center;
 
-    padding: 30px 20px;
+    padding: 35px 20px;
 
     margin-bottom: 25px;
 
@@ -304,9 +431,9 @@
 
 .profile-icon {
 
-    width: 75px;
+    width: 78px;
 
-    height: 75px;
+    height: 78px;
 
     margin: auto;
 
@@ -322,10 +449,7 @@
 
     border: 1px solid rgba(255, 122, 0, 0.4);
 
-    font-size: 32px;
-
-    box-shadow:
-        0 0 30px rgba(255, 122, 0, 0.08);
+    font-size: 34px;
 
 }
 
@@ -336,7 +460,7 @@
 
     color: white;
 
-    font-size: 27px;
+    font-size: 28px;
 
     font-weight: 900;
 
@@ -349,7 +473,7 @@
 
     margin-top: 10px;
 
-    padding: 6px 14px;
+    padding: 7px 16px;
 
     border-radius: 20px;
 
@@ -366,9 +490,42 @@
 }
 
 
-/* ============================== */
-/* البيانات */
-/* ============================== */
+.section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.section-header h2 {
+
+    margin: 0;
+
+    color: white;
+
+}
+
+
+.section-line {
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            to left,
+            transparent,
+            #ff7a00
+        );
+
+}
 
 
 .details-grid {
@@ -425,21 +582,11 @@
 }
 
 
-/* ============================== */
-/* عنوان الأقسام */
-/* ============================== */
-
-
 .details-section-title {
 
     margin-top: 40px;
 
 }
-
-
-/* ============================== */
-/* الأقسام */
-/* ============================== */
 
 
 .details-departments {
@@ -475,7 +622,7 @@
 
     border-radius: 15px;
 
-    transition: 0.2s;
+    transition: .2s;
 
 }
 
@@ -486,6 +633,14 @@
 
     border-color:
         rgba(255, 122, 0, 0.35);
+
+}
+
+
+.gang-card {
+
+    border-color:
+        rgba(255, 122, 0, 0.18);
 
 }
 
@@ -553,11 +708,6 @@
 }
 
 
-/* ============================== */
-/* لا توجد أقسام */
-/* ============================== */
-
-
 .no-departments {
 
     padding: 30px 20px;
@@ -593,9 +743,30 @@
 }
 
 
-/* ============================== */
-/* زر العودة */
-/* ============================== */
+.account-box {
+
+    padding: 18px;
+
+    background: #101010;
+
+    border: 1px solid #252525;
+
+    border-radius: 14px;
+
+    color: #aaa;
+
+    text-align: center;
+
+}
+
+
+.account-box strong {
+
+    color: #ff7a00;
+
+    margin-right: 6px;
+
+}
 
 
 .details-actions {
@@ -609,25 +780,18 @@
 }
 
 
-.details-actions .register-button {
-
-    margin: 0;
-
-}
-
-
-/* ============================== */
-/* الجوال */
-/* ============================== */
-
-
 @media (max-width: 700px) {
+
+    .characters-box {
+
+        padding: 14px;
+
+    }
 
 
     .details-grid {
 
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr 1fr;
 
         gap: 9px;
 
@@ -664,8 +828,7 @@
 
     .details-departments {
 
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr 1fr;
 
         gap: 9px;
 
@@ -676,7 +839,7 @@
 
         padding: 12px;
 
-        gap: 9px;
+        gap: 8px;
 
         flex-direction: column;
 
@@ -709,12 +872,10 @@
 
     }
 
-
 }
 
 </style>
 
 
 </body>
-
 </html>
