@@ -1,105 +1,327 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>المستخدمون - MT</title>
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
+
 <body>
+
+
 <header class="hero">
-    <div class="mt-logo">MT</div>
-    <div class="page-heading">
-        <h1>المستخدمون</h1>
-        <p>إدارة حسابات مستخدمي النظام</p>
+
+    <div class="mt-logo">
+        MT
     </div>
+
+    <h1>
+        إدارة المستخدمين
+    </h1>
+
+    <p>
+        إدارة الحسابات والرتب والحالة
+    </p>
+
 </header>
+
+
 <main class="character-page">
-    <section class="characters-box">
-        <div class="section-header">
-            <h2>قائمة المستخدمين</h2>
-            <span class="section-line"></span>
+
+
+<section class="characters-box">
+
+
+<div class="section-header">
+
+    <h2>
+        المستخدمون
+    </h2>
+
+    <span class="section-line"></span>
+
+</div>
+
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        <div class="flash-messages">
+
+            {% for message in messages %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
         </div>
-        {% if users %}
-            <div class="characters-list">
-                {% for user in users %}
-                    <div class="character-card">
-                        <div class="character-name">
-                            👤 {{ user["username"] }}
-                        </div>
-                        <div class="character-details">
-                            <div>
-                                رقم المستخدم:
-                                {{ user["id"] }}
-                            </div>
-                            <div>
-                                الحالة:
-                                {% if user["banned"] %}
-                                    محظور
-                                {% elif user["disabled"] %}
-                                    معطل
-                                {% else %}
-                                    نشط
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; justify-content:center;">
-                            {% if user["banned"] %}
-                                <form method="POST"
-                                      action="{{ url_for('unban_user', user_id=user['id']) }}">
-                                    <button type="submit"
-                                            class="register-button">
-                                        فك الحظر
-                                    </button>
-                                </form>
-                            {% else %}
-                                <form method="POST"
-                                      action="{{ url_for('ban_user', user_id=user['id']) }}">
-                                    <button type="submit"
-                                            class="register-button">
-                                        حظر
-                                    </button>
-                                </form>
-                            {% endif %}
-                            {% if user["disabled"] %}
-                                <form method="POST"
-                                      action="{{ url_for('enable_user', user_id=user['id']) }}">
-                                    <button type="submit"
-                                            class="register-button">
-                                        تفعيل
-                                    </button>
-                                </form>
-                            {% else %}
-                                <form method="POST"
-                                      action="{{ url_for('disable_user', user_id=user['id']) }}">
-                                    <button type="submit"
-                                            class="register-button">
-                                        تعطيل
-                                    </button>
-                                </form>
-                            {% endif %}
-                            <form method="POST"
-                                  action="{{ url_for('delete_user', user_id=user['id']) }}"
-                                  onsubmit="return confirm('هل أنت متأكد من حذف هذا المستخدم؟');">
-                                <button type="submit"
-                                        class="register-button">
-                                    حذف
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+{% if users %}
+
+
+<div class="characters-list">
+
+
+{% for account in users %}
+
+
+<div class="character-card">
+
+
+<div class="character-name">
+
+    👤 {{ account["username"] }}
+
+    {% if account["is_owner"] %}
+
+        <span>
+            👑 Owner
+        </span>
+
+    {% endif %}
+
+</div>
+
+
+<div class="character-details">
+
+
+<div>
+
+    🏷️ الرتبة:
+
+    <strong>
+
+        {% if account["is_owner"] %}
+
+            Owner
+
         {% else %}
-            <div class="empty">
-                لا يوجد مستخدمون حاليًا
-            </div>
+
+            {{ user_roles.get(account["id"], "بدون رتبة") }}
+
         {% endif %}
-    </section>
+
+    </strong>
+
+</div>
+
+
+<div>
+
+    📅 تاريخ الإنشاء:
+
+    {{ account["created_at"] }}
+
+</div>
+
+
+<div>
+
+    🔴 حالة الحظر:
+
+    {% if account["is_banned"] %}
+
+        محظور
+
+    {% else %}
+
+        غير محظور
+
+    {% endif %}
+
+</div>
+
+
+<div>
+
+    ⚙️ حالة الحساب:
+
+    {% if account["is_disabled"] %}
+
+        معطل
+
+    {% else %}
+
+        مفعل
+
+    {% endif %}
+
+</div>
+
+
+</div>
+
+
+{% if account["is_owner"] %}
+
+
+<div class="empty"
+     style="margin-top:20px;">
+
+    👑 هذا الحساب هو Owner ولا يمكن حظره
+    أو تعطيله أو حذفه.
+
+</div>
+
+
+{% else %}
+
+
+<div class="character-form"
+     style="margin-top:20px;">
+
+
+{% if account["is_banned"] %}
+
+
+<form method="POST"
+      action="{{ url_for('unban_user', user_id=account['id']) }}">
+
+    <button type="submit"
+            class="register-button">
+
+        فك الحظر
+
+    </button>
+
+</form>
+
+
+{% else %}
+
+
+<form method="POST"
+      action="{{ url_for('ban_user', user_id=account['id']) }}">
+
+    <button type="submit"
+            class="register-button">
+
+        حظر المستخدم
+
+    </button>
+
+</form>
+
+
+{% endif %}
+
+
+{% if account["is_disabled"] %}
+
+
+<form method="POST"
+      action="{{ url_for('enable_user', user_id=account['id']) }}">
+
+    <button type="submit"
+            class="register-button">
+
+        تفعيل الحساب
+
+    </button>
+
+</form>
+
+
+{% else %}
+
+
+<form method="POST"
+      action="{{ url_for('disable_user', user_id=account['id']) }}">
+
+    <button type="submit"
+            class="register-button">
+
+        تعطيل الحساب
+
+    </button>
+
+</form>
+
+
+{% endif %}
+
+
+<form method="POST"
+      action="{{ url_for('delete_user', user_id=account['id']) }}"
+      onsubmit="return confirm('هل أنت متأكد من حذف هذا المستخدم؟');">
+
+    <button type="submit"
+            class="register-button">
+
+        حذف المستخدم
+
+    </button>
+
+</form>
+
+
+<a href="{{ url_for('permissions') }}"
+   class="register-button">
+
+    إدارة الرتبة والصلاحيات
+
+</a>
+
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="empty">
+
+    لا يوجد مستخدمون حاليًا.
+
+</div>
+
+
+{% endif %}
+
+
+</section>
+
+
 </main>
+
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
+
+
 </body>
 </html>
