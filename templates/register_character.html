@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل شخصية - MT</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero">
+    <div class="mt-logo">MT</div>
+    <h1>تسجيل شخصية</h1>
+</header>
+
+<main class="character-page">
+
+    <form method="POST" class="character-form">
+
+        <input
+            type="text"
+            name="first_name"
+            placeholder="الاسم الأول"
+            required
+        >
+
+        <input
+            type="text"
+            name="second_name"
+            placeholder="الاسم الثاني"
+            required
+        >
+
+        <input
+            type="text"
+            name="country"
+            placeholder="الدولة"
+            required
+        >
+
+        <input
+            type="text"
+            name="nationality"
+            placeholder="الجنسية"
+            required
+        >
+
+        <input
+            type="date"
+            name="birth_date"
+            required
+        >
+
+        <button type="submit" class="register-button">
+            تسجيل الشخصية
+        </button>
+
+    </form>
+
+</main>
+
+</body>
+</html>
