@@ -1,120 +1,720 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>{{ character["full_name"] }} - MT</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 
 <body>
 
+
 <header class="hero">
-    <div class="mt-logo">MT</div>
 
-    <h1>{{ character["full_name"] }}</h1>
+    <div class="mt-logo">
+        MT
+    </div>
 
-    <p>تفاصيل الشخصية</p>
+    <h1>
+        {{ character["full_name"] }}
+    </h1>
+
+    <p>
+        تفاصيل الشخصية
+    </p>
+
 </header>
+
 
 
 <main class="character-page">
 
+
+    <!-- بيانات الشخصية -->
+
     <section class="characters-box">
 
+
         <div class="section-header">
-            <h2>بيانات الشخصية</h2>
+
+            <h2>
+                بيانات الشخصية
+            </h2>
+
             <span class="section-line"></span>
+
         </div>
 
 
-        <div class="character-card">
 
-            <div class="character-name">
-                👤 {{ character["full_name"] }}
+        <div class="details-profile">
+
+
+            <div class="profile-icon">
+                👤
             </div>
 
-            <div class="character-details">
 
-                <div>
-                    🌍 الدولة:
-                    {{ character["country"] }}
-                </div>
+            <div class="profile-name">
+                {{ character["full_name"] }}
+            </div>
 
-                <div>
-                    🪪 الجنسية:
-                    {{ character["nationality"] }}
-                </div>
 
-                <div>
-                    🎂 تاريخ الميلاد:
-                    {{ character["birth_date"] }}
-                </div>
+            {% if general_rank %}
 
-                {% if general_rank %}
-                <div>
-                    🏷️ الحالة:
+                <div class="profile-status">
+
                     {{ general_rank["rank_name"] }}
-                </div>
-                {% endif %}
 
-            </div>
+                </div>
+
+            {% endif %}
+
 
         </div>
 
+
+
+        <div class="details-grid">
+
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    🌍 الدولة
+                </span>
+
+                <strong>
+                    {{ character["country"] }}
+                </strong>
+
+            </div>
+
+
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    🪪 الجنسية
+                </span>
+
+                <strong>
+                    {{ character["nationality"] }}
+                </strong>
+
+            </div>
+
+
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    🎂 تاريخ الميلاد
+                </span>
+
+                <strong>
+                    {{ character["birth_date"] }}
+                </strong>
+
+            </div>
+
+
+
+            {% if general_rank %}
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        🏷️ الحالة
+                    </span>
+
+                    <strong>
+                        {{ general_rank["rank_name"] }}
+                    </strong>
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- الأقسام -->
 
         {% if departments %}
 
-        <div class="section-header" style="margin-top: 40px;">
-            <h2>الأقسام</h2>
-            <span class="section-line"></span>
-        </div>
 
-        <div class="characters-list">
+            <div class="section-header details-section-title">
 
-            {% for department in departments %}
+                <h2>
+                    الأقسام والرتب
+                </h2>
 
-            <div class="character-card">
-
-                <div class="character-name">
-                    🏢 {{ department["department"] }}
-                </div>
-
-                <div class="character-details">
-
-                    <div>
-                        🏷️ الرتبة:
-                        {{ department["rank_name"] or "بدون رتبة" }}
-                    </div>
-
-                </div>
+                <span class="section-line"></span>
 
             </div>
 
-            {% endfor %}
 
-        </div>
+
+            <div class="details-departments">
+
+
+                {% for department in departments %}
+
+
+                    <div class="department-card">
+
+
+                        <div class="department-icon">
+                            🏢
+                        </div>
+
+
+                        <div class="department-info">
+
+
+                            <div class="department-name">
+
+                                {% if DEPARTMENTS is defined %}
+
+                                    {{ DEPARTMENTS.get(
+                                        department["department"],
+                                        department["department"]
+                                    ) }}
+
+                                {% else %}
+
+                                    {{ department["department"] }}
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="department-rank">
+
+                                <span>
+                                    الرتبة
+                                </span>
+
+                                {{ department["rank_name"] or "بدون رتبة" }}
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="no-departments">
+
+                <span>
+                    🏢
+                </span>
+
+                <p>
+                    هذه الشخصية غير مسجلة في أي قسم حاليًا.
+                </p>
+
+            </div>
+
 
         {% endif %}
 
 
-        <a href="{{ url_for('characters') }}"
-           class="register-button"
-           style="margin-top: 35px;">
-            ← العودة للشخصيات
-        </a>
+
+        <!-- العودة -->
+
+        <div class="details-actions">
+
+            <a href="{{ url_for('characters') }}"
+               class="register-button">
+
+                ← العودة إلى الشخصيات
+
+            </a>
+
+        </div>
+
 
     </section>
+
 
 </main>
 
 
+
 <footer>
+
     MT Character System © 2026
+
 </footer>
 
+
+
+<style>
+
+/* ============================== */
+/* ملف تفاصيل الشخصية */
+/* ============================== */
+
+
+.details-profile {
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    margin-bottom: 25px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 122, 0, 0.08),
+            transparent 60%
+        );
+
+    border-bottom: 1px solid #222;
+
+}
+
+
+.profile-icon {
+
+    width: 75px;
+
+    height: 75px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #151515;
+
+    border: 1px solid rgba(255, 122, 0, 0.4);
+
+    font-size: 32px;
+
+    box-shadow:
+        0 0 30px rgba(255, 122, 0, 0.08);
+
+}
+
+
+.profile-name {
+
+    margin-top: 15px;
+
+    color: white;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+}
+
+
+.profile-status {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 6px 14px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 122, 0, 0.1);
+
+    border: 1px solid rgba(255, 122, 0, 0.3);
+
+    color: #ff7a00;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+
+/* ============================== */
+/* البيانات */
+/* ============================== */
+
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+.detail-box {
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #101010
+        );
+
+    border: 1px solid #252525;
+
+    border-radius: 14px;
+
+}
+
+
+.detail-label {
+
+    display: block;
+
+    color: #ff7a00;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+}
+
+
+.detail-box strong {
+
+    color: #eee;
+
+    font-size: 15px;
+
+}
+
+
+/* ============================== */
+/* عنوان الأقسام */
+/* ============================== */
+
+
+.details-section-title {
+
+    margin-top: 40px;
+
+}
+
+
+/* ============================== */
+/* الأقسام */
+/* ============================== */
+
+
+.details-departments {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+.department-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0e0e0e
+        );
+
+    border: 1px solid #282828;
+
+    border-radius: 15px;
+
+    transition: 0.2s;
+
+}
+
+
+.department-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(255, 122, 0, 0.35);
+
+}
+
+
+.department-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #111;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+
+}
+
+
+.department-info {
+
+    min-width: 0;
+
+}
+
+
+.department-name {
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    margin-bottom: 6px;
+
+}
+
+
+.department-rank {
+
+    color: #aaa;
+
+    font-size: 13px;
+
+}
+
+
+.department-rank span {
+
+    color: #ff7a00;
+
+    font-weight: bold;
+
+    margin-left: 4px;
+
+}
+
+
+/* ============================== */
+/* لا توجد أقسام */
+/* ============================== */
+
+
+.no-departments {
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: #101010;
+
+    border: 1px solid #222;
+
+    border-radius: 15px;
+
+    color: #666;
+
+}
+
+
+.no-departments span {
+
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.no-departments p {
+
+    margin: 0;
+
+}
+
+
+/* ============================== */
+/* زر العودة */
+/* ============================== */
+
+
+.details-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 35px;
+
+}
+
+
+.details-actions .register-button {
+
+    margin: 0;
+
+}
+
+
+/* ============================== */
+/* الجوال */
+/* ============================== */
+
+
+@media (max-width: 700px) {
+
+
+    .details-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+
+    }
+
+
+    .detail-box {
+
+        padding: 13px;
+
+    }
+
+
+    .detail-label {
+
+        font-size: 11px;
+
+    }
+
+
+    .detail-box strong {
+
+        font-size: 12px;
+
+    }
+
+
+    .profile-name {
+
+        font-size: 21px;
+
+    }
+
+
+    .details-departments {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+
+    }
+
+
+    .department-card {
+
+        padding: 12px;
+
+        gap: 9px;
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+
+    .department-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 17px;
+
+    }
+
+
+    .department-name {
+
+        font-size: 13px;
+
+    }
+
+
+    .department-rank {
+
+        font-size: 11px;
+
+    }
+
+
+}
+
+</style>
+
+
 </body>
+
 </html>
