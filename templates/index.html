@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>MT Character System</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 </head>
 
+
 <body>
+
 
 <header class="hero">
 
-    <div class="mt-logo">MT</div>
+    <div class="mt-logo">
+        MT
+    </div>
 
-    <h1>MT Character System</h1>
+    <h1>
+        MT Character System
+    </h1>
 
-    <p>نظام إدارة الشخصيات والأقسام</p>
+    <p>
+        نظام إدارة الشخصيات والأقسام
+    </p>
 
 </header>
 
@@ -25,47 +37,33 @@
 <main class="sections">
 
 
-    <!-- الشخصيات -->
+    <!-- =========================
+         الشخصيات
+    ========================== -->
 
-    <a href="/characters" class="section-card">
+    <a href="/characters"
+       class="section-card">
 
-        <div class="icon">👤</div>
+        <div class="icon">
+            👤
+        </div>
 
-        <h2>الشخصيات</h2>
+        <h2>
+            الشخصيات
+        </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong><br>
-            إنشاء وعرض وإدارة بيانات الشخصيات داخل النظام.
+            <strong>وش معنى ذا الخيار؟</strong>
+            <br>
+            إنشاء وعرض وإدارة بيانات الشخصيات
+            داخل النظام.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong><br>
-            لجميع الأشخاص الذين يملكون أو يريدون إنشاء شخصية.
-        </p>
-
-        <span class="open">
-            دخول القسم ←
-        </span>
-
-    </a>
-
-
-    <!-- الشرطة -->
-
-    <a href="/police" class="section-card">
-
-        <div class="icon">👮</div>
-
-        <h2>الشرطة</h2>
-
-        <p>
-            <strong>وش معنى ذا الخيار؟</strong><br>
-            قسم خاص بإدارة أفراد الشرطة ورتبهم وبياناتهم.
-        </p>
-
-        <p>
-            <strong>مخصص لمين؟</strong><br>
-            أفراد الشرطة والمدراء المخولين بإدارة القطاع.
+            <strong>مخصص لمين؟</strong>
+            <br>
+            لجميع الأشخاص الذين يريدون إنشاء
+            أو مشاهدة الشخصيات.
         </p>
 
         <span class="open">
@@ -75,22 +73,33 @@
     </a>
 
 
-    <!-- وزارة العدل -->
+    <!-- =========================
+         الشرطة
+    ========================== -->
 
-    <a href="/justice" class="section-card">
+    <a href="/police"
+       class="section-card">
 
-        <div class="icon">⚖️</div>
+        <div class="icon">
+            👮
+        </div>
 
-        <h2>وزارة العدل</h2>
+        <h2>
+            الشرطة
+        </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong><br>
-            إدارة أفراد وزارة العدل ورتبهم وبياناتهم.
+            <strong>وش معنى ذا الخيار؟</strong>
+            <br>
+            قسم خاص بإدارة أفراد الشرطة
+            والرتب والبيانات.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong><br>
-            أفراد وزارة العدل والمدراء المخولين بالإدارة.
+            <strong>مخصص لمين؟</strong>
+            <br>
+            أفراد الشرطة والمدراء المخولين
+            بإدارة القطاع.
         </p>
 
         <span class="open">
@@ -100,22 +109,69 @@
     </a>
 
 
-    <!-- الصحة -->
+    <!-- =========================
+         وزارة العدل
+    ========================== -->
 
-    <a href="/health" class="section-card">
+    <a href="/justice"
+       class="section-card">
 
-        <div class="icon">🏥</div>
+        <div class="icon">
+            ⚖️
+        </div>
 
-        <h2>الصحة</h2>
+        <h2>
+            وزارة العدل
+        </h2>
 
         <p>
-            <strong>وش معنى ذا الخيار؟</strong><br>
-            إدارة أفراد القطاع الصحي وبياناتهم ورتبهم.
+            <strong>وش معنى ذا الخيار؟</strong>
+            <br>
+            إدارة أفراد وزارة العدل
+            وبياناتهم ورتبهم.
         </p>
 
         <p>
-            <strong>مخصص لمين؟</strong><br>
-            أفراد الصحة والمدراء المخولين بإدارة القطاع.
+            <strong>مخصص لمين؟</strong>
+            <br>
+            أفراد وزارة العدل والمدراء
+            المخولين بالإدارة.
+        </p>
+
+        <span class="open">
+            دخول القسم ←
+        </span>
+
+    </a>
+
+
+    <!-- =========================
+         الصحة
+    ========================== -->
+
+    <a href="/health"
+       class="section-card">
+
+        <div class="icon">
+            🏥
+        </div>
+
+        <h2>
+            الصحة
+        </h2>
+
+        <p>
+            <strong>وش معنى ذا الخيار؟</strong>
+            <br>
+            إدارة أفراد القطاع الصحي
+            وبياناتهم ورتبهم.
+        </p>
+
+        <p>
+            <strong>مخصص لمين؟</strong>
+            <br>
+            أفراد الصحة والمدراء المخولين
+            بإدارة القطاع.
         </p>
 
         <span class="open">
@@ -131,6 +187,7 @@
 <footer>
     MT Character System © 2026
 </footer>
+
 
 </body>
 </html>
