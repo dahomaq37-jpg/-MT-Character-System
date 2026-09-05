@@ -5,22 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>
         الشخصيات - MT
     </title>
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
 </head>
-
 
 <body>
 
@@ -36,7 +31,7 @@
     </h1>
 
     <p>
-        إدارة ومشاهدة الشخصيات
+        إدارة الشخصيات
     </p>
 
 </header>
@@ -45,55 +40,15 @@
 <main class="character-page">
 
 
-    <div class="character-topbar">
-
-        <div>
-
-            {% if admin_view %}
-
-                <h2>
-                    جميع الشخصيات
-                </h2>
-
-                <p>
-                    عندك صلاحية مشاهدة جميع الشخصيات.
-                </p>
-
-            {% else %}
-
-                <h2>
-                    شخصياتي
-                </h2>
-
-                <p>
-                    تظهر هنا الشخصيات التي أنشأتها
-                    من حسابك.
-                </p>
-
-            {% endif %}
-
-        </div>
-
-
-        <a
-            href="/characters/register"
-            class="register-button"
-        >
-            + إنشاء شخصية
-        </a>
-
-    </div>
-
-
     {% with messages = get_flashed_messages() %}
 
         {% if messages %}
 
-            <div class="messages">
+            <div class="flash-box">
 
                 {% for message in messages %}
 
-                    <div class="message">
+                    <div>
                         {{ message }}
                     </div>
 
@@ -106,172 +61,320 @@
     {% endwith %}
 
 
+    {% if user %}
 
-    {% if characters %}
+    <a href="/characters/register"
+       class="register-button">
 
+        + إنشاء شخصية
 
-    <div class="characters-list">
-
-
-        {% for item in characters %}
-
-
-        <article class="character-card">
-
-
-            <div class="character-name">
-
-                👤
-
-                {{ item.character["full_name"] }}
-
-            </div>
-
-
-            <div class="character-details">
-
-                <div>
-                    🌍 الدولة:
-                    {{ item.character["country"] }}
-                </div>
-
-                <div>
-                    🪪 الجنسية:
-                    {{ item.character["nationality"] }}
-                </div>
-
-                <div>
-                    🎂 تاريخ الميلاد:
-                    {{ item.character["birth_date"] }}
-                </div>
-
-
-                <div>
-
-                    🏷️ الحالة:
-
-                    <strong>
-                        يوجد شخصية
-                    </strong>
-
-                </div>
-
-
-                {% if item.departments %}
-
-
-                <div class="department-list">
-
-                    <strong>
-                        الأقسام:
-                    </strong>
-
-
-                    {% for department in item.departments %}
-
-                        <div class="department-item">
-
-                            🏢
-
-                            {{ DEPARTMENTS.get(
-                                department["department"],
-                                department["department"]
-                            ) }}
-
-                            —
-
-                            <span>
-                                {{ department["rank_name"] or "بدون رتبة" }}
-                            </span>
-
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-
-
-                {% endif %}
-
-
-            </div>
-
-
-            <div class="character-actions">
-
-                <a
-                    href="/characters/{{ item.character['id'] }}"
-                    class="open-button"
-                >
-                    عرض التفاصيل
-                </a>
-
-
-                {% if can_edit_all %}
-
-                    <span class="permission-label">
-                        تعديل متاح
-                    </span>
-
-                {% endif %}
-
-
-                {% if can_delete_all %}
-
-                    <span class="permission-label">
-                        حذف متاح
-                    </span>
-
-                {% endif %}
-
-            </div>
-
-
-        </article>
-
-
-        {% endfor %}
-
-
-    </div>
-
-
-    {% else %}
-
-
-    <div class="empty-box">
-
-        <div class="empty-icon">
-            👤
-        </div>
-
-        <h2>
-            ما عندك شخصيات
-        </h2>
-
-        <p>
-            أنشئ شخصيتك الأولى وبتظهر هنا.
-        </p>
-
-        <a
-            href="/characters/register"
-            class="register-button"
-        >
-            إنشاء شخصية
-        </a>
-
-    </div>
-
+    </a>
 
     {% endif %}
 
 
-    <a
-        href="/"
-        class="back-button"
-    >
-        ← العودة للرئيسية
-    </a>
+    {% if admin_view %}
+
+        <div class="access-info">
+
+            👑 أنت تشاهد جميع الشخصيات
+            لأن لديك صلاحية عرض جميع الشخصيات.
+
+        </div>
+
+    {% elif user %}
+
+        <div class="access-info">
+
+            🔒 تظهر لك شخصيات حسابك فقط.
+
+        </div>
+
+    {% else %}
+
+        <div class="access-info">
+
+            🔐 يجب تسجيل الدخول لمشاهدة الشخصيات.
+
+            <br><br>
+
+            <a href="/login">
+                تسجيل الدخول
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+    <section class="characters-box">
+
+
+        <div class="section-header">
+
+            <h2>
+                قائمة الشخصيات
+            </h2>
+
+            <span class="section-line"></span>
+
+        </div>
+
+
+        {% if characters %}
+
+        <div class="characters-list">
+
+
+            {% for item in characters %}
+
+            {% set character = item.character %}
+
+
+            <div class="character-card">
+
+
+                <div class="character-name">
+
+                    👤
+
+                    {{ character["full_name"] }}
+
+                    {% if character["hidden"] %}
+
+                        <span class="hidden-badge">
+                            مخفية
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="character-details">
+
+                    <div>
+                        🌍 الدولة:
+                        {{ character["country"] }}
+                    </div>
+
+                    <div>
+                        🪪 الجنسية:
+                        {{ character["nationality"] }}
+                    </div>
+
+                    <div>
+                        🎂 تاريخ الميلاد:
+                        {{ character["birth_date"] }}
+                    </div>
+
+
+                    {% for rank in item.ranks %}
+
+                        {% if rank["department"] == "general" %}
+
+                            <div>
+                                🏷️ الحالة:
+                                {{ rank["rank_name"] }}
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% if item.departments %}
+
+                        <div>
+
+                            🏢 الأقسام:
+
+                            {% for department in item.departments %}
+
+                                {{ DEPARTMENTS.get(
+                                    department["department"],
+                                    department["department"]
+                                ) }}
+
+                                {% if not loop.last %}
+                                    ،
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="character-actions">
+
+
+                    <a href="/characters/{{ character['id'] }}"
+                       class="view-button">
+
+                        عرض الشخصية
+
+                    </a>
+
+
+                    {% if can_edit_all %}
+
+                    <form method="POST"
+                          action="/admin/characters/{{ character['id'] }}/edit">
+
+                        <input
+                            type="hidden"
+                            name="first_name"
+                            value="{{ character['first_name'] }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="second_name"
+                            value="{{ character['second_name'] }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="country"
+                            value="{{ character['country'] }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="nationality"
+                            value="{{ character['nationality'] }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="birth_date"
+                            value="{{ character['birth_date'] }}"
+                        >
+
+                        <button
+                            type="submit"
+                            class="edit-button">
+
+                            حفظ البيانات
+
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+
+                    {% if can_delete_all %}
+
+                    <form method="POST"
+                          action="/characters/{{ character['id'] }}/delete"
+                          onsubmit="return confirm('هل أنت متأكد من حذف الشخصية؟');">
+
+                        <button
+                            type="submit"
+                            class="delete-button">
+
+                            حذف
+
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+
+                    {% if can_manage_sections %}
+
+                    <form method="POST"
+                          action="/admin/characters/{{ character['id'] }}/department"
+                          class="department-form">
+
+                        <select name="department"
+                                required>
+
+                            <option value="">
+                                اختر القسم
+                            </option>
+
+                            {% for key, name in DEPARTMENTS.items() %}
+
+                                <option value="{{ key }}">
+                                    {{ name }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                        <button
+                            type="submit"
+                            class="manage-button">
+
+                            إضافة للقسم
+
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+
+                </div>
+
+
+                {% if admin_view %}
+
+                <div class="admin-owner">
+
+                    الحساب المرتبط:
+
+                    {% if character["username"] %}
+
+                        {{ character["username"] }}
+
+                    {% else %}
+
+                        غير مرتبط بحساب
+
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            {% if user %}
+
+                لا توجد شخصيات مرتبطة بحسابك.
+
+            {% else %}
+
+                لا توجد شخصيات للعرض.
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+
+    </section>
 
 
 </main>
@@ -286,359 +389,234 @@
 
 <style>
 
-    .character-page {
+.character-page {
 
-        width: 94%;
+    width: 94%;
 
-        max-width: 1100px;
+    max-width: 1100px;
 
-        margin: auto;
+    margin: auto;
 
-    }
+}
 
 
-    .character-topbar {
+.flash-box {
 
-        display: flex;
+    margin: 20px auto;
 
-        justify-content: space-between;
+    padding: 15px;
 
-        align-items: center;
+    border-radius: 15px;
 
-        gap: 20px;
+    background: #151515;
 
-        margin-bottom: 30px;
+    border: 1px solid #ff7a00;
 
-        padding: 20px;
+    color: white;
 
-        background: #0d0d0d;
+    text-align: center;
 
-        border: 1px solid #292929;
+}
 
-        border-radius: 18px;
 
-    }
+.access-info {
 
+    margin: 20px 0;
 
-    .character-topbar h2 {
+    padding: 18px;
 
-        margin: 0 0 7px;
+    background: #101010;
 
-    }
+    border: 1px solid #292929;
 
+    border-radius: 15px;
 
-    .character-topbar p {
+    color: #bbb;
 
-        margin: 0;
+    text-align: center;
 
-        color: #999;
+}
 
-    }
 
+.access-info a {
 
-    .characters-list {
+    color: #ff7a00;
 
-        display: grid;
+    font-weight: bold;
 
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+}
 
-        gap: 20px;
 
-    }
+.register-button {
 
+    display: block;
 
-    .character-card {
+    width: fit-content;
 
-        padding: 24px;
+    margin: 20px 0;
 
-        background:
-            linear-gradient(
-                145deg,
-                #151515,
-                #090909
-            );
+    padding: 14px 22px;
 
-        border: 1px solid #292929;
+    background: #ff7a00;
 
-        border-radius: 20px;
+    color: #fff;
 
-        box-shadow:
-            0 15px 40px
-            rgba(0,0,0,.35);
+    text-decoration: none;
 
-    }
+    border-radius: 12px;
 
+    font-weight: bold;
 
-    .character-card:hover {
+}
 
-        border-color: #ff7a00;
 
-    }
+.character-actions {
 
+    display: flex;
 
-    .character-name {
+    flex-wrap: wrap;
 
-        font-size: 23px;
+    gap: 10px;
 
-        font-weight: bold;
+    margin-top: 20px;
 
-        margin-bottom: 20px;
+}
 
-        color: white;
 
-    }
+.character-actions form {
 
+    margin: 0;
 
-    .character-details {
+}
 
-        display: grid;
 
-        gap: 12px;
+.view-button,
+.edit-button,
+.delete-button,
+.manage-button {
 
-        color: #bbb;
+    border: 0;
 
-        line-height: 1.7;
+    padding: 10px 15px;
 
-    }
+    border-radius: 9px;
 
+    text-decoration: none;
 
-    .character-details strong {
+    cursor: pointer;
 
-        color: #ff7a00;
+    font-weight: bold;
 
-    }
+}
 
 
-    .department-list {
+.view-button {
 
-        margin-top: 8px;
+    background: #222;
 
-        padding-top: 15px;
+    color: white;
 
-        border-top: 1px solid #292929;
+}
 
-    }
 
+.edit-button {
 
-    .department-item {
+    background: #333;
 
-        margin-top: 8px;
+    color: white;
 
-        padding: 10px;
+}
 
-        background: #101010;
 
-        border-radius: 10px;
+.delete-button {
 
-    }
+    background: #4a1717;
 
+    color: white;
 
-    .department-item span {
+}
 
-        color: #ff7a00;
 
-        font-weight: bold;
+.manage-button {
 
-    }
+    background: #ff7a00;
 
+    color: white;
 
-    .character-actions {
+}
 
-        display: flex;
 
-        align-items: center;
+.department-form {
 
-        gap: 10px;
+    display: flex;
 
-        flex-wrap: wrap;
+    gap: 8px;
 
-        margin-top: 22px;
+}
 
-    }
 
+.department-form select {
 
-    .open-button,
-    .register-button,
-    .back-button {
+    background: #111;
 
-        display: inline-block;
+    color: white;
 
-        padding: 11px 18px;
+    border: 1px solid #333;
 
-        border-radius: 10px;
+    border-radius: 8px;
 
-        text-decoration: none;
+    padding: 8px;
 
-        font-weight: bold;
+}
 
-    }
 
+.hidden-badge {
 
-    .open-button {
+    display: inline-block;
 
-        color: white;
+    margin-right: 8px;
 
-        background: #151515;
+    padding: 4px 8px;
 
-        border: 1px solid #333;
+    border-radius: 7px;
 
-    }
+    background: #333;
 
+    color: #aaa;
 
-    .open-button:hover {
+    font-size: 11px;
 
-        border-color: #ff7a00;
+}
 
-    }
 
+.admin-owner {
 
-    .register-button {
+    margin-top: 15px;
 
-        color: white;
+    padding-top: 15px;
 
-        background: #ff7a00;
+    border-top: 1px solid #222;
 
-        border: 1px solid #ff7a00;
+    color: #777;
 
-    }
+    font-size: 13px;
 
+}
 
-    .register-button:hover {
 
-        background: #e86e00;
+.empty-box {
 
-    }
+    padding: 50px 20px;
 
+    text-align: center;
 
-    .permission-label {
+    color: #777;
 
-        color: #ff7a00;
+}
 
-        font-size: 13px;
-
-    }
-
-
-    .empty-box {
-
-        text-align: center;
-
-        padding: 60px 20px;
-
-        background: #0d0d0d;
-
-        border: 1px solid #292929;
-
-        border-radius: 20px;
-
-    }
-
-
-    .empty-icon {
-
-        font-size: 50px;
-
-        margin-bottom: 15px;
-
-    }
-
-
-    .empty-box p {
-
-        color: #999;
-
-        margin-bottom: 25px;
-
-    }
-
-
-    .back-button {
-
-        margin-top: 25px;
-
-        color: #aaa;
-
-        border: 1px solid #292929;
-
-    }
-
-
-    .messages {
-
-        margin-bottom: 20px;
-
-    }
-
-
-    .message {
-
-        padding: 14px;
-
-        background: #111;
-
-        border: 1px solid #ff7a00;
-
-        color: white;
-
-        border-radius: 12px;
-
-    }
-
-
-    @media (max-width: 700px) {
-
-        .characters-list {
-
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 10px;
-
-        }
-
-
-        .character-card {
-
-            padding: 15px;
-
-        }
-
-
-        .character-name {
-
-            font-size: 17px;
-
-        }
-
-
-        .character-details {
-
-            font-size: 12px;
-
-        }
-
-
-        .character-topbar {
-
-            flex-direction: column;
-
-            align-items: stretch;
-
-        }
-
-
-        .register-button {
-
-            text-align: center;
-
-        }
-
-    }
 
 </style>
 
 
 </body>
-
 </html>
