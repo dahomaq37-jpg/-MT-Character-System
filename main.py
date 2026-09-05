@@ -1126,7 +1126,6 @@ def logout():
         url_for("home")
     )
 
-
 # =========================================================
 # تسجيل شخصية
 # =========================================================
@@ -1138,20 +1137,6 @@ def logout():
 def register_character():
 
     user = current_user()
-
-    # =====================================================
-    # لازم يكون عنده حساب
-    # =====================================================
-
-    if not user:
-
-        flash(
-            "سجل دخولك أولاً لإنشاء شخصية."
-        )
-
-        return redirect(
-            url_for("login")
-        )
 
     if request.method == "POST":
 
@@ -1180,6 +1165,10 @@ def register_character():
             ""
         ).strip()
 
+        # =====================================================
+        # التأكد من تعبئة جميع البيانات
+        # =====================================================
+
         if not all([
             first_name,
             second_name,
@@ -1189,12 +1178,16 @@ def register_character():
         ]):
 
             flash(
-                "فضلاً عب جميع البيانات."
+                "فضلاً أكمل جميع البيانات."
             )
 
             return redirect(
                 url_for("register_character")
             )
+
+        # =====================================================
+        # إنشاء الاسم الكامل
+        # =====================================================
 
         full_name = (
             f"{first_name} {second_name}"
@@ -1205,6 +1198,10 @@ def register_character():
         )
 
         db = get_db()
+
+        # =====================================================
+        # منع تكرار اسم الشخصية
+        # =====================================================
 
         exists = db.execute("""
             SELECT id
@@ -1226,6 +1223,10 @@ def register_character():
                 url_for("register_character")
             )
 
+        # =====================================================
+        # إنشاء الشخصية
+        # =====================================================
+
         cursor = db.execute("""
             INSERT INTO characters
             (
@@ -1236,21 +1237,29 @@ def register_character():
                 full_name_key,
                 country,
                 nationality,
-                birth_date
+                birth_date,
+                hidden,
+                created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            user["id"],
+            user["id"] if user else None,
             first_name,
             second_name,
             full_name,
             full_name_key,
             country,
             nationality,
-            birth_date
+            birth_date,
+            0,
+            datetime.now().isoformat()
         ))
 
         character_id = cursor.lastrowid
+
+        # =====================================================
+        # الرتبة الأساسية للشخصية
+        # =====================================================
 
         db.execute("""
             INSERT OR REPLACE INTO character_ranks
@@ -1269,9 +1278,15 @@ def register_character():
         db.commit()
         db.close()
 
-        log_action(
-            f"إنشاء شخصية: {full_name}"
-        )
+        # =====================================================
+        # تسجيل العملية إذا كان المستخدم مسجل دخول
+        # =====================================================
+
+        if user:
+
+            log_action(
+                f"إنشاء شخصية: {full_name}"
+            )
 
         flash(
             "تم إنشاء الشخصية بنجاح."
@@ -1283,6 +1298,10 @@ def register_character():
                 character_id=character_id
             )
         )
+
+    # =====================================================
+    # عرض صفحة التسجيل
+    # =====================================================
 
     return render_template(
         "register_character.html",
