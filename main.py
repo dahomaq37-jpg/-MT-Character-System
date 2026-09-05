@@ -2,7 +2,7 @@ import os
 import re
 import secrets
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import wraps
 
 from flask import (
@@ -20,7 +20,6 @@ from werkzeug.security import (
     check_password_hash
 )
 
-
 # =========================================================
 # إعداد التطبيق
 # =========================================================
@@ -32,8 +31,10 @@ app.secret_key = os.environ.get(
     "mt-character-system-secret"
 )
 
-DATABASE = "mt_characters.db"
+# جعل تسجيل الدخول محفوظًا وعدم طلبه مرة أخرى عند إغلاق المتصفح
+app.permanent_session_lifetime = timedelta(days=30)
 
+DATABASE = "mt_characters.db"
 
 # =========================================================
 # الصلاحيات
@@ -125,7 +126,6 @@ PERMISSIONS = {
     "admins_all_permissions": "جميع الصلاحيات",
     "admins_all_sections": "جميع الأقسام"
 }
-
 
 # =========================================================
 # الرتب الأساسية
@@ -582,7 +582,6 @@ ROLES = {
     }
 }
 
-
 # =========================================================
 # الأقسام
 # =========================================================
@@ -593,7 +592,6 @@ DEPARTMENTS = {
     "health": "الصحة",
     "gangs": "العصابات"
 }
-
 
 SECTION_KEYS = {
     "characters": "الشخصيات",
@@ -607,7 +605,6 @@ SECTION_KEYS = {
     "admin": "الإدارة",
     "settings": "الإعدادات"
 }
-
 
 # =========================================================
 # رتب الأقسام
@@ -676,7 +673,6 @@ DEPARTMENT_RANKS = {
     ]
 }
 
-
 # =========================================================
 # العصابات
 # =========================================================
@@ -711,7 +707,6 @@ GANGS = {
     }
 }
 
-
 # =========================================================
 # قاعدة البيانات
 # =========================================================
@@ -733,10 +728,6 @@ def init_db():
 
     db = get_db()
 
-    # -----------------------------------------------------
-    # المستخدمون
-    # -----------------------------------------------------
-
     db.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -750,7 +741,6 @@ def init_db():
         )
     """)
 
-    # migration role
     user_columns = [
         row["name"]
         for row in db.execute(
@@ -764,10 +754,6 @@ def init_db():
             ALTER TABLE users
             ADD COLUMN role TEXT DEFAULT 'helper'
         """)
-
-    # -----------------------------------------------------
-    # الشخصيات
-    # -----------------------------------------------------
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS characters (
@@ -803,10 +789,6 @@ def init_db():
             ADD COLUMN owner_token TEXT
         """)
 
-    # -----------------------------------------------------
-    # صلاحيات المستخدمين
-    # -----------------------------------------------------
-
     db.execute("""
         CREATE TABLE IF NOT EXISTS user_permissions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -818,10 +800,6 @@ def init_db():
                 ON DELETE CASCADE
         )
     """)
-
-    # -----------------------------------------------------
-    # أقسام الشخصيات
-    # -----------------------------------------------------
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_departments (
@@ -835,10 +813,6 @@ def init_db():
         )
     """)
 
-    # -----------------------------------------------------
-    # رتب الشخصيات
-    # -----------------------------------------------------
-
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_ranks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -851,10 +825,6 @@ def init_db():
                 ON DELETE CASCADE
         )
     """)
-
-    # -----------------------------------------------------
-    # السجلات
-    # -----------------------------------------------------
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS activity_logs (
@@ -883,10 +853,6 @@ def init_db():
             ADD COLUMN details TEXT
         """)
 
-    # -----------------------------------------------------
-    # الرتب الإدارية المرتبطة بالشخصيات
-    # -----------------------------------------------------
-
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_admin_roles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -903,10 +869,6 @@ def init_db():
         )
     """)
 
-    # -----------------------------------------------------
-    # العصابات
-    # -----------------------------------------------------
-
     db.execute("""
         CREATE TABLE IF NOT EXISTS character_gangs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -920,10 +882,6 @@ def init_db():
                 ON DELETE CASCADE
         )
     """)
-
-    # -----------------------------------------------------
-    # الرتب المخصصة
-    # -----------------------------------------------------
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS custom_admin_roles (
@@ -1498,6 +1456,16 @@ def home():
 )
 def login():
 
+    # إذا كان الحساب مسجل دخول بالفعل
+    # لا داعي لعرض صفحة تسجيل الدخول مرة ثانية
+    user = current_user()
+
+    if user:
+
+        return redirect(
+            url_for("home")
+        )
+
     if request.method == "POST":
 
         username = request.form.get(
@@ -1570,6 +1538,9 @@ def login():
         )
 
         session.clear()
+
+        # جلسة دائمة لمدة 30 يومًا
+        session.permanent = True
 
         if guest_token:
 
@@ -1697,6 +1668,9 @@ def register():
         )
 
         session.clear()
+
+        # جلسة دائمة لمدة 30 يومًا
+        session.permanent = True
 
         if guest_token:
 
@@ -3404,29 +3378,57 @@ def remove_gang(character_id):
 # =========================================================
 # الإدارة
 # =========================================================
+
 @app.route("/admin")
 def admin_panel():
+
+    # =====================================================
+    # الإدارة تعتمد على جلسة الحساب الحالية
+    # ولا يوجد تسجيل دخول خاص بالإدارة
+    # =====================================================
+
     user = current_user()
-    # لا توجد صفحة تسجيل دخول إضافية للإدارة.
-    # يجب أن يكون المستخدم مسجل دخول بحسابه العادي،
-    # وأن تكون لديه رتبة/صلاحية تسمح له بدخول الإدارة.
+
+    # إذا لم يكن المستخدم مسجل دخول بالحساب الأساسي
+    # نطلب تسجيل الدخول الأساسي فقط
     if not user:
+
         return redirect(
             url_for("login")
         )
-    if not (
-        has_section_access("admin")
-        or has_permission("admins_manage")
-        or has_permission("admins_add")
-        or has_permission("permissions_view")
-    ):
+
+    # =====================================================
+    # التحقق من رتبة وصلاحيات الحساب الحالي
+    # =====================================================
+
+    role_permissions = get_role_permissions(
+        user
+    )
+
+    role_sections = get_role_sections(
+        user
+    )
+
+    is_admin = bool(
+        user["is_owner"]
+        or "admin" in role_sections
+        or "admins_manage" in role_permissions
+        or "admins_add" in role_permissions
+        or "permissions_view" in role_permissions
+    )
+
+    if not is_admin:
+
         flash(
             "لا تملك صلاحية دخول الإدارة."
         )
+
         return redirect(
             url_for("home")
         )
+
     db = get_db()
+
     characters = db.execute("""
         SELECT
             characters.id,
@@ -3435,11 +3437,15 @@ def admin_panel():
             users.username,
             users.role,
             users.is_owner
+
         FROM characters
+
         LEFT JOIN users
         ON users.id = characters.user_id
+
         ORDER BY characters.full_name
     """).fetchall()
+
     users_list = db.execute("""
         SELECT
             id,
@@ -3451,12 +3457,15 @@ def admin_panel():
         FROM users
         ORDER BY username
     """).fetchall()
+
     custom_roles = db.execute("""
         SELECT *
         FROM custom_admin_roles
         ORDER BY id DESC
     """).fetchall()
+
     db.close()
+
     return render_template(
         "permissions.html",
         characters=characters,
@@ -3469,7 +3478,7 @@ def admin_panel():
         admin_permissions_page=True,
         role_display_name=role_display_name
     )
-    
+
 
 # =========================================================
 # إعطاء رتبة إدارية لشخصية
